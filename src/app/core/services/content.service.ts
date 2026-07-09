@@ -39,7 +39,7 @@ export class ContentService {
       acceptedMessage: "Usa il codice WHIMSY10 per ricevere il 10% di abbracci in piu'",
       rules: [
         "Comprendo e accetto che il mio fuso orario personale dovrà sincronizzarsi su Bari esattamente alle 18:00 (i ritardatari cantano per primi!).",
-        "Giuro solennemente di aver studiato il repertorio e di aver scelto la mia hit dalla <a href='https://docs.google.com/spreadsheets/d/1QZq5S1K9pq8tfgCBQkcjXSWAfp-xlwBkoWbpZPT5bmc/edit?gid=0#gid=0' target='_blank' class='text-nature-violet underline font-black'>Lista Canzoni Ufficiale</a>. Non sono ammesse scene mute!",
+        "Giuro solennemente di aver studiato il repertorio e di aver scelto la mia hit dalla <a href='https://docs.google.com/spreadsheets/d/1QZq5S1K9pq8tfgCBQkcjXSWAfp-xlwBkoWbpZPT5bmc/edit?gid=0#gid=0' target='_blank' class='text-plum underline font-black'>Lista Canzoni Ufficiale</a>. Non sono ammesse scene mute!",
         'Autorizzo la diffusione di foto imbarazzanti e prometto di contribuire attivamente al reportage fotografico della serata per i posteri.',
         'Accetto con entusiasmo i termini dell\'offerta speciale: abbracci gratis a richiesta durante tutta la serata. 🤗',
       ],
