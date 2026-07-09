@@ -1,11 +1,11 @@
-<section class="min-h-screen py-20 px-4 max-w-6xl mx-auto">
-  <h1 class="text-3xl md:text-5xl text-gray-900 font-title italic font-medium mb-4 tracking-wide text-center">Shop</h1>
-  <p class="text-center text-gray-600 max-w-xl mx-auto mb-10 text-sm md:text-base">
+<section class="min-h-screen py-24 px-4 max-w-6xl mx-auto">
+  <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 tracking-wide text-center">Shop</h1>
+  <p class="text-center text-gray-600 max-w-xl mx-auto mb-12 text-sm md:text-base">
     Stampe, cartoline e piccoli oggetti illustrati da Silvia, disponibili sul negozio Etsy.
   </p>
 
   <!-- Banner CTA -->
-  <div class="bg-gray-900 text-white rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 mb-14 shadow-xl">
+  <div class="bg-gray-900 text-white rounded p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 mb-16 shadow-xl">
     <div class="text-center md:text-left">
       <p class="font-title italic text-2xl md:text-3xl tracking-wide mb-1">Blooming Wild ART su Etsy</p>
       <p class="text-gray-300 text-sm">Visita il negozio completo per scoprire tutte le illustrazioni disponibili.</p>
@@ -14,29 +14,29 @@
       [href]="shopUrl"
       target="_blank"
       rel="noopener"
-      class="bg-white text-gray-900 font-semibold text-xs tracking-widest uppercase px-6 py-4 rounded-full hover:bg-gray-100 transition-colors whitespace-nowrap"
+      class="bg-white text-gray-900 font-semibold text-xs tracking-widest uppercase px-6 py-4 rounded hover:bg-gray-100 transition-colors whitespace-nowrap"
     >
       Vai al negozio Etsy →
     </a>
   </div>
 
   <!-- Griglia prodotti -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
     @for (product of products; track product.id) {
-      <article class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-shadow overflow-hidden flex flex-col">
+      <article class="bg-white border border-gray-200 shadow-sm hover:shadow-lg hover:border-plum transition-all overflow-hidden flex flex-col">
         <div class="relative w-full aspect-square bg-gray-50">
           <img [ngSrc]="product.image" fill loading="lazy" [alt]="product.title" class="object-contain p-6" />
         </div>
-        <div class="p-5 flex flex-col flex-grow text-left">
+        <div class="p-5 flex flex-col grow text-left">
           <h3 class="font-title italic text-lg text-gray-900 tracking-wide mb-1">{{ product.title }}</h3>
-          <p class="text-xs text-gray-500 leading-relaxed mb-4 flex-grow">{{ product.description }}</p>
+          <p class="text-xs text-gray-500 leading-relaxed mb-4 grow">{{ product.description }}</p>
           <div class="flex items-center justify-between">
             <span class="font-semibold text-gray-900 text-sm">{{ product.price }}</span>
             <a
               [href]="product.etsyUrl"
               target="_blank"
               rel="noopener"
-              class="text-[10px] font-bold tracking-widest uppercase text-nature-green hover:underline"
+              class="text-[10px] font-bold tracking-widest uppercase text-moss hover:text-moss-hover hover:underline"
             >
               Vedi su Etsy →
             </a>
@@ -46,7 +46,7 @@
     }
   </div>
 
-  <p class="text-center text-gray-400 text-xs mt-10">
+  <p class="text-center text-gray-400 text-xs mt-12">
     * Prodotti di esempio in attesa del collegamento al negozio Etsy definitivo.
   </p>
 </section>
