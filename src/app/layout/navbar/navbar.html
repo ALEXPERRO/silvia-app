@@ -1,13 +1,20 @@
-<nav class="fixed top-0 left-0 w-full bg-nature-beige text-gray-800 z-50 shadow-sm border-b-2 border-nature-violet-soft">
-  <div class="max-w-4xl mx-auto px-4">
-    <ul class="flex justify-center space-x-6 py-4 font-semibold text-xs md:text-sm tracking-widest uppercase">
+<nav class="fixed top-0 left-0 w-full bg-parchment text-gray-800 z-50 shadow-sm border-b border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
+    <a routerLink="/" class="flex items-center gap-2.5 shrink-0">
+      <img ngSrc="images/logo/logo.png" width="36" height="36" alt="Blooming Wild ART" class="rounded-full object-cover" />
+      <span class="flex items-baseline gap-1 leading-none">
+        <span class="font-title italic text-lg text-moss">Blooming Wild</span>
+        <span class="font-body text-[10px] tracking-[0.2em] text-gray-500 max-[420px]:hidden">ART</span>
+      </span>
+    </a>
+    <ul class="flex items-center gap-3 md:gap-7 font-semibold text-[11px] md:text-sm tracking-widest uppercase">
       @for (item of navItems; track item.path) {
         <li>
           <a
             [routerLink]="item.path"
-            routerLinkActive="active text-nature-green"
+            routerLinkActive="active text-moss"
             [routerLinkActiveOptions]="{ exact: item.path === '/' }"
-            class="nav-link hover:text-nature-green transition-colors"
+            class="nav-link hover:text-moss transition-colors"
           >
             {{ item.label }}
           </a>
