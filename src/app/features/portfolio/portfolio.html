@@ -1,0 +1,74 @@
+<section class="min-h-screen py-20 px-4 max-w-6xl mx-auto">
+  <h1 class="text-3xl md:text-5xl text-gray-900 font-title italic font-medium mb-4 tracking-wide text-center">Portfolio</h1>
+  <p class="text-center text-gray-600 max-w-xl mx-auto mb-10 text-sm md:text-base">
+    Una selezione delle illustrazioni e composizioni di Silvia: dalle opere finite ai singoli elementi botanici, marini e animali.
+  </p>
+
+  <!-- Filtri categoria -->
+  <div class="flex flex-wrap justify-center gap-3 mb-12">
+    @for (cat of categories; track cat.value) {
+      <button
+        type="button"
+        (click)="setCategory(cat.value)"
+        class="text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full border transition-colors"
+        [class.bg-gray-900]="activeCategory() === cat.value"
+        [class.text-white]="activeCategory() === cat.value"
+        [class.border-gray-900]="activeCategory() === cat.value"
+        [class.bg-white]="activeCategory() !== cat.value"
+        [class.text-gray-700]="activeCategory() !== cat.value"
+        [class.border-gray-200]="activeCategory() !== cat.value"
+      >
+        {{ cat.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Griglia -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+    @for (item of filteredItems(); track item.src) {
+      <button
+        type="button"
+        (click)="openLightbox(item)"
+        class="group relative aspect-square rounded-xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-shadow"
+      >
+        <img
+          [ngSrc]="item.src"
+          fill
+          loading="lazy"
+          [alt]="item.title"
+          class="object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+        />
+        <span
+          class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent text-white text-[10px] uppercase tracking-widest font-semibold px-2 py-2 opacity-0 group-hover:opacity-100 transition-opacity text-left"
+        >
+          {{ item.title }}
+        </span>
+      </button>
+    } @empty {
+      <p class="col-span-full text-center text-gray-500 py-12">Nessuna illustrazione in questa categoria.</p>
+    }
+  </div>
+</section>
+
+<!-- Lightbox -->
+@if (lightboxItem(); as item) {
+  <div
+    class="fixed inset-0 z-[60] bg-black/80 flex items-center justify-center p-6"
+    (click)="closeLightbox()"
+  >
+    <button
+      type="button"
+      (click)="closeLightbox()"
+      class="absolute top-6 right-6 text-white hover:opacity-70"
+      aria-label="Chiudi"
+    >
+      <app-icon name="x" [size]="28" />
+    </button>
+    <figure class="max-w-2xl w-full" (click)="$event.stopPropagation()">
+      <div class="relative w-full aspect-square bg-white rounded-2xl overflow-hidden">
+        <img [ngSrc]="item.src" fill [alt]="item.title" class="object-contain p-6" />
+      </div>
+      <figcaption class="text-center text-white font-title italic text-lg mt-4 tracking-wide">{{ item.title }}</figcaption>
+    </figure>
+  </div>
+}

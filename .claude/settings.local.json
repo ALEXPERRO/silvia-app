@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx ng *)",
+      "Skill(artifact-design)",
+      "Skill(artifact-design:*)",
+      "Bash(\"/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe\" --headless=new --disable-gpu --no-sandbox --hide-scrollbars --force-color-profile=srgb --window-size=1200,1400 --screenshot=\"C:\\\\Users\\\\ALESSI~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Alessio-Perrini-Desktop-Perro-Silvia-sito-silvia-silvia-app\\\\917fe82e-5543-47ce-a271-a26e0bb3857f\\\\scratchpad\\\\artifact-check-light.png\" --force-dark-mode=false --enable-features=\"\" --disable-features=WebContentsForceDark \"file:///C:/Users/ALESSI~1/AppData/Local/Temp/claude/c--Users-Alessio-Perrini-Desktop-Perro-Silvia-sito-silvia-silvia-app/917fe82e-5543-47ce-a271-a26e0bb3857f/scratchpad/direzione-visiva.html\")",
+      "Bash(grep -n \"prefers-color-scheme\" \"/c/Users/ALESSI~1/AppData/Local/Temp/claude/c--Users-Alessio-Perrini-Desktop-Perro-Silvia-sito-silvia-silvia-app/917fe82e-5543-47ce-a271-a26e0bb3857f/scratchpad/test-forcelight.html\")",
+      "Read(//c/Users/ALESSI~1/AppData/Local/Temp/claude/c--Users-Alessio-Perrini-Desktop-Perro-Silvia-sito-silvia-silvia-app/917fe82e-5543-47ce-a271-a26e0bb3857f/scratchpad/**)"
+    ]
+  }
+}

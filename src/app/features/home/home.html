@@ -1,0 +1,12 @@
+<header class="min-h-[calc(100vh-68px)] relative flex flex-col items-center justify-center gap-10 py-16 px-4">
+  <div
+    class="z-10 relative w-full max-w-md aspect-3/4 rounded-sm shadow-2xl overflow-hidden border-[6px] border-white transform transition-transform duration-300"
+  >
+    <img [ngSrc]="cover.main.src" [style.transform]="'scale(' + cover.main.scale + ')'" fill priority alt="Silvia" class="object-cover" />
+  </div>
+
+  <!-- Box di testo (contenuto da definire) -->
+  <div class="relative z-10 w-full max-w-xl bg-white/95 border border-nature-violet-soft shadow-xl rounded-sm px-6 py-5 md:px-8 md:py-6 text-center">
+    <p class="font-title italic text-gray-400 text-sm md:text-base tracking-wide">Testo in arrivo...</p>
+  </div>
+</header>

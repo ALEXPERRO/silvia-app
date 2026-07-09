@@ -1,0 +1,18 @@
+<nav class="fixed top-0 left-0 w-full bg-nature-beige text-gray-800 z-50 shadow-sm border-b-2 border-nature-violet-soft">
+  <div class="max-w-4xl mx-auto px-4">
+    <ul class="flex justify-center space-x-6 py-4 font-semibold text-xs md:text-sm tracking-widest uppercase">
+      @for (item of navItems; track item.path) {
+        <li>
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="active text-nature-green"
+            [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+            class="nav-link hover:text-nature-green transition-colors"
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</nav>

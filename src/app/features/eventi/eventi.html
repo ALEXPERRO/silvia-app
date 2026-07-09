@@ -1,0 +1,206 @@
+<!-- SEZIONE EVENTI SLIDER -->
+<section class="min-h-screen py-20 px-4 relative flex flex-col items-center justify-center">
+  <h1 class="text-3xl md:text-5xl text-gray-900 font-title italic font-medium mb-4 tracking-wide text-center">
+    I Nostri Prossimi Eventi
+  </h1>
+
+  <!-- Blocco Definizione Dinamico -->
+  <div class="max-w-xl w-full bg-white/95 border border-gray-200 rounded-2xl p-6 mb-10 text-center shadow-xl font-title italic text-base md:text-lg text-gray-800 min-h-[160px] flex flex-col justify-center gap-1 tracking-wide">
+    @for (def of currentDefinition(); track $index; let i = $index) {
+      @if (i === 0) {
+        <span class="text-xl md:text-2xl font-bold font-title not-italic text-gray-900 mb-1">{{ def }}</span>
+      } @else if (i === 1) {
+        <span class="text-xs tracking-widest uppercase font-body not-italic text-gray-400 mb-2">{{ def }}</span>
+      } @else {
+        <p class="text-gray-600">{{ def }}</p>
+      }
+    }
+  </div>
+
+  <!-- CONTENITORE PRINCIPALE CON FRECCE ESTERNE -->
+  <div class="relative w-full max-w-5xl flex items-center justify-center px-2 md:px-12">
+    <button
+      type="button"
+      (click)="scrollToPrev()"
+      class="absolute left-0 md:-left-4 z-30 bg-white text-gray-700 w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center shadow-md hover:bg-gray-50 active:scale-95 transition-all select-none"
+    >
+      <app-icon name="chevron-left" [size]="20" />
+    </button>
+
+    <div
+      #sliderRef
+      (scroll)="onSliderScroll($event)"
+      class="w-full overflow-x-auto flex gap-6 pb-4 px-1 scroll-smooth snap-x snap-mandatory scrollbar-hide"
+    >
+      @for (ev of eventsWithSeats(); track ev.id) {
+        <div class="w-full min-w-full bg-white rounded-2xl shadow-xl overflow-hidden z-10 flex flex-col md:flex-row border border-gray-100 snap-start flex-shrink-0">
+          <div class="p-6 md:p-10 md:w-1/2 flex flex-col justify-center text-left">
+            <h3 class="text-2xl md:text-4xl font-title italic font-medium text-gray-900 mb-1 tracking-wide">{{ ev.title }}</h3>
+
+            <p class="flex items-center gap-1.5 text-xs md:text-sm font-title italic mb-4" [class.text-red-500]="ev.isSoldOut" [class.font-bold]="ev.isSoldOut" [class.text-nature-green]="!ev.isSoldOut">
+              @if (ev.isSoldOut) {
+                <app-icon name="alert-triangle" [size]="16" /> Attenzione: Posti esauriti per questa data
+              } @else {
+                <app-icon name="sparkles" [size]="16" /> Solo {{ ev.seatsAvailable }} posti ancora disponibili
+              }
+            </p>
+
+            <p class="text-sm text-gray-600 font-medium leading-relaxed mb-6">{{ ev.message.body }}</p>
+
+            <div class="space-y-2 mb-6 text-xs md:text-sm text-gray-500 font-medium border-l-2 border-gray-100 pl-4">
+              <p class="flex items-center gap-2"><app-icon name="calendar" [size]="15" /> <span>{{ ev.date }}</span> • <span>{{ ev.time }}</span></p>
+              <p class="flex items-center gap-2"><app-icon name="map-pin" [size]="15" /> <span>{{ ev.location }}</span>, <span class="text-gray-400">{{ ev.address }}</span></p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <a [href]="ev.mapLink" target="_blank" class="flex items-center gap-1.5 border border-gray-200 text-gray-700 text-xs font-semibold tracking-widest px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors uppercase"><app-icon name="map" [size]="14" /> Mappa</a>
+              <button
+                type="button"
+                [disabled]="ev.isSoldOut"
+                (click)="selectEventAndScroll(ev.id)"
+                class="flex items-center gap-1.5 text-xs font-semibold tracking-widest px-5 py-3 rounded-lg transition-all uppercase"
+                [ngClass]="ev.isSoldOut ? 'bg-gray-300 cursor-not-allowed text-gray-500' : 'bg-gray-900 text-white hover:bg-gray-800'"
+              >
+                @if (ev.isSoldOut) {
+                  <app-icon name="ban" [size]="14" /> Esaurito
+                } @else {
+                  <app-icon name="ticket" [size]="14" /> Prenotati
+                }
+              </button>
+            </div>
+          </div>
+          <div class="md:w-1/2 min-h-[260px] md:min-h-full bg-gray-50">
+            <iframe [src]="trustedMapUrl(ev.mapEmbedUrl)" width="100%" height="100%" style="border:0" allowfullscreen loading="lazy" class="w-full h-full object-cover min-h-[280px]"></iframe>
+          </div>
+        </div>
+      }
+    </div>
+
+    <button
+      type="button"
+      (click)="scrollToNext()"
+      class="absolute right-0 md:-right-4 z-30 bg-white text-gray-700 w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center shadow-md hover:bg-gray-50 active:scale-95 transition-all select-none"
+    >
+      <app-icon name="chevron-right" [size]="20" />
+    </button>
+  </div>
+</section>
+
+<!-- SEZIONE PRENOTAZIONE / FORM -->
+<section #bookingSection class="min-h-screen py-20 px-4 relative flex flex-col items-center justify-center">
+  <div class="max-w-2xl w-full bg-white rounded-2xl shadow-2xl p-6 md:p-10 z-10 border border-gray-100">
+    <div class="flex flex-col items-center mb-8 text-center">
+      <h2 class="text-3xl md:text-5xl font-title italic font-medium text-gray-900 tracking-wide">Prenota il tuo posto</h2>
+      @if (selectedEvent(); as sel) {
+        <h3 class="text-xs md:text-sm text-nature-green font-medium tracking-wider uppercase mt-3 bg-gray-50 border border-gray-200 py-2 px-4 rounded-full">
+          {{ sel.acceptedMessage }}
+        </h3>
+      }
+    </div>
+
+    @if (!bookingSuccess()) {
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6 text-left text-sm">
+        <p class="text-gray-900 font-title italic text-xl border-b border-gray-100 pb-2">1. Dati Partecipante e Regolamento</p>
+
+        <div>
+          <label for="event-select" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Seleziona l'evento *</label>
+          <select id="event-select" formControlName="eventId" class="w-full p-3 border border-gray-200 rounded-xl bg-white focus:border-gray-400 focus:outline-none font-medium text-gray-800 transition-colors">
+            <option [ngValue]="null" disabled>Seleziona un appuntamento...</option>
+            @for (ev of eventsWithSeats(); track ev.id) {
+              <option [ngValue]="ev.id" [disabled]="ev.isSoldOut">
+                {{ ev.title }} ({{ ev.date }}) - {{ ev.isSoldOut ? 'SOLD OUT' : 'Posti: ' + ev.seatsAvailable }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="user-name" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Nome e Cognome *</label>
+            <input type="text" id="user-name" formControlName="name" class="w-full p-3 border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none font-medium text-gray-800" placeholder="Emanuela Viola">
+          </div>
+          <div>
+            <label for="user-email" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Email *</label>
+            <input type="email" id="user-email" formControlName="email" class="w-full p-3 border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none font-medium text-gray-800" placeholder="esempio@email.com">
+          </div>
+        </div>
+
+        @if (selectedEvent(); as sel) {
+          <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 space-y-3 text-xs text-gray-700 leading-relaxed">
+            <p class="text-gray-900 font-title italic text-sm tracking-wide">Note importanti per i partecipanti:</p>
+            <ul class="list-disc pl-5 space-y-2 font-medium">
+              @for (rule of sel.rules; track $index) {
+                <li [innerHTML]="rule"></li>
+              }
+            </ul>
+          </div>
+        }
+
+        <p class="text-gray-900 font-title italic text-xl border-b border-gray-100 pb-2 pt-4">2. Fatturazione</p>
+        <div>
+          <label for="billing-type" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Tipologia Account *</label>
+          <select id="billing-type" formControlName="billingType" class="w-full p-3 border border-gray-200 rounded-xl bg-white focus:border-gray-400 focus:outline-none font-medium text-gray-800">
+            <option value="privato">Privato (Ricevuta con Codice Fiscale)</option>
+            <option value="business">Azienda / Libero Professionista (Fattura con P.IVA)</option>
+          </select>
+        </div>
+
+        @if (isPrivato()) {
+          <div>
+            <label for="user-cf" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Codice Fiscale *</label>
+            <input type="text" id="user-cf" formControlName="cf" maxlength="16" class="w-full p-3 border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none font-medium text-gray-800 uppercase" placeholder="FMTLNZ90A01F205X">
+          </div>
+        } @else {
+          <div class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="company-name" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Ragione Sociale *</label>
+                <input type="text" id="company-name" formControlName="companyName" class="w-full p-3 border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none font-medium text-gray-800" placeholder="Studio d'Arte S.r.l.">
+              </div>
+              <div>
+                <label for="company-piva" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Partita IVA *</label>
+                <input type="text" id="company-piva" formControlName="companyPiva" maxlength="11" class="w-full p-3 border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none font-medium text-gray-800" placeholder="11 cifre numeriche">
+              </div>
+            </div>
+            <div>
+              <label for="company-sdi" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Codice Destinatario SDI *</label>
+              <input type="text" id="company-sdi" formControlName="companySdi" maxlength="7" class="w-full p-3 border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none font-medium text-gray-800 uppercase" placeholder="M5UXCR1">
+            </div>
+          </div>
+        }
+
+        <p class="text-gray-900 font-title italic text-xl border-b border-gray-100 pb-2 pt-4">3. Indirizzo di Residenza o Sede</p>
+        <div>
+          <label for="billing-address" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Via e Numero Civico *</label>
+          <input type="text" id="billing-address" formControlName="address" class="w-full p-3 border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none font-medium text-gray-800" placeholder="Corso Umberto I, 45">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div>
+            <label for="billing-cap" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">CAP *</label>
+            <input type="text" id="billing-cap" formControlName="cap" maxlength="5" class="w-full p-3 border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none font-medium text-gray-800" placeholder="74121">
+          </div>
+          <div class="sm:col-span-2">
+            <label for="billing-city" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Città e Provincia *</label>
+            <input type="text" id="billing-city" formControlName="city" class="w-full p-3 border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none font-medium text-gray-800" placeholder="Taranto (TA)">
+          </div>
+        </div>
+
+        @if (errorMessage(); as err) {
+          <p class="text-red-500 text-xs font-semibold text-center">{{ err }}</p>
+        }
+
+        <div class="text-center pt-6">
+          <button type="submit" [disabled]="submitting()" class="w-full md:w-auto bg-gray-950 text-white font-medium text-sm tracking-widest py-4 px-10 rounded-full hover:bg-gray-800 transition-all uppercase disabled:opacity-50">
+            {{ submitting() ? 'Invio in corso...' : 'Invia Iscrizione' }}
+          </button>
+        </div>
+      </form>
+    } @else {
+      <div class="mt-6 bg-gray-900 text-white text-center p-5 rounded-xl border border-black shadow-lg font-title italic text-lg flex items-center justify-center gap-2">
+        <app-icon name="sparkles" [size]="20" />
+        <span>Iscrizione salvata. Riceverai a breve una mail con la conferma e la ricevuta del tuo posto.</span>
+      </div>
+    }
+  </div>
+</section>

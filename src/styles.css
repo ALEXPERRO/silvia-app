@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- Neutrals: warm, desaturated nature tones (override Tailwind's default
+     gray scale + white so every existing bg-white/text-gray-* utility site-wide
+     reads as parchment/soil instead of clinical gray) --- */
+  --color-white: #FBF6EC;
+  --color-gray-50: #F6EEDD;
+  --color-gray-100: #EDE0C4;
+  --color-gray-200: #E0CDA1;
+  --color-gray-300: #C9B27F;
+  --color-gray-400: #A38B62;
+  --color-gray-500: #86714F;
+  --color-gray-600: #6B5842;
+  --color-gray-700: #52422F;
+  --color-gray-800: #392F22;
+  --color-gray-900: #2A2418;
+  --color-gray-950: #1C1810;
+
+  --color-red-400: #C57A61;
+  --color-red-500: #AD5A40;
+
+  /* --- Nature-witch accents --- */
+  --color-nature-beige: #EFE1C3;
+  --color-nature-green: #4B5D3A;
+  --color-nature-sage: #7C8B5E;
+  --color-nature-brown: #8B6F47;
+  --color-nature-violet: #7C6A93;
+  --color-nature-violet-soft: #DCCFE8;
+
+  --font-title: "Bodoni Moda", serif;
+  --font-body: "Montserrat", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-nature-violet-soft);
+  color: var(--color-gray-900);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Sottolineatura animata sui link di navigazione, attiva anche su routerLinkActive */
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-nature-green);
+  transition: width 0.2s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.pattern-dots {
+  background-image: radial-gradient(circle, rgba(74, 61, 40, 0.08) 10%, transparent 11%);
+  background-size: 16px 16px;
+}
+
+/* Sfondo naturale chiaro: crema con un velo di luce dall'alto e rametti/bacche
+   botanici disegnati a mano in tono salvia/viola, tenui e non invasivi. */
+.bg-botanical {
+  background-color: var(--color-nature-beige);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 252, 244, 0.6), transparent 65%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg transform='translate(30,225) rotate(-18)'%3E%3Cpath d='M0 0 C 4 -14 8 -26 14 -40' stroke='rgba(75,93,58,0.42)' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cellipse cx='6' cy='-16' rx='6' ry='2.6' fill='rgba(75,93,58,0.35)' transform='rotate(-40 6 -16)'/%3E%3Cellipse cx='11' cy='-30' rx='5.5' ry='2.3' fill='rgba(75,93,58,0.35)' transform='rotate(35 11 -30)'/%3E%3C/g%3E%3Cg transform='translate(200,60) rotate(20)'%3E%3Cpath d='M0 0 C -4 12 -7 22 -12 34' stroke='rgba(75,93,58,0.4)' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cellipse cx='-5' cy='14' rx='5.5' ry='2.4' fill='rgba(75,93,58,0.32)' transform='rotate(40 -5 14)'/%3E%3Cellipse cx='-9' cy='26' rx='5' ry='2.1' fill='rgba(75,93,58,0.32)' transform='rotate(-35 -9 26)'/%3E%3C/g%3E%3Cg fill='rgba(124,106,147,0.42)'%3E%3Ccircle cx='215' cy='190' r='2.4'/%3E%3Ccircle cx='224' cy='197' r='1.8'/%3E%3Ccircle cx='208' cy='198' r='1.8'/%3E%3Ccircle cx='216' cy='202' r='1.6'/%3E%3C/g%3E%3Ccircle cx='120' cy='120' r='3' fill='none' stroke='rgba(139,111,71,0.3)' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, repeat;
+  background-size: 100% 100%, 260px 260px;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.25s;
+}
