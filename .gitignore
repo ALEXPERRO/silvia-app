@@ -44,3 +44,6 @@ Thumbs.db
 
 # Redesign verification screenshots (not committed)
 /.tmp-screenshots
+
+# Brainstorming visual-companion mockups (not committed)
+/.superpowers/brainstorm
