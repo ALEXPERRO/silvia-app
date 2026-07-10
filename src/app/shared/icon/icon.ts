@@ -12,7 +12,8 @@ export type IconName =
   | 'chevron-left'
   | 'chevron-right'
   | 'chevron-down'
-  | 'leaf';
+  | 'leaf'
+  | 'instagram';
 
 @Component({
   selector: 'app-icon',
