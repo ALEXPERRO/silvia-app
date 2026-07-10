@@ -1,50 +1,66 @@
-<section class="min-h-screen py-24 px-4 max-w-6xl mx-auto">
-  <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 text-center">Portfolio</h1>
-  <p class="text-center text-gray-600 max-w-xl mx-auto mb-12 text-sm md:text-base font-body">
-    Una selezione delle illustrazioni e composizioni di Silvia: dalle opere finite ai singoli elementi botanici, marini e animali.
-  </p>
+<section class="bg-parchment py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 text-center">Portfolio</h1>
+    <p class="text-center text-gray-600 max-w-xl mx-auto mb-12 text-sm md:text-base font-body">
+      Una selezione delle illustrazioni e composizioni di Silvia: dalle opere finite ai singoli elementi botanici, marini e animali.
+    </p>
 
-  <!-- Filtri categoria -->
-  <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-14 font-body text-xs md:text-sm tracking-widest uppercase">
-    @for (cat of categories; track cat.value) {
-      <button
-        type="button"
-        (click)="setCategory(cat.value)"
-        class="pb-1 border-b-2 transition-colors hover:text-moss-hover"
-        [class.text-moss]="activeCategory() === cat.value"
-        [class.border-moss]="activeCategory() === cat.value"
-        [class.text-gray-500]="activeCategory() !== cat.value"
-        [class.border-transparent]="activeCategory() !== cat.value"
-      >
-        {{ cat.label }}
-      </button>
-    }
+    <!-- Filtri categoria -->
+    <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 font-body text-xs md:text-sm tracking-widest uppercase">
+      @for (cat of categories; track cat.value) {
+        <button
+          type="button"
+          (click)="setCategory(cat.value)"
+          class="pb-1 border-b-2 transition-colors hover:text-moss-hover"
+          [class.text-moss]="activeCategory() === cat.value"
+          [class.border-moss]="activeCategory() === cat.value"
+          [class.text-gray-600]="activeCategory() !== cat.value"
+          [class.border-transparent]="activeCategory() !== cat.value"
+        >
+          {{ cat.label }}
+        </button>
+      }
+    </div>
   </div>
+</section>
 
-  <!-- Griglia -->
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
-    @for (item of filteredItems(); track item.src) {
-      <button
-        type="button"
-        (click)="openLightbox(item)"
-        class="group text-left"
-      >
-        <div class="relative aspect-square bg-white border border-gray-200 shadow-sm group-hover:shadow-lg group-hover:border-plum transition-all overflow-hidden">
-          <img
-            [ngSrc]="item.src"
-            fill
-            loading="lazy"
-            [alt]="item.title"
-            class="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-        <p class="mt-2 font-body text-[10px] tracking-[0.12em] uppercase text-gray-500 group-hover:text-gray-900 transition-colors">
-          {{ item.title }}
-        </p>
-      </button>
-    } @empty {
-      <p class="col-span-full text-center text-gray-500 py-12 font-body">Nessuna illustrazione in questa categoria.</p>
-    }
+<!-- Separatore -->
+<div class="bg-blush py-10 flex items-center justify-center">
+  <div class="flex items-center gap-3 w-2/3 max-w-xs">
+    <span class="flex-1 h-px bg-gray-200"></span>
+    <span class="w-1.5 h-1.5 rounded-full bg-bark"></span>
+    <span class="flex-1 h-px bg-gray-200"></span>
+  </div>
+</div>
+
+<section class="bg-blush pb-24 px-4">
+  <div class="max-w-6xl mx-auto">
+    <!-- Griglia -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
+      @for (item of filteredItems(); track item.src) {
+        <button
+          type="button"
+          (click)="openLightbox(item)"
+          appRevealOnScroll
+          class="group text-left"
+        >
+          <div class="relative aspect-square bg-white border border-gray-200 shadow-sm group-hover:shadow-lg group-hover:border-plum transition-all overflow-hidden">
+            <img
+              [ngSrc]="item.src"
+              fill
+              loading="lazy"
+              [alt]="item.title"
+              class="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
+          <p class="mt-2 font-body text-[10px] tracking-[0.12em] uppercase text-gray-600 group-hover:text-gray-900 transition-colors">
+            {{ item.title }}
+          </p>
+        </button>
+      } @empty {
+        <p class="col-span-full text-center text-gray-600 py-12 font-body">Nessuna illustrazione in questa categoria.</p>
+      }
+    </div>
   </div>
 </section>
 

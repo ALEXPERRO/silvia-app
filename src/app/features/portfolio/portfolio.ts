@@ -3,11 +3,12 @@ import { NgOptimizedImage } from '@angular/common';
 import { ContentService } from '../../core/services/content.service';
 import { GalleryCategory, GalleryItem } from '../../core/models/gallery-item.model';
 import { Icon } from '../../shared/icon/icon';
+import { RevealOnScroll } from '../../shared/reveal-on-scroll/reveal-on-scroll';
 
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [NgOptimizedImage, Icon],
+  imports: [NgOptimizedImage, Icon, RevealOnScroll],
   templateUrl: './portfolio.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
