@@ -4,19 +4,6 @@
     I Nostri Prossimi Eventi
   </h1>
 
-  <!-- Blocco Definizione Dinamico -->
-  <div class="max-w-xl w-full bg-white border border-gray-200 rounded p-6 mb-12 text-center shadow-lg font-title italic text-base md:text-lg text-gray-800 min-h-40 flex flex-col justify-center gap-1 tracking-wide">
-    @for (def of currentDefinition(); track $index; let i = $index) {
-      @if (i === 0) {
-        <span class="text-xl md:text-2xl font-semibold font-title not-italic text-gray-900 mb-1">{{ def }}</span>
-      } @else if (i === 1) {
-        <span class="text-xs tracking-widest uppercase font-body not-italic text-gray-600 mb-2">{{ def }}</span>
-      } @else {
-        <p class="text-gray-600">{{ def }}</p>
-      }
-    }
-  </div>
-
   <!-- CONTENITORE PRINCIPALE CON FRECCE ESTERNE -->
   <div class="relative w-full max-w-5xl flex items-center justify-center px-2 md:px-12">
     <button
