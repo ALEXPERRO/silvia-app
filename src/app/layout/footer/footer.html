@@ -1,4 +1,38 @@
-<footer class="bg-white text-gray-800 text-center py-10 border-t border-gray-200 z-20 relative text-sm">
+<footer class="bg-white text-gray-800 text-center py-10 px-4 border-t border-gray-200 z-20 relative text-sm">
   <p class="font-title italic text-2xl tracking-wide text-moss">{{ footer.text }}</p>
-  <p class="text-xs text-gray-500 tracking-wider font-light mt-2">{{ footer.credits }}</p>
+
+  <a href="#" target="_blank" rel="noopener" aria-label="Instagram" class="inline-flex items-center justify-center mt-5 text-gray-600 hover:text-plum transition-colors">
+    <app-icon name="instagram" [size]="22" />
+  </a>
+
+  <form [formGroup]="newsletterForm" (ngSubmit)="onNewsletterSubmit()" class="max-w-sm mx-auto mt-6 flex flex-col items-center gap-2">
+    @if (!newsletterSuccess()) {
+      <label for="newsletter-email" class="text-xs font-bold text-gray-600 uppercase tracking-widest">Resta aggiornata/o sulle novità</label>
+      <div class="flex w-full gap-2">
+        <input
+          type="email"
+          id="newsletter-email"
+          formControlName="email"
+          placeholder="La tua email"
+          class="flex-1 p-2.5 border border-gray-200 rounded bg-white focus:border-moss focus:outline-none text-gray-800 text-sm"
+        />
+        <button
+          type="submit"
+          [disabled]="newsletterSubmitting()"
+          class="bg-moss text-white text-xs font-semibold tracking-widest uppercase px-4 py-2.5 rounded hover:bg-moss-hover transition-all disabled:opacity-50"
+        >
+          {{ newsletterSubmitting() ? '...' : 'Iscriviti' }}
+        </button>
+      </div>
+      @if (newsletterError(); as err) {
+        <p class="text-red-500 text-xs">{{ err }}</p>
+      }
+    } @else {
+      <p class="text-moss font-medium text-sm flex items-center gap-1.5">
+        <app-icon name="sparkles" [size]="16" /> Iscrizione confermata, grazie!
+      </p>
+    }
+  </form>
+
+  <p class="text-xs text-gray-500 tracking-wider font-light mt-6">{{ footer.credits }}</p>
 </footer>

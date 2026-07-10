@@ -51,4 +51,9 @@ export class SupabaseService {
       .eq('id', eventId);
     return { error };
   }
+
+  async insertNewsletterSignup(email: string): Promise<{ error: unknown }> {
+    const { error } = await this.client.from('iscrizioni_newsletter').insert([{ email }]);
+    return { error };
+  }
 }
