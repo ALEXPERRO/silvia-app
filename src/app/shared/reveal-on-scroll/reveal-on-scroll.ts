@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, afterNextRender, inject } from '@angular/core';
+import { Directive, ElementRef, Renderer2, DestroyRef, afterNextRender, inject } from '@angular/core';
 
 @Directive({
   selector: '[appRevealOnScroll]',
@@ -10,6 +10,7 @@ import { Directive, ElementRef, Renderer2, afterNextRender, inject } from '@angu
 export class RevealOnScroll {
   private readonly el = inject(ElementRef<HTMLElement>);
   private readonly renderer = inject(Renderer2);
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
     afterNextRender(() => {
@@ -33,6 +34,7 @@ export class RevealOnScroll {
       );
 
       observer.observe(target);
+      this.destroyRef.onDestroy(() => observer.disconnect());
     });
   }
 }
