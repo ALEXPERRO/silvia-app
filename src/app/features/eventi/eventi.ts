@@ -73,6 +73,26 @@ export class Eventi {
 
   protected readonly isPrivato = computed(() => this.billingType() === 'privato');
 
+  private readonly formStatus = toSignal(this.form.valueChanges, { initialValue: this.form.getRawValue() });
+
+  protected readonly step1Complete = computed(() => {
+    this.formStatus();
+    const c = this.form.controls;
+    return c.eventId.valid && c.name.valid && c.email.valid;
+  });
+
+  protected readonly step2Complete = computed(() => {
+    this.formStatus();
+    const c = this.form.controls;
+    return this.isPrivato() ? c.cf.valid : c.companyName.valid && c.companyPiva.valid && c.companySdi.valid;
+  });
+
+  protected readonly step3Complete = computed(() => {
+    this.formStatus();
+    const c = this.form.controls;
+    return c.address.valid && c.cap.valid && c.city.valid;
+  });
+
   protected readonly selectedEvent = computed(() => {
     const id = this.selectedEventId();
     return this.eventsWithSeats().find((ev) => ev.id === id) ?? null;

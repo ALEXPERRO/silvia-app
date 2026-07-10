@@ -102,6 +102,41 @@
     </div>
 
     @if (!bookingSuccess()) {
+      <div class="flex items-center justify-center gap-2 mb-8 text-[10px] md:text-xs font-semibold tracking-widest uppercase">
+        <span class="flex items-center gap-1.5" [class.text-moss]="step1Complete()" [class.text-gray-400]="!step1Complete()">
+          <span
+            class="w-5 h-5 rounded-full border flex items-center justify-center"
+            [class.bg-moss]="step1Complete()"
+            [class.border-moss]="step1Complete()"
+            [class.text-white]="step1Complete()"
+            [class.border-gray-300]="!step1Complete()"
+          >1</span>
+          Dati
+        </span>
+        <span class="w-6 h-px bg-gray-200"></span>
+        <span class="flex items-center gap-1.5" [class.text-moss]="step2Complete()" [class.text-gray-400]="!step2Complete()">
+          <span
+            class="w-5 h-5 rounded-full border flex items-center justify-center"
+            [class.bg-moss]="step2Complete()"
+            [class.border-moss]="step2Complete()"
+            [class.text-white]="step2Complete()"
+            [class.border-gray-300]="!step2Complete()"
+          >2</span>
+          Fatturazione
+        </span>
+        <span class="w-6 h-px bg-gray-200"></span>
+        <span class="flex items-center gap-1.5" [class.text-moss]="step3Complete()" [class.text-gray-400]="!step3Complete()">
+          <span
+            class="w-5 h-5 rounded-full border flex items-center justify-center"
+            [class.bg-moss]="step3Complete()"
+            [class.border-moss]="step3Complete()"
+            [class.text-white]="step3Complete()"
+            [class.border-gray-300]="!step3Complete()"
+          >3</span>
+          Indirizzo
+        </span>
+      </div>
+
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6 text-left text-sm">
         <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2">1. Dati Partecipante e Regolamento</p>
 
