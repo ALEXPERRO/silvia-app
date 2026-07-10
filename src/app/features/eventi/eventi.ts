@@ -152,6 +152,13 @@ export class Eventi {
     }
   }
 
+  goToSlide(index: number): void {
+    const el = this.sliderRef?.nativeElement;
+    if (!el) return;
+    const width = el.getBoundingClientRect().width;
+    el.scrollTo({ left: index * width, behavior: 'smooth' });
+  }
+
   selectEventAndScroll(eventId: number): void {
     this.form.controls.eventId.setValue(eventId);
     this.bookingSectionRef?.nativeElement.scrollIntoView({ behavior: 'smooth' });
