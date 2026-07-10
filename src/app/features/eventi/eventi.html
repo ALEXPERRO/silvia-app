@@ -1,5 +1,5 @@
 <!-- SEZIONE EVENTI SLIDER -->
-<section class="min-h-screen py-24 px-4 relative flex flex-col items-center justify-center">
+<section class="bg-blush bg-bloom min-h-screen py-24 px-4 relative flex flex-col items-center justify-center">
   <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 tracking-wide text-center">
     I Nostri Prossimi Eventi
   </h1>
@@ -10,7 +10,7 @@
       @if (i === 0) {
         <span class="text-xl md:text-2xl font-semibold font-title not-italic text-gray-900 mb-1">{{ def }}</span>
       } @else if (i === 1) {
-        <span class="text-xs tracking-widest uppercase font-body not-italic text-gray-500 mb-2">{{ def }}</span>
+        <span class="text-xs tracking-widest uppercase font-body not-italic text-gray-600 mb-2">{{ def }}</span>
       } @else {
         <p class="text-gray-600">{{ def }}</p>
       }
@@ -33,11 +33,18 @@
       class="w-full overflow-x-auto flex gap-6 pb-4 px-1 scroll-smooth snap-x snap-mandatory scrollbar-hide"
     >
       @for (ev of eventsWithSeats(); track ev.id) {
-        <div class="w-full min-w-full bg-white rounded shadow-lg overflow-hidden z-10 flex flex-col md:flex-row border border-gray-200 snap-start shrink-0">
+        <div class="relative w-full min-w-full bg-white rounded shadow-lg overflow-hidden z-10 flex flex-col md:flex-row border border-gray-200 snap-start shrink-0">
+          <span class="absolute top-3 right-3 w-7 h-7 border-t-2 border-r-2 border-moss rounded-tr-md pointer-events-none z-20"></span>
           <div class="p-6 md:p-10 md:w-1/2 flex flex-col justify-center text-left">
             <h3 class="text-2xl md:text-4xl font-title font-medium text-gray-900 mb-1 tracking-wide">{{ ev.title }}</h3>
 
-            <p class="flex items-center gap-1.5 text-xs md:text-sm font-title italic mb-4" [class.text-red-500]="ev.isSoldOut" [class.font-bold]="ev.isSoldOut" [class.text-moss]="!ev.isSoldOut">
+            <p
+              class="inline-flex w-fit items-center gap-1.5 text-xs md:text-sm font-title italic mb-4 px-3 py-1.5 rounded-full"
+              [class.text-red-500]="ev.isSoldOut"
+              [class.font-bold]="ev.isSoldOut"
+              [class.bg-plum]="!ev.isSoldOut"
+              [class.text-white]="!ev.isSoldOut"
+            >
               @if (ev.isSoldOut) {
                 <app-icon name="alert-triangle" [size]="16" /> Attenzione: Posti esauriti per questa data
               } @else {
@@ -47,9 +54,9 @@
 
             <p class="text-sm text-gray-600 font-medium leading-relaxed mb-6">{{ ev.message.body }}</p>
 
-            <div class="space-y-2 mb-6 text-xs md:text-sm text-gray-500 font-medium border-l-2 border-gray-200 pl-4">
+            <div class="space-y-2 mb-6 text-xs md:text-sm text-gray-600 font-medium border-l-2 border-gray-200 pl-4">
               <p class="flex items-center gap-2"><app-icon name="calendar" [size]="15" /> <span>{{ ev.date }}</span> • <span>{{ ev.time }}</span></p>
-              <p class="flex items-center gap-2"><app-icon name="map-pin" [size]="15" /> <span>{{ ev.location }}</span>, <span class="text-gray-400">{{ ev.address }}</span></p>
+              <p class="flex items-center gap-2"><app-icon name="map-pin" [size]="15" /> <span>{{ ev.location }}</span>, <span class="text-gray-600">{{ ev.address }}</span></p>
             </div>
 
             <div class="flex flex-wrap gap-3">
@@ -86,8 +93,17 @@
   </div>
 </section>
 
+<!-- Separatore -->
+<div class="bg-parchment py-10 flex items-center justify-center">
+  <div class="flex items-center gap-3 w-2/3 max-w-xs">
+    <span class="flex-1 h-px bg-gray-200"></span>
+    <span class="w-1.5 h-1.5 rounded-full bg-bark"></span>
+    <span class="flex-1 h-px bg-gray-200"></span>
+  </div>
+</div>
+
 <!-- SEZIONE PRENOTAZIONE / FORM -->
-<section #bookingSection class="min-h-screen py-24 px-4 relative flex flex-col items-center justify-center">
+<section #bookingSection class="bg-parchment min-h-screen py-24 px-4 relative flex flex-col items-center justify-center">
   <div class="max-w-2xl w-full bg-white rounded shadow-xl p-6 md:p-10 z-10 border border-gray-200">
     <div class="flex flex-col items-center mb-8 text-center">
       <h2 class="text-3xl md:text-5xl font-title font-medium text-gray-900 tracking-wide">Prenota il tuo posto</h2>
@@ -103,7 +119,7 @@
         <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2">1. Dati Partecipante e Regolamento</p>
 
         <div>
-          <label for="event-select" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Seleziona l'evento *</label>
+          <label for="event-select" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Seleziona l'evento *</label>
           <select id="event-select" formControlName="eventId" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-moss focus:outline-none font-medium text-gray-800 transition-colors">
             <option [ngValue]="null" disabled>Seleziona un appuntamento...</option>
             @for (ev of eventsWithSeats(); track ev.id) {
@@ -116,11 +132,11 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label for="user-name" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Nome e Cognome *</label>
+            <label for="user-name" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Nome e Cognome *</label>
             <input type="text" id="user-name" formControlName="name" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="Emanuela Viola">
           </div>
           <div>
-            <label for="user-email" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Email *</label>
+            <label for="user-email" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Email *</label>
             <input type="email" id="user-email" formControlName="email" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="esempio@email.com">
           </div>
         </div>
@@ -138,7 +154,7 @@
 
         <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2 pt-4">2. Fatturazione</p>
         <div>
-          <label for="billing-type" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Tipologia Account *</label>
+          <label for="billing-type" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Tipologia Account *</label>
           <select id="billing-type" formControlName="billingType" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-moss focus:outline-none font-medium text-gray-800">
             <option value="privato">Privato (Ricevuta con Codice Fiscale)</option>
             <option value="business">Azienda / Libero Professionista (Fattura con P.IVA)</option>
@@ -147,23 +163,23 @@
 
         @if (isPrivato()) {
           <div>
-            <label for="user-cf" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Codice Fiscale *</label>
+            <label for="user-cf" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Codice Fiscale *</label>
             <input type="text" id="user-cf" formControlName="cf" maxlength="16" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800 uppercase" placeholder="FMTLNZ90A01F205X">
           </div>
         } @else {
           <div class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label for="company-name" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Ragione Sociale *</label>
+                <label for="company-name" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Ragione Sociale *</label>
                 <input type="text" id="company-name" formControlName="companyName" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="Studio d'Arte S.r.l.">
               </div>
               <div>
-                <label for="company-piva" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Partita IVA *</label>
+                <label for="company-piva" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Partita IVA *</label>
                 <input type="text" id="company-piva" formControlName="companyPiva" maxlength="11" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="11 cifre numeriche">
               </div>
             </div>
             <div>
-              <label for="company-sdi" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Codice Destinatario SDI *</label>
+              <label for="company-sdi" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Codice Destinatario SDI *</label>
               <input type="text" id="company-sdi" formControlName="companySdi" maxlength="7" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800 uppercase" placeholder="M5UXCR1">
             </div>
           </div>
@@ -171,17 +187,17 @@
 
         <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2 pt-4">3. Indirizzo di Residenza o Sede</p>
         <div>
-          <label for="billing-address" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Via e Numero Civico *</label>
+          <label for="billing-address" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Via e Numero Civico *</label>
           <input type="text" id="billing-address" formControlName="address" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="Corso Umberto I, 45">
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div>
-            <label for="billing-cap" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">CAP *</label>
+            <label for="billing-cap" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">CAP *</label>
             <input type="text" id="billing-cap" formControlName="cap" maxlength="5" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="74121">
           </div>
           <div class="sm:col-span-2">
-            <label for="billing-city" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Città e Provincia *</label>
+            <label for="billing-city" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Città e Provincia *</label>
             <input type="text" id="billing-city" formControlName="city" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="Taranto (TA)">
           </div>
         </div>
