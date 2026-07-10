@@ -1,4 +1,4 @@
-<header class="relative min-h-[calc(100vh-64px)] flex items-center px-4 py-16 md:py-0">
+<header class="relative bg-blush bg-bloom min-h-[calc(100vh-64px)] flex items-center px-4 py-16 md:py-0">
   <app-icon name="leaf" [size]="72" class="hidden md:block absolute top-10 right-[8%] text-sage opacity-40 rotate-12" />
 
   <div class="relative w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] gap-12 md:gap-16 items-center">
@@ -7,17 +7,19 @@
       <h1 class="font-title text-4xl md:text-6xl text-gray-900 mb-6 text-balance">Silvia Sgaramella</h1>
 
       <!-- Box di testo (contenuto da definire) -->
-      <div class="bg-white border border-gray-200 shadow-lg rounded px-6 py-5 md:px-8 md:py-6 max-w-md mx-auto md:mx-0">
-        <p class="font-title italic text-gray-500 text-sm md:text-base tracking-wide">Testo in arrivo...</p>
+      <div class="relative bg-white border border-gray-200 shadow-lg rounded px-6 py-5 md:px-8 md:py-6 max-w-md mx-auto md:mx-0">
+        <span class="absolute top-3 right-3 w-6 h-6 border-t-2 border-r-2 border-moss rounded-tr-md pointer-events-none z-20"></span>
+        <p class="font-title italic text-gray-600 text-sm md:text-base tracking-wide">Testo in arrivo...</p>
       </div>
     </div>
 
     <div class="order-1 md:order-2 flex justify-center md:justify-end">
       <div class="w-full max-w-xs">
-        <div class="relative aspect-3/4 border-[6px] border-white shadow-2xl -rotate-2 overflow-hidden">
+        <div class="relative aspect-3/4 border-[6px] border-white shadow-2xl -rotate-2 hover:-rotate-3 hover:scale-[1.02] transition-transform duration-300 ease-out overflow-hidden">
+          <span class="absolute top-3 right-3 w-7 h-7 border-t-2 border-r-2 border-moss rounded-tr-md pointer-events-none z-20"></span>
           <img [ngSrc]="cover.main.src" [style.transform]="'scale(' + cover.main.scale + ')'" fill priority alt="Silvia" class="object-cover" />
         </div>
-        <p class="text-center font-body text-[10px] tracking-[0.15em] uppercase text-gray-500 mt-3">Silvia, nel suo studio</p>
+        <p class="text-center font-body text-[10px] tracking-[0.15em] uppercase text-gray-600 mt-3">Silvia, nel suo studio</p>
       </div>
     </div>
   </div>

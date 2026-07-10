@@ -47,3 +47,6 @@ Thumbs.db
 
 # Brainstorming visual-companion mockups (not committed)
 /.superpowers/brainstorm
+
+# Verification scripts and outputs (not committed)
+/.superpowers/verify

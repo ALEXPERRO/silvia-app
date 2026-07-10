@@ -56,6 +56,13 @@ body {
   scrollbar-width: none;
 }
 
+/* Fase 1 — macchie acquerello sobrie per le sezioni vetrina (Home, Eventi, Shop) */
+.bg-bloom {
+  background-image:
+    radial-gradient(circle at 15% 10%, rgb(92 107 51 / 0.10), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgb(110 79 107 / 0.12), transparent 40%);
+}
+
 /* Sottolineatura animata sui link di navigazione, attiva anche su routerLinkActive */
 .nav-link {
   position: relative;
