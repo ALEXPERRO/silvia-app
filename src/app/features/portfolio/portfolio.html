@@ -51,6 +51,8 @@
               loading="lazy"
               [alt]="item.title"
               class="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+              (contextmenu)="$event.preventDefault()"
+              draggable="false"
             />
           </div>
           <p class="mt-2 font-body text-[10px] tracking-[0.12em] uppercase text-gray-600 group-hover:text-gray-900 transition-colors">
@@ -78,9 +80,25 @@
     >
       <app-icon name="x" [size]="28" />
     </button>
+    <button
+      type="button"
+      (click)="$event.stopPropagation(); showPrev()"
+      class="absolute left-4 md:left-8 text-white hover:text-plum-hover transition-colors"
+      aria-label="Immagine precedente"
+    >
+      <app-icon name="chevron-left" [size]="32" />
+    </button>
+    <button
+      type="button"
+      (click)="$event.stopPropagation(); showNext()"
+      class="absolute right-4 md:right-8 text-white hover:text-plum-hover transition-colors"
+      aria-label="Immagine successiva"
+    >
+      <app-icon name="chevron-right" [size]="32" />
+    </button>
     <figure class="max-w-2xl w-full" (click)="$event.stopPropagation()">
       <div class="relative w-full aspect-square bg-white border-[6px] border-white overflow-hidden">
-        <img [ngSrc]="item.src" fill [alt]="item.title" class="object-contain p-6" />
+        <img [ngSrc]="item.src" fill [alt]="item.title" class="object-contain p-6" (contextmenu)="$event.preventDefault()" draggable="false" />
       </div>
       <figcaption class="text-center text-white font-body text-[11px] tracking-[0.15em] uppercase mt-4">{{ item.title }}</figcaption>
     </figure>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, computed, inject, signal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { ContentService } from '../../core/services/content.service';
 import { GalleryCategory, GalleryItem } from '../../core/models/gallery-item.model';
@@ -25,6 +25,12 @@ export class Portfolio {
     return category === 'tutte' ? this.allItems : this.allItems.filter((item) => item.category === category);
   });
 
+  protected readonly lightboxIndex = computed(() => {
+    const item = this.lightboxItem();
+    if (!item) return -1;
+    return this.filteredItems().findIndex((i) => i.src === item.src);
+  });
+
   setCategory(category: GalleryCategory | 'tutte'): void {
     this.activeCategory.set(category);
   }
@@ -35,5 +41,27 @@ export class Portfolio {
 
   closeLightbox(): void {
     this.lightboxItem.set(null);
+  }
+
+  showNext(): void {
+    const items = this.filteredItems();
+    const idx = this.lightboxIndex();
+    if (idx === -1 || items.length === 0) return;
+    this.lightboxItem.set(items[(idx + 1) % items.length]);
+  }
+
+  showPrev(): void {
+    const items = this.filteredItems();
+    const idx = this.lightboxIndex();
+    if (idx === -1 || items.length === 0) return;
+    this.lightboxItem.set(items[(idx - 1 + items.length) % items.length]);
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeydown(event: KeyboardEvent): void {
+    if (!this.lightboxItem()) return;
+    if (event.key === 'ArrowRight') this.showNext();
+    if (event.key === 'ArrowLeft') this.showPrev();
+    if (event.key === 'Escape') this.closeLightbox();
   }
 }
