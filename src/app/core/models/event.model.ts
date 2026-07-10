@@ -1,5 +1,4 @@
 export interface EventMessage {
-  definition: string[];
   body: string;
 }
 

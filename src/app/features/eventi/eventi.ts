@@ -52,10 +52,6 @@ export class Eventi {
     });
   });
 
-  protected readonly currentDefinition = computed(() => {
-    return this.eventsWithSeats()[this.currentIndex()]?.message.definition ?? [];
-  });
-
   protected readonly form = this.fb.nonNullable.group({
     eventId: this.fb.control<number | null>(null, Validators.required),
     name: ['', Validators.required],

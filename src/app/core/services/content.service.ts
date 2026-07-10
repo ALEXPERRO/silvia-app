@@ -27,7 +27,6 @@ export class ContentService {
       id: 1,
       title: 'Paint & Pass! - Taranto',
       message: {
-        definition: ['whim • sy', "noun  ||  '(h)wim-zel", '1 : playful charm and wonder', '2 : filling life with joy and pleasure', '3 : pure enchantment'],
         body: "Per questa festa ti chiedo di abbandonare ogni forma di serietà e celebrare quel senso di meraviglia e drammaticità che si prova durante l'infanzia. Non c'è cosa più bella di entrare nell'età adulta portandosi dietro un po' di magia! Non vedo l'ora di divertirci insieme.",
       },
       date: 'Domenica 28 Giugno',
@@ -48,7 +47,6 @@ export class ContentService {
       id: 2,
       title: 'Paint & Pass! - Bari',
       message: {
-        definition: ['ar • tis • try', "noun  ||  'är-tə-strē", '1 : artistic quality or ability', '2 : the pursuit of pure expression', '3 : magic on canvas'],
         body: 'Bari si tinge dei colori della fantasia! Unisciti a noi per una mattinata di pittura libera e condivisa a due passi dal mare. Porta la tua voglia di sperimentare e lascia che il pennello parli per te. Nessuna regola, solo pura espressione cromatica.',
       },
       date: 'Lunedì 29 Giugno',
@@ -69,7 +67,6 @@ export class ContentService {
       id: 3,
       title: 'Paint & Pass! - Lecce',
       message: {
-        definition: ['won • der', "noun  ||  'wən-dər", '1 : a feeling of surprise mingled with admiration', '2 : a cause of astonishment', '3 : lightweight dreaming'],
         body: 'Sotto il cielo barocco di Lecce, accendiamo la miccia della creatività. Questa sessione speciale unisce le sfumature della pittura all\'energia del Salento. Un\'esperienza immersiva studiata per riconnetterci con la gioia dell\'arte condivisa.',
       },
       date: 'Sabato 04 Luglio',
@@ -90,7 +87,6 @@ export class ContentService {
       id: 4,
       title: 'Paint & Pass! - Foggia',
       message: {
-        definition: ['spark', "noun  ||  'spärk", '1 : a small fiery particle', '2 : a latent feeling activated', '3 : the beginning of a masterpiece'],
         body: 'Chiudiamo il cerchio con un appuntamento esplosivo a Foggia. Un pomeriggio all\'insegna del divertimento visivo, dei colori accesi e delle risate. Lasciati travolgere dal format che rompe le barriere tra pubblico e cavalletto!',
       },
       date: 'Domenica 12 Luglio',
