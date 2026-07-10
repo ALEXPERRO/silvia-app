@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 
 export interface BookingSubmission {
@@ -19,15 +19,29 @@ export interface BookingSubmission {
 export class SupabaseService {
   // auth disabilitato: il client è usato in modo anonimo (RLS via anon key) e deve
   // funzionare anche lato server durante il prerendering, dove non esiste localStorage.
-  private readonly client: SupabaseClient = createClient(environment.supabaseUrl, environment.supabaseAnonKey, {
-    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
-  });
+  // Il client viene creato in modo lazy (import dinamico) così @supabase/supabase-js
+  // resta un chunk separato, caricato solo alla prima chiamata reale, invece di
+  // finire nel bundle iniziale ora che SupabaseService è raggiungibile anche dal
+  // Footer (eager, presente su ogni pagina) e non solo dalla rotta lazy Eventi.
+  private clientPromise: Promise<SupabaseClient> | null = null;
+
+  private getClient(): Promise<SupabaseClient> {
+    if (!this.clientPromise) {
+      this.clientPromise = import('@supabase/supabase-js').then(({ createClient }) =>
+        createClient(environment.supabaseUrl, environment.supabaseAnonKey, {
+          auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+        }),
+      );
+    }
+    return this.clientPromise;
+  }
 
   /** Mappa id evento -> posti disponibili, letta dalla tabella `eventi`. */
   async getEventSeats(): Promise<Record<number, number>> {
     const seats: Record<number, number> = {};
     try {
-      const { data, error } = await this.client.from('eventi').select('*');
+      const client = await this.getClient();
+      const { data, error } = await client.from('eventi').select('*');
       if (!error && data) {
         for (const row of data) {
           seats[row['id']] = row['posti_disponibili'];
@@ -40,12 +54,14 @@ export class SupabaseService {
   }
 
   async insertBooking(payload: BookingSubmission): Promise<{ error: unknown }> {
-    const { error } = await this.client.from('prenotazioni').insert([payload]);
+    const client = await this.getClient();
+    const { error } = await client.from('prenotazioni').insert([payload]);
     return { error };
   }
 
   async decrementSeats(eventId: number, newSeatCount: number): Promise<{ error: unknown }> {
-    const { error } = await this.client
+    const client = await this.getClient();
+    const { error } = await client
       .from('eventi')
       .update({ posti_disponibili: newSeatCount })
       .eq('id', eventId);
@@ -53,7 +69,8 @@ export class SupabaseService {
   }
 
   async insertNewsletterSignup(email: string): Promise<{ error: unknown }> {
-    const { error } = await this.client.from('iscrizioni_newsletter').insert([{ email }]);
+    const client = await this.getClient();
+    const { error } = await client.from('iscrizioni_newsletter').insert([{ email }]);
     return { error };
   }
 }
