@@ -14,7 +14,7 @@ export interface CoverImage {
 export class ContentService {
   readonly cover = {
     main: { src: 'images/about_me/silvia.jpeg', scale: 1 } satisfies CoverImage,
-    logo: { src: 'images/logo/title.png', scale: 1 } satisfies CoverImage,
+    logo: { src: 'images/logo/title-plum.png', scale: 1 } satisfies CoverImage,
   };
 
   readonly footer = {
