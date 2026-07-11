@@ -117,7 +117,7 @@ export class ContentService {
       title: 'Stampa Lovebirds',
       description: 'Stampa fine-art in edizione limitata, illustrazione originale ad acquerello.',
       price: '€ 18,00',
-      image: 'images/composizioni/lovebirds.jpg',
+      image: 'images/animali/bird1.png',
       etsyUrl: 'https://www.etsy.com/shop/BloomingWildArt',
     },
     {
@@ -125,7 +125,7 @@ export class ContentService {
       title: 'Set Cartoline Botaniche',
       description: 'Set di 6 cartoline con illustrazioni botaniche originali, carta 350gr.',
       price: '€ 12,00',
-      image: 'images/composizioni/primavera.jpg',
+      image: 'images/elementi botanici/fiore.png',
       etsyUrl: 'https://www.etsy.com/shop/BloomingWildArt',
     },
     {
@@ -133,7 +133,7 @@ export class ContentService {
       title: 'Stampa Barbagianni e Luna',
       description: "Illustrazione notturna in edizione numerata, formato A4.",
       price: '€ 22,00',
-      image: 'images/composizioni/barbagianni e luna.png',
+      image: 'images/animali/barbagianni.png',
       etsyUrl: 'https://www.etsy.com/shop/BloomingWildArt',
     },
     {
@@ -141,17 +141,15 @@ export class ContentService {
       title: 'Adesivi Elementi Botanici',
       description: 'Foglio di adesivi vinilici resistenti all\'acqua con i soggetti botanici più amati.',
       price: '€ 6,50',
-      image: 'images/composizioni/Aprile.png',
+      image: 'images/elementi botanici/giglio1.png',
       etsyUrl: 'https://www.etsy.com/shop/BloomingWildArt',
     },
   ];
 
   readonly galleryCategories: GalleryCategoryOption[] = [
     { value: 'tutte', label: 'Tutte' },
-    { value: 'composizioni', label: 'Composizioni' },
     { value: 'animali', label: 'Animali' },
     { value: 'elementi-botanici', label: 'Elementi Botanici' },
-    { value: 'elementi-marini', label: 'Elementi Marini' },
     { value: 'insetti', label: 'Insetti' },
   ];
 
@@ -167,7 +165,7 @@ export class ContentService {
           src: `images/${folder}/${relativePath}`,
           title: titleFromFileName(fileName),
           category,
-          featured: category === 'composizioni',
+          featured: false,
         });
       });
     });

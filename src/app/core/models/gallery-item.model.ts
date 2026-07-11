@@ -1,8 +1,6 @@
 export type GalleryCategory =
-  | 'composizioni'
   | 'animali'
   | 'elementi-botanici'
-  | 'elementi-marini'
   | 'insetti';
 
 export interface GalleryItem {

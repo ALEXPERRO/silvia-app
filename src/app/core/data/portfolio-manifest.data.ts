@@ -5,24 +5,6 @@ import { GalleryCategory } from '../models/gallery-item.model';
  * sorgente. Usato da ContentService per costruire la galleria Portfolio.
  */
 export const PORTFOLIO_RAW_FILES: Record<GalleryCategory, { folder: string; files: string[] }> = {
-  composizioni: {
-    folder: 'composizioni',
-    files: [
-      'tigre e fiori.png',
-      'autumn killed.jpg',
-      'lovebirds.jpg',
-      'primavera.jpg',
-      'Aprile.png',
-      'coniglio.png',
-      'topo.png',
-      'testamorto.jpg',
-      'barbagianni1.png',
-      'maggio.png',
-      'barbagianni.jpg',
-      'giugno.png',
-      'barbagianni e luna.png',
-    ],
-  },
   animali: {
     folder: 'animali',
     files: [
@@ -50,19 +32,8 @@ export const PORTFOLIO_RAW_FILES: Record<GalleryCategory, { folder: string; file
       'polipo PICCOLA.png',
       'barbagianni senza luna.png',
       'barbagianni.png',
-    ],
-  },
-  'elementi-marini': {
-    folder: 'elementi marini',
-    files: [
-      'corallo1.png',
-      'conchiglia1.png',
-      'corallo2.png',
-      'alga1.png',
-      'conchiglia2.png',
-      'corallo3.png',
-      'conchiglia3.png',
-      'conchiglia4.png',
+      'volpe1.png',
+      'volpe2.png',
     ],
   },
   insetti: {
@@ -80,6 +51,10 @@ export const PORTFOLIO_RAW_FILES: Record<GalleryCategory, { folder: string; file
       'ape3.png',
       'coccinella.png',
       'coccinella1.png',
+      'farfalle colorate/farfalla colorata1.png',
+      'farfalle colorate/farfalla colorata2.png',
+      'farfalle colorate/farfalla colorata3.png',
+      'farfalle colorate/farfalla colorata4.png',
     ],
   },
   'elementi-botanici': {
@@ -114,6 +89,13 @@ export const PORTFOLIO_RAW_FILES: Record<GalleryCategory, { folder: string; file
       'green4.png',
       'green5.png',
       'green6.png',
+      'green7.png',
+      'green9.png',
+      'green10.png',
+      'Green 7 digital.png',
+      'giglio1.png',
+      'giglio2.png',
+      'foglie giglio.png',
       'lavanda1.png',
       'lavanda2.png',
       'pesche.png',
