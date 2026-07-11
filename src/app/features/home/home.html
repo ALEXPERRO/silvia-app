@@ -10,24 +10,18 @@
   </div>
 </section>
 
-<header class="relative bg-blush flex items-center px-4 py-5 sm:py-16 md:py-24 mt-4 sm:mt-10">
+<header class="relative bg-blush flex items-center px-4 py-5 sm:py-16 md:py-24 mt-4 sm:mt-10 overflow-x-clip">
   <div class="relative w-full max-w-5xl mx-auto">
-    <img ngSrc="images/composizioni/coniglio.png" width="200" height="200" alt="" class="hidden lg:block absolute -top-20 left-[-50%] w-72 h-72 object-contain drop-shadow-lg animate-hop pointer-events-none" style="--base-rotate: -6deg; --float-duration: 6.5s; --float-delay: 0s" />
-    <img ngSrc="images/animali/rana.png" width="200" height="283" alt="" class="hidden lg:block absolute -top-10 right-[-45%] w-64 h-80 object-contain drop-shadow-lg animate-leap pointer-events-none" style="--base-rotate: 6deg; --float-duration: 7.5s; --float-delay: 1.5s" />
-    <img ngSrc="images/composizioni/barbagianni e luna.png" width="200" height="273" alt="" class="hidden lg:block absolute -bottom-35 left-[-40%] w-72 h-96 object-contain drop-shadow-lg animate-glide pointer-events-none" style="--base-rotate: -3deg; --float-duration: 5.5s; --float-delay: 3s" />
-    <img ngSrc="images/animali/manta.png" width="200" height="141" alt="" class="hidden lg:block absolute -top-15 left-[8%] w-56 h-40 object-contain drop-shadow-lg animate-wave pointer-events-none" style="--base-rotate: -3deg; --float-duration: 6.8s; --float-delay: 2.2s" />
-    <img ngSrc="images/animali/polipo.png" width="200" height="283" alt="" class="hidden lg:block absolute -bottom-25 left-[33%] w-44 h-60 object-contain drop-shadow-lg animate-undulate pointer-events-none" style="--base-rotate: 4deg; --float-duration: 6.2s; --float-delay: 4s" />
-    <img ngSrc="images/animali/granchio.png" width="200" height="119" alt="" class="hidden lg:block absolute -top-25 right-[25%] w-40 h-24 object-contain drop-shadow-lg animate-scuttle pointer-events-none" style="--base-rotate: -5deg; --float-duration: 6s; --float-delay: 1s" />
-    <img ngSrc="images/animali/cerbiatto1.png" width="200" height="283" alt="" class="hidden lg:block absolute -bottom-55 right-[-65%] w-68 h-84 object-contain drop-shadow-lg animate-rock pointer-events-none" style="--base-rotate: 5deg; --float-duration: 6.6s; --float-delay: 2.6s" />
-    <img ngSrc="images/composizioni/topo.png" width="200" height="200" alt="" class="hidden lg:block absolute top-90 right-[-8%] w-36 h-36 object-contain drop-shadow-lg animate-jitter pointer-events-none" style="--base-rotate: -4deg; --float-duration: 7s; --float-delay: 0.8s" />
     <div class="grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] gap-3 sm:gap-8 md:gap-16 items-center">
-      <div class="flex justify-center order-2 md:order-1">
+      <div class="relative flex justify-center order-2 md:order-1">
+        <img ngSrc="images/animali/volpe2.png" width="176" height="250" alt="" class="absolute -bottom-14 -left-2 w-24 sm:w-28 md:-bottom-24 md:-left-6 md:w-40 -scale-x-100 pointer-events-none select-none" />
         <img [ngSrc]="cover.logo.src" width="1447" height="899" alt="Blooming Wild ART" class="w-36 sm:w-40 md:w-80 lg:w-lg" />
       </div>
 
       <div class="order-1 md:order-2 flex justify-center">
-        <div class="w-full max-w-56 sm:max-w-55 md:max-w-sm -rotate-2 hover:-rotate-3 transition-transform duration-300 ease-out">
-          <div class="relative aspect-3/4 border-[6px] border-white shadow-2xl hover:scale-[1.02] transition-transform duration-300 ease-out overflow-hidden">
+        <div class="relative w-full max-w-56 sm:max-w-55 md:max-w-sm">
+          <img ngSrc="images/elementi botanici/giglio1.png" width="300" height="300" alt="" class="absolute -top-18 -right-22 w-44 sm:-top-24 sm:-right-32 sm:w-80 md:-top-40 md:-right-48 md:w-96 rotate-30 pointer-events-none select-none" />
+          <div class="relative z-10 aspect-3/4 border-[6px] border-white shadow-2xl hover:scale-[1.02] transition-transform duration-300 ease-out overflow-hidden">
             <span class="absolute top-3 right-3 w-7 h-7 border-t-2 border-r-2 border-moss rounded-tr-md pointer-events-none z-20"></span>
             <img [ngSrc]="cover.main.src" [style.transform]="'scale(' + cover.main.scale + ')'" fill priority alt="Silvia" class="object-cover" />
           </div>
