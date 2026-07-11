@@ -40,6 +40,8 @@ export class Eventi {
 
   private readonly seats = signal<Record<number, number>>({});
   protected readonly currentIndex = signal(0);
+  protected readonly showSwipeHint = signal(true);
+  protected readonly showBookingSection = signal(false);
   protected readonly submitting = signal(false);
   protected readonly bookingSuccess = signal(false);
   protected readonly errorMessage = signal<string | null>(null);
@@ -145,6 +147,7 @@ export class Eventi {
   }
 
   onSliderScroll(event: Event): void {
+    this.showSwipeHint.set(false);
     const el = event.target as HTMLDivElement;
     const width = el.getBoundingClientRect().width;
     if (width > 0) {
@@ -161,7 +164,8 @@ export class Eventi {
 
   selectEventAndScroll(eventId: number): void {
     this.form.controls.eventId.setValue(eventId);
-    this.bookingSectionRef?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    this.showBookingSection.set(true);
+    setTimeout(() => this.bookingSectionRef?.nativeElement.scrollIntoView({ behavior: 'smooth' }));
   }
 
   async onSubmit(): Promise<void> {

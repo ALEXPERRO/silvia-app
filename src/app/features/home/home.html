@@ -1,31 +1,36 @@
-<section class="bg-parchment pt-36 pb-12 px-4">
-  <div class="max-w-2xl mx-auto text-center">
-    <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 text-center">About me</h1>
-    <p class="text-center text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body">
-      Silvia Sgaramella è un'illustratrice che dipinge acquerelli ispirati alla natura: elementi botanici, marini e animali raccontati con il tratto di Blooming Wild ART.
-    </p>
+<section class="bg-parchment pt-16 sm:pt-20 pb-8 sm:pb-16 px-4">
+  <div class="max-w-3xl md:max-w-5xl mx-auto text-center">
+    <h1 class="text-3xl sm:text-4xl md:text-6xl text-gray-900 font-title mb-1 sm:mb-4 text-center">About me</h1>
+    <div class="text-center text-gray-600 max-w-2xl md:max-w-4xl mx-auto text-xs sm:text-sm md:text-base font-body space-y-2 sm:space-y-3">
+      <p>Fin da bambina ho sempre guardato il mondo naturale con gli occhi della meraviglia, convinta che dietro ogni foglia si nascondesse una storia e dentro ogni tana un piccolo segreto. Oggi uso i miei acquerelli per rivelare quel pizzico di magia che troppo spesso dimentichiamo di cercare.</p>
+      <p>Dipingo piante, fiori e animali creando composizioni animate da una delicata magia.</p>
+      <p>Quando non ho un pennello in mano, probabilmente mi troverai a passeggiare nella natura in cerca di ispirazione, o raggomitolata sul divano con una tazza fumante e un libro.</p>
+      <p>Se anche voi avete bisogno della vostra dose quotidiana di incanto siete nel posto giusto.</p>
+    </div>
   </div>
 </section>
 
-<header class="relative bg-blush bg-bloom flex items-center px-4 py-16 md:py-24">
-  <img ngSrc="images/composizioni/coniglio.png" width="200" height="200" alt="" class="hidden lg:block absolute top-24 left-[4%] w-20 h-20 object-cover rounded border-4 border-white shadow-lg -rotate-6 pointer-events-none" />
-  <img ngSrc="images/composizioni/tigre e fiori.png" width="283" height="200" alt="" class="hidden lg:block absolute top-4 right-[1.5%] w-16 h-16 object-cover rounded border-4 border-white shadow-lg rotate-6 pointer-events-none" />
-  <img ngSrc="images/composizioni/maggio.png" width="200" height="250" alt="" class="hidden lg:block absolute bottom-28 left-[8%] w-16 h-16 object-cover rounded border-4 border-white shadow-lg rotate-3 pointer-events-none" />
-  <img ngSrc="images/composizioni/topo.png" width="200" height="200" alt="" class="hidden lg:block absolute bottom-12 right-[10%] w-16 h-16 object-cover rounded border-4 border-white shadow-lg -rotate-4 pointer-events-none" />
-
+<header class="relative bg-blush flex items-center px-4 py-5 sm:py-16 md:py-24 mt-4 sm:mt-10">
   <div class="relative w-full max-w-5xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] gap-8 md:gap-16 items-center">
-      <div class="flex justify-center md:justify-start order-2 md:order-1">
-        <img [ngSrc]="cover.logo.src" width="1447" height="899" alt="Blooming Wild ART" class="w-40 sm:w-56 md:w-72" />
+    <img ngSrc="images/composizioni/coniglio.png" width="200" height="200" alt="" class="hidden lg:block absolute -top-20 left-[-50%] w-72 h-72 object-contain drop-shadow-lg animate-hop pointer-events-none" style="--base-rotate: -6deg; --float-duration: 6.5s; --float-delay: 0s" />
+    <img ngSrc="images/animali/rana.png" width="200" height="283" alt="" class="hidden lg:block absolute -top-10 right-[-45%] w-64 h-80 object-contain drop-shadow-lg animate-leap pointer-events-none" style="--base-rotate: 6deg; --float-duration: 7.5s; --float-delay: 1.5s" />
+    <img ngSrc="images/composizioni/barbagianni e luna.png" width="200" height="273" alt="" class="hidden lg:block absolute -bottom-35 left-[-40%] w-72 h-96 object-contain drop-shadow-lg animate-glide pointer-events-none" style="--base-rotate: -3deg; --float-duration: 5.5s; --float-delay: 3s" />
+    <img ngSrc="images/animali/manta.png" width="200" height="141" alt="" class="hidden lg:block absolute -top-15 left-[8%] w-56 h-40 object-contain drop-shadow-lg animate-wave pointer-events-none" style="--base-rotate: -3deg; --float-duration: 6.8s; --float-delay: 2.2s" />
+    <img ngSrc="images/animali/polipo.png" width="200" height="283" alt="" class="hidden lg:block absolute -bottom-25 left-[33%] w-44 h-60 object-contain drop-shadow-lg animate-undulate pointer-events-none" style="--base-rotate: 4deg; --float-duration: 6.2s; --float-delay: 4s" />
+    <img ngSrc="images/animali/granchio.png" width="200" height="119" alt="" class="hidden lg:block absolute -top-25 right-[25%] w-40 h-24 object-contain drop-shadow-lg animate-scuttle pointer-events-none" style="--base-rotate: -5deg; --float-duration: 6s; --float-delay: 1s" />
+    <img ngSrc="images/animali/cerbiatto1.png" width="200" height="283" alt="" class="hidden lg:block absolute -bottom-55 right-[-65%] w-68 h-84 object-contain drop-shadow-lg animate-rock pointer-events-none" style="--base-rotate: 5deg; --float-duration: 6.6s; --float-delay: 2.6s" />
+    <img ngSrc="images/composizioni/topo.png" width="200" height="200" alt="" class="hidden lg:block absolute top-90 right-[-8%] w-36 h-36 object-contain drop-shadow-lg animate-jitter pointer-events-none" style="--base-rotate: -4deg; --float-duration: 7s; --float-delay: 0.8s" />
+    <div class="grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] gap-3 sm:gap-8 md:gap-16 items-center">
+      <div class="flex justify-center order-2 md:order-1">
+        <img [ngSrc]="cover.logo.src" width="1447" height="899" alt="Blooming Wild ART" class="w-36 sm:w-40 md:w-80 lg:w-lg" />
       </div>
 
-      <div class="order-1 md:order-2 flex justify-center md:justify-end">
-        <div class="w-full max-w-55 sm:max-w-xs">
-          <div class="relative aspect-3/4 border-[6px] border-white shadow-2xl -rotate-2 hover:-rotate-3 hover:scale-[1.02] transition-transform duration-300 ease-out overflow-hidden">
+      <div class="order-1 md:order-2 flex justify-center">
+        <div class="w-full max-w-56 sm:max-w-55 md:max-w-sm -rotate-2 hover:-rotate-3 transition-transform duration-300 ease-out">
+          <div class="relative aspect-3/4 border-[6px] border-white shadow-2xl hover:scale-[1.02] transition-transform duration-300 ease-out overflow-hidden">
             <span class="absolute top-3 right-3 w-7 h-7 border-t-2 border-r-2 border-moss rounded-tr-md pointer-events-none z-20"></span>
             <img [ngSrc]="cover.main.src" [style.transform]="'scale(' + cover.main.scale + ')'" fill priority alt="Silvia" class="object-cover" />
           </div>
-          <p class="text-center font-body text-[10px] tracking-[0.15em] uppercase text-gray-600 mt-3">Silvia, nel suo studio</p>
         </div>
       </div>
     </div>

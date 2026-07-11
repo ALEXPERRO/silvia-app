@@ -1,22 +1,22 @@
-<section class="bg-parchment pt-36 pb-12 px-4">
+<section class="bg-parchment pt-20 pb-16 px-4">
   <div class="max-w-2xl mx-auto text-center">
     <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 tracking-wide text-center">
       I Nostri Prossimi Eventi
     </h1>
     <p class="text-center text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body">
-      Laboratori ed eventi di pittura organizzati da Silvia: scopri le prossime date e prenota il tuo posto.
+      Vieni a dipingere con me e riscopri la magia della natura attraverso l'acquerello. Scopri i prossimi workshop in programma e coltiva la tua creatività in un'atmosfera calda e rilassante.
     </p>
   </div>
 </section>
 
 <!-- SEZIONE EVENTI SLIDER -->
-<section class="bg-blush bg-bloom min-h-screen py-16 px-4 relative flex flex-col items-center justify-center">
+<section class="bg-blush min-h-[70vh] py-10 px-4 relative flex flex-col items-center justify-center">
   <!-- CONTENITORE PRINCIPALE CON FRECCE ESTERNE -->
-  <div class="relative w-full max-w-5xl flex items-center justify-center px-2 md:px-12">
+  <div class="relative w-full max-w-5xl flex items-center justify-center md:px-12 -translate-y-6 md:translate-y-0">
     <button
       type="button"
       (click)="scrollToPrev()"
-      class="absolute left-0 md:-left-4 z-30 bg-white text-gray-700 w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center shadow-md hover:bg-gray-50 hover:border-plum active:scale-95 transition-all select-none"
+      class="hidden md:flex absolute md:-left-4 z-30 bg-white text-gray-700 w-12 h-12 rounded-full border border-gray-200 items-center justify-center shadow-md hover:bg-gray-50 hover:border-plum active:scale-95 transition-all select-none"
     >
       <app-icon name="chevron-left" [size]="20" />
     </button>
@@ -70,36 +70,49 @@
               </button>
             </div>
           </div>
-          <div class="md:w-1/2 min-h-65 md:min-h-full bg-gray-50">
+          <div class="hidden md:block md:w-1/2 md:min-h-full bg-gray-50">
             <iframe [src]="trustedMapUrl(ev.mapEmbedUrl)" width="100%" height="100%" style="border:0" allowfullscreen loading="lazy" class="w-full h-full object-cover min-h-70"></iframe>
           </div>
         </div>
       }
     </div>
 
+    @if (showSwipeHint()) {
+      <div class="md:hidden absolute inset-0 flex items-center justify-center pointer-events-none z-30 transition-opacity duration-500">
+        <div class="bg-gray-900/70 text-white rounded-full p-3 shadow-lg animate-swipe-hint">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none" />
+            <path d="M4 9c1.8 1.2 1.8 4.8 0 6" />
+            <path d="M20 9c-1.8 1.2-1.8 4.8 0 6" />
+          </svg>
+        </div>
+      </div>
+    }
+
     <button
       type="button"
       (click)="scrollToNext()"
-      class="absolute right-0 md:-right-4 z-30 bg-white text-gray-700 w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center shadow-md hover:bg-gray-50 hover:border-plum active:scale-95 transition-all select-none"
+      class="hidden md:flex absolute md:-right-4 z-30 bg-white text-gray-700 w-12 h-12 rounded-full border border-gray-200 items-center justify-center shadow-md hover:bg-gray-50 hover:border-plum active:scale-95 transition-all select-none"
     >
       <app-icon name="chevron-right" [size]="20" />
     </button>
-  </div>
 
-  <div class="flex items-center justify-center gap-2 mt-4">
-    @for (ev of eventsWithSeats(); track ev.id; let i = $index) {
-      <button
-        type="button"
-        (click)="goToSlide(i)"
-        [attr.aria-label]="'Vai a ' + ev.title"
-        class="w-2.5 h-2.5 rounded-full transition-colors"
-        [class.bg-moss]="i === currentIndex()"
-        [class.bg-gray-200]="i !== currentIndex()"
-      ></button>
-    }
+    <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center gap-2">
+      @for (ev of eventsWithSeats(); track ev.id; let i = $index) {
+        <button
+          type="button"
+          (click)="goToSlide(i)"
+          [attr.aria-label]="'Vai a ' + ev.title"
+          class="w-2.5 h-2.5 rounded-full transition-colors"
+          [class.bg-moss]="i === currentIndex()"
+          [class.bg-gray-200]="i !== currentIndex()"
+        ></button>
+      }
+    </div>
   </div>
 </section>
 
+@if (showBookingSection()) {
 <!-- Separatore -->
 <div class="bg-parchment py-10 flex items-center justify-center">
   <div class="flex items-center gap-3 w-2/3 max-w-xs">
@@ -110,7 +123,7 @@
 </div>
 
 <!-- SEZIONE PRENOTAZIONE / FORM -->
-<section #bookingSection class="bg-parchment min-h-screen py-24 px-4 relative flex flex-col items-center justify-center">
+<section #bookingSection class="bg-parchment pb-10 px-4 relative flex flex-col items-center justify-center scroll-mt-20">
   <div class="max-w-2xl w-full bg-white rounded shadow-xl p-6 md:p-10 z-10 border border-gray-200">
     <div class="flex flex-col items-center mb-8 text-center">
       <h2 class="text-3xl md:text-5xl font-title font-medium text-gray-900 tracking-wide">Prenota il tuo posto</h2>
@@ -262,3 +275,4 @@
     }
   </div>
 </section>
+}

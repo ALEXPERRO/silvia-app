@@ -13,7 +13,8 @@ export type IconName =
   | 'chevron-right'
   | 'chevron-down'
   | 'leaf'
-  | 'instagram';
+  | 'instagram'
+  | 'tiktok';
 
 @Component({
   selector: 'app-icon',

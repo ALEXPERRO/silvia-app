@@ -1,32 +1,32 @@
-<section class="bg-parchment pt-36 pb-20 px-4">
-  <div class="max-w-6xl mx-auto">
+<section class="bg-parchment pt-20 pb-16 px-4">
+  <div class="max-w-2xl mx-auto text-center">
     <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 text-center">Portfolio</h1>
-    <p class="text-center text-gray-600 max-w-xl mx-auto mb-12 text-sm md:text-base font-body">
-      Una selezione delle illustrazioni e composizioni di Silvia: dalle opere finite ai singoli elementi botanici, marini e animali.
+    <p class="text-center text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body">
+      Un viaggio visivo tra flora, fauna e atmosfere fiabesche. Esplora la mia raccolta di illustrazioni ad acquerello e lasciati trasportare nel mio piccolo mondo incantato.
     </p>
-
-    <!-- Filtri categoria -->
-    <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 font-body text-xs md:text-sm tracking-widest uppercase">
-      @for (cat of categories; track cat.value) {
-        <button
-          type="button"
-          (click)="setCategory(cat.value)"
-          class="pb-1 border-b-2 transition-colors hover:text-moss-hover"
-          [class.text-moss]="activeCategory() === cat.value"
-          [class.border-moss]="activeCategory() === cat.value"
-          [class.text-gray-600]="activeCategory() !== cat.value"
-          [class.border-transparent]="activeCategory() !== cat.value"
-        >
-          {{ cat.label }}
-        </button>
-      }
-    </div>
   </div>
 </section>
 
 <!-- Separatore -->
-<div class="bg-blush py-10 flex items-center justify-center">
-  <div class="flex items-center gap-3 w-2/3 max-w-xs">
+<div class="bg-blush py-10 px-4 flex flex-col items-center justify-center gap-6">
+  <!-- Filtri categoria -->
+  <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 font-body text-xs md:text-sm tracking-widest uppercase bg-white rounded shadow-sm border border-gray-200 py-4 px-6">
+    @for (cat of categories; track cat.value) {
+      <button
+        type="button"
+        (click)="setCategory(cat.value)"
+        class="pb-1 border-b-2 transition-colors hover:text-moss-hover"
+        [class.text-moss]="activeCategory() === cat.value"
+        [class.border-moss]="activeCategory() === cat.value"
+        [class.text-gray-600]="activeCategory() !== cat.value"
+        [class.border-transparent]="activeCategory() !== cat.value"
+      >
+        {{ cat.label }}
+      </button>
+    }
+  </div>
+
+  <div class="flex items-center gap-3 w-2/3 max-w-xs mt-3">
     <span class="flex-1 h-px bg-gray-200"></span>
     <span class="w-1.5 h-1.5 rounded-full bg-bark"></span>
     <span class="flex-1 h-px bg-gray-200"></span>
@@ -37,7 +37,7 @@
   <div class="max-w-6xl mx-auto">
     <!-- Griglia -->
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
-      @for (item of filteredItems(); track item.src) {
+      @for (item of pagedItems(); track item.src) {
         <button
           type="button"
           (click)="openLightbox(item)"
@@ -63,6 +63,45 @@
         <p class="col-span-full text-center text-gray-600 py-12 font-body">Nessuna illustrazione in questa categoria.</p>
       }
     </div>
+
+    @if (totalPages() > 1) {
+      <div class="flex items-center justify-center gap-2 mt-12">
+        <button
+          type="button"
+          (click)="prevPage()"
+          [disabled]="currentPage() === 0"
+          class="w-9 h-9 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 hover:bg-gray-50 hover:border-plum disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          aria-label="Pagina precedente"
+        >
+          <app-icon name="chevron-left" [size]="16" />
+        </button>
+
+        @for (page of pageNumbers(); track page) {
+          <button
+            type="button"
+            (click)="goToPage(page)"
+            [attr.aria-label]="'Vai a pagina ' + (page + 1)"
+            class="w-9 h-9 rounded-full text-xs font-semibold tracking-wide transition-colors"
+            [class.bg-moss]="page === currentPage()"
+            [class.text-white]="page === currentPage()"
+            [class.text-gray-600]="page !== currentPage()"
+            [class.hover:bg-gray-100]="page !== currentPage()"
+          >
+            {{ page + 1 }}
+          </button>
+        }
+
+        <button
+          type="button"
+          (click)="nextPage()"
+          [disabled]="currentPage() === totalPages() - 1"
+          class="w-9 h-9 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 hover:bg-gray-50 hover:border-plum disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          aria-label="Pagina successiva"
+        >
+          <app-icon name="chevron-right" [size]="16" />
+        </button>
+      </div>
+    }
   </div>
 </section>
 
