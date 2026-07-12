@@ -148,6 +148,7 @@ export class ContentService {
 
   readonly galleryCategories: GalleryCategoryOption[] = [
     { value: 'tutte', label: 'Tutte' },
+    { value: 'composizioni', label: 'Composizioni' },
     { value: 'animali', label: 'Animali' },
     { value: 'elementi-botanici', label: 'Elementi Botanici' },
     { value: 'insetti', label: 'Insetti' },
@@ -165,7 +166,7 @@ export class ContentService {
           src: `images/${folder}/${relativePath}`,
           title: titleFromFileName(fileName),
           category,
-          featured: false,
+          featured: category === 'composizioni',
         });
       });
     });

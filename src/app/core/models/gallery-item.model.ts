@@ -1,4 +1,5 @@
 export type GalleryCategory =
+  | 'composizioni'
   | 'animali'
   | 'elementi-botanici'
   | 'insetti';

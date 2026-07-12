@@ -5,6 +5,30 @@ import { GalleryCategory } from '../models/gallery-item.model';
  * sorgente. Usato da ContentService per costruire la galleria Portfolio.
  */
 export const PORTFOLIO_RAW_FILES: Record<GalleryCategory, { folder: string; files: string[] }> = {
+  composizioni: {
+    folder: 'composizioni',
+    files: [
+      'tigre e fiori.png',
+      'autumn killed.jpg',
+      'lovebirds.jpg',
+      'primavera.jpg',
+      'Aprile.png',
+      'coniglio.png',
+      'topo.png',
+      'testamorto.jpg',
+      'barbagianni1.png',
+      'maggio.png',
+      'barbagianni.jpg',
+      'giugno.png',
+      'barbagianni e luna.png',
+      'volpe_piante.png',
+      'volpe autunnale.png',
+      'corvo e ciliegie.jpg',
+      'farfalla e gigli.png',
+      'cfarfalla e gigli comp.jpg',
+      'balene e alghe.png',
+    ],
+  },
   animali: {
     folder: 'animali',
     files: [
