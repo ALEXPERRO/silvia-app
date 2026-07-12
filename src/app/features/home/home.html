@@ -10,19 +10,18 @@
   </div>
 </section>
 
-<header class="relative bg-blush flex items-center px-4 py-5 sm:py-16 md:py-24 mt-4 sm:mt-10 overflow-x-clip">
+<header class="relative bg-blush flex items-center px-4 pt-5 pb-18 sm:py-16 md:py-24 mt-4 sm:mt-10 overflow-x-clip">
   <div class="relative w-full max-w-5xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] gap-3 sm:gap-8 md:gap-16 items-center">
       <div class="relative flex justify-center order-2 md:order-1">
-        <img ngSrc="images/animali/volpe2.png" width="176" height="250" alt="" class="absolute -bottom-14 -left-2 w-24 sm:w-28 md:-bottom-24 md:-left-6 md:w-40 -scale-x-100 pointer-events-none select-none" />
-        <img [ngSrc]="cover.logo.src" width="1447" height="899" alt="Blooming Wild ART" class="w-36 sm:w-40 md:w-80 lg:w-lg" />
+        <img ngSrc="images/composizioni/volpe_piante.png" width="250" height="250" alt="" class="absolute -bottom-20 -left-2 w-44 sm:w-96 sm:-left-24 sm:-bottom-52 md:-bottom-72 md:-left-70 md:w-lg -scale-x-100 rotate-2 pointer-events-none select-none" />
+        <img [ngSrc]="cover.logo.src" width="1447" height="899" alt="Blooming Wild ART" class="relative z-10 w-36 sm:w-40 md:w-80 lg:w-lg" />
       </div>
 
       <div class="order-1 md:order-2 flex justify-center">
         <div class="relative w-full max-w-56 sm:max-w-55 md:max-w-sm">
           <img ngSrc="images/elementi botanici/giglio1.png" width="300" height="300" alt="" class="absolute -top-18 -right-22 w-44 sm:-top-24 sm:-right-32 sm:w-80 md:-top-40 md:-right-48 md:w-96 rotate-30 pointer-events-none select-none" />
           <div class="relative z-10 aspect-3/4 border-[6px] border-white shadow-2xl hover:scale-[1.02] transition-transform duration-300 ease-out overflow-hidden">
-            <span class="absolute top-3 right-3 w-7 h-7 border-t-2 border-r-2 border-moss rounded-tr-md pointer-events-none z-20"></span>
             <img [ngSrc]="cover.main.src" [style.transform]="'scale(' + cover.main.scale + ')'" fill priority alt="Silvia" class="object-cover" />
           </div>
         </div>
@@ -30,3 +29,66 @@
     </div>
   </div>
 </header>
+
+<!-- ANTEPRIMA PORTFOLIO -->
+<section class="bg-parchment py-14 sm:py-20 px-4">
+  <div class="max-w-5xl mx-auto text-center">
+    <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">Dal Portfolio</h2>
+    <p class="text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body mb-10">
+      Un assaggio del mio piccolo mondo ad acquerello.
+    </p>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10">
+      @for (src of portfolioPreview; track src) {
+        <div class="relative aspect-square bg-white border border-gray-200 shadow-sm overflow-hidden">
+          <img [ngSrc]="src" fill loading="lazy" alt="" class="object-contain p-4" (contextmenu)="$event.preventDefault()" draggable="false" />
+        </div>
+      }
+    </div>
+
+    <a routerLink="/portfolio" class="inline-flex items-center gap-1.5 bg-moss text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-moss-hover transition-colors uppercase">
+      Scopri il portfolio <app-icon name="chevron-right" [size]="14" />
+    </a>
+  </div>
+</section>
+
+<!-- PROSSIMO EVENTO -->
+<section class="bg-blush py-14 sm:py-20 px-4">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">Prossimo Workshop</h2>
+    <p class="text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body mb-10">
+      Vieni a dipingere con me: posti limitati, meraviglia garantita.
+    </p>
+
+    <div class="relative bg-white rounded shadow-lg border border-gray-200 p-6 md:p-10 text-left">
+      <h3 class="text-2xl md:text-3xl font-title font-medium text-gray-900 mb-4 tracking-wide">{{ nextEvent.title }}</h3>
+      <div class="space-y-2 mb-6 text-xs md:text-sm text-gray-600 font-medium border-l-2 border-gray-200 pl-4">
+        <p class="flex items-center gap-2"><app-icon name="calendar" [size]="15" /> <span>{{ nextEvent.date }}</span> • <span>{{ nextEvent.time }}</span></p>
+        <p class="flex items-center gap-2"><app-icon name="map-pin" [size]="15" /> <span>{{ nextEvent.location }}</span>, <span>{{ nextEvent.address }}</span></p>
+      </div>
+      <a routerLink="/eventi" class="inline-flex items-center gap-1.5 bg-moss text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-moss-hover transition-colors uppercase">
+        <app-icon name="ticket" [size]="14" /> Scopri e prenota
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SHOP -->
+<section class="bg-parchment py-14 sm:py-20 px-4">
+  <div class="max-w-5xl mx-auto">
+    <div class="relative bg-plum text-white rounded p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+      <div class="text-center md:text-left">
+        <p class="font-title italic text-2xl md:text-3xl tracking-wide mb-1">Porta la magia a casa tua</p>
+        <p class="text-plum-soft text-sm">Stampe, sticker e segnalibri illustrati ti aspettano sullo shop Etsy.</p>
+      </div>
+      <a
+        [href]="shopUrl"
+        target="_blank"
+        rel="noopener"
+        class="bg-white text-plum font-semibold text-xs tracking-widest uppercase px-6 py-4 rounded hover:bg-plum-soft hover:text-plum-hover transition-colors whitespace-nowrap"
+      >
+        Vai al negozio Etsy →
+      </a>
+    </div>
+  </div>
+</section>
