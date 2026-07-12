@@ -86,13 +86,8 @@ export class Eventi {
   protected readonly step2Complete = computed(() => {
     this.formStatus();
     const c = this.form.controls;
-    return this.isPrivato() ? c.cf.valid : c.companyName.valid && c.companyPiva.valid && c.companySdi.valid;
-  });
-
-  protected readonly step3Complete = computed(() => {
-    this.formStatus();
-    const c = this.form.controls;
-    return c.address.valid && c.cap.valid && c.city.valid;
+    const billingValid = this.isPrivato() ? c.cf.valid : c.companyName.valid && c.companyPiva.valid && c.companySdi.valid;
+    return billingValid && c.address.valid && c.cap.valid && c.city.valid;
   });
 
   protected readonly selectedEvent = computed(() => {
@@ -173,6 +168,7 @@ export class Eventi {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.errorMessage.set('Controlla i campi evidenziati in rosso: alcuni dati mancano o non sono validi.');
       return;
     }
 

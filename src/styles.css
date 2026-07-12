@@ -48,118 +48,19 @@ body {
   color: var(--color-gray-900);
 }
 
+/* Validazione form: evidenzia i campi non validi dopo che l'utente li ha toccati
+   (o dopo un tentativo di invio, che li marca tutti come touched) */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: var(--color-red-500);
+}
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* Fase 1 — macchie acquerello sobrie per le sezioni vetrina (Home, Eventi, Shop) */
-.bg-bloom {
-  background-image:
-    radial-gradient(circle at 15% 10%, rgb(92 107 51 / 0.10), transparent 40%),
-    radial-gradient(circle at 85% 90%, rgb(110 79 107 / 0.12), transparent 40%);
-}
-
-/* Coniglio — doppio balzo con una pausa a terra tra un salto e l'altro */
-@keyframes hop-float {
-  0%, 45%, 100% { transform: translateY(0) rotate(var(--base-rotate, 0deg)); }
-  20% { transform: translateY(-18px) rotate(calc(var(--base-rotate, 0deg) - 3deg)); }
-  70% { transform: translateY(-10px) rotate(calc(var(--base-rotate, 0deg) + 2deg)); }
-  85% { transform: translateY(0) rotate(var(--base-rotate, 0deg)); }
-}
-
-/* Rana — schiacciamento in anticipazione poi balzo alto (squash & stretch) */
-@keyframes leap-float {
-  0%, 100% { transform: translateY(0) scale(1, 1) rotate(var(--base-rotate, 0deg)); }
-  8% { transform: translateY(2px) scale(1.05, 0.92) rotate(var(--base-rotate, 0deg)); }
-  25% { transform: translateY(-22px) scale(0.95, 1.05) rotate(calc(var(--base-rotate, 0deg) + 4deg)); }
-  45% { transform: translateY(0) scale(1, 1) rotate(var(--base-rotate, 0deg)); }
-}
-
-/* Barbagianni — planata: oscillazione laterale ampia con leggera inclinazione */
-@keyframes glide-float {
-  0%, 100% { transform: translate(0, 0) rotate(var(--base-rotate, 0deg)); }
-  25% { transform: translate(6px, -10px) rotate(calc(var(--base-rotate, 0deg) + 4deg)); }
-  50% { transform: translate(0, -4px) rotate(var(--base-rotate, 0deg)); }
-  75% { transform: translate(-6px, -10px) rotate(calc(var(--base-rotate, 0deg) - 4deg)); }
-}
-
-/* Manta — ondulazione ampia e fluida */
-@keyframes wave-float {
-  0%, 100% { transform: translate(0, 0) rotate(var(--base-rotate, 0deg)); }
-  25% { transform: translate(10px, -12px) rotate(calc(var(--base-rotate, 0deg) + 3deg)); }
-  50% { transform: translate(0, -18px) rotate(var(--base-rotate, 0deg)); }
-  75% { transform: translate(-10px, -12px) rotate(calc(var(--base-rotate, 0deg) - 3deg)); }
-}
-
-/* Polipo — respiro morbido, leggero schiacciamento/stiramento verticale */
-@keyframes undulate-float {
-  0%, 100% { transform: translateY(0) scale(1) rotate(var(--base-rotate, 0deg)); }
-  50% { transform: translateY(-10px) scale(1.04, 0.96) rotate(calc(var(--base-rotate, 0deg) + 2deg)); }
-}
-
-/* Granchio — spostamento laterale a scatti, quasi nessun movimento verticale */
-@keyframes scuttle-float {
-  0%, 100% { transform: translateX(0) rotate(var(--base-rotate, 0deg)); }
-  25% { transform: translateX(8px) rotate(calc(var(--base-rotate, 0deg) + 3deg)); }
-  50% { transform: translateX(0) rotate(var(--base-rotate, 0deg)); }
-  75% { transform: translateX(-8px) rotate(calc(var(--base-rotate, 0deg) - 3deg)); }
-}
-
-/* Cerbiatto — dondolio delicato, quasi solo rotazione */
-@keyframes rock-float {
-  0%, 100% { transform: translateY(0) rotate(calc(var(--base-rotate, 0deg) - 3deg)); }
-  50% { transform: translateY(-6px) rotate(calc(var(--base-rotate, 0deg) + 3deg)); }
-}
-
-/* Topo — tremolio nervoso a scatti piccoli e frequenti */
-@keyframes jitter-float {
-  0%, 60%, 100% { transform: translate(0, 0) rotate(var(--base-rotate, 0deg)); }
-  10% { transform: translate(1px, -1px) rotate(calc(var(--base-rotate, 0deg) + 1deg)); }
-  20% { transform: translate(-1px, 1px) rotate(calc(var(--base-rotate, 0deg) - 1deg)); }
-  30% { transform: translate(1px, 0) rotate(var(--base-rotate, 0deg)); }
-  40% { transform: translate(0, -2px) rotate(calc(var(--base-rotate, 0deg) + 1deg)); }
-  50% { transform: translate(-1px, 1px) rotate(var(--base-rotate, 0deg)); }
-}
-
-.animate-hop,
-.animate-leap,
-.animate-glide,
-.animate-wave,
-.animate-undulate,
-.animate-scuttle,
-.animate-rock,
-.animate-jitter {
-  animation-duration: var(--float-duration, 6s);
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-delay: var(--float-delay, 0s);
-}
-
-.animate-hop { animation-name: hop-float; }
-.animate-leap { animation-name: leap-float; }
-.animate-glide { animation-name: glide-float; }
-.animate-wave { animation-name: wave-float; }
-.animate-undulate { animation-name: undulate-float; }
-.animate-scuttle { animation-name: scuttle-float; }
-.animate-rock { animation-name: rock-float; }
-.animate-jitter { animation-name: jitter-float; }
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-hop,
-  .animate-leap,
-  .animate-glide,
-  .animate-wave,
-  .animate-undulate,
-  .animate-scuttle,
-  .animate-rock,
-  .animate-jitter {
-    animation: none;
-    transform: rotate(var(--base-rotate, 0deg));
-  }
 }
 
 /* Indizio di swipe sulle card eventi (mobile) — suggerisce lo scorrimento laterale */
@@ -210,7 +111,7 @@ body {
   left: 0;
   width: 0;
   height: 1px;
-  background-color: var(--color-moss);
+  background-color: var(--color-plum);
   transition: width 0.2s ease;
 }
 

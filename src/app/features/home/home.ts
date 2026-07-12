@@ -18,9 +18,9 @@ export class Home {
   protected readonly shopUrl = this.content.shopUrl;
   protected readonly nextEvent = this.content.events[0];
   protected readonly portfolioPreview = [
-    'images/animali/volpe1.png',
-    'images/animali/kingfisher.png',
-    'images/elementi botanici/giglio2.png',
-    'images/insetti/farfalle colorate/farfalla colorata1.png',
+    'images/animali/volpe1.webp',
+    'images/animali/kingfisher.webp',
+    'images/elementi botanici/giglio2.webp',
+    'images/insetti/farfalle colorate/farfalla colorata1.webp',
   ];
 }

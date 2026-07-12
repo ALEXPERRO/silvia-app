@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# NOTA: sostituire con il dominio reale quando disponibile
+Sitemap: https://bloomingwildart.com/sitemap.xml

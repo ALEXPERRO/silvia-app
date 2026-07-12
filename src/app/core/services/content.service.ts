@@ -13,8 +13,8 @@ export interface CoverImage {
 @Injectable({ providedIn: 'root' })
 export class ContentService {
   readonly cover = {
-    main: { src: 'images/about_me/silvia.jpeg', scale: 1 } satisfies CoverImage,
-    logo: { src: 'images/logo/title-plum.png', scale: 1 } satisfies CoverImage,
+    main: { src: 'images/about_me/silvia.webp', scale: 1 } satisfies CoverImage,
+    logo: { src: 'images/logo/title-plum.webp', scale: 1 } satisfies CoverImage,
   };
 
   readonly footer = {
@@ -117,7 +117,7 @@ export class ContentService {
       title: 'Stampa Lovebirds',
       description: 'Stampa fine-art in edizione limitata, illustrazione originale ad acquerello.',
       price: '€ 18,00',
-      image: 'images/animali/bird1.png',
+      image: 'images/animali/bird1.webp',
       etsyUrl: 'https://www.etsy.com/shop/BloomingWildArt',
     },
     {
@@ -125,7 +125,7 @@ export class ContentService {
       title: 'Set Cartoline Botaniche',
       description: 'Set di 6 cartoline con illustrazioni botaniche originali, carta 350gr.',
       price: '€ 12,00',
-      image: 'images/elementi botanici/fiore.png',
+      image: 'images/elementi botanici/fiore.webp',
       etsyUrl: 'https://www.etsy.com/shop/BloomingWildArt',
     },
     {
@@ -133,7 +133,7 @@ export class ContentService {
       title: 'Stampa Barbagianni e Luna',
       description: "Illustrazione notturna in edizione numerata, formato A4.",
       price: '€ 22,00',
-      image: 'images/animali/barbagianni.png',
+      image: 'images/animali/barbagianni.webp',
       etsyUrl: 'https://www.etsy.com/shop/BloomingWildArt',
     },
     {
@@ -141,7 +141,7 @@ export class ContentService {
       title: 'Adesivi Elementi Botanici',
       description: 'Foglio di adesivi vinilici resistenti all\'acqua con i soggetti botanici più amati.',
       price: '€ 6,50',
-      image: 'images/elementi botanici/giglio1.png',
+      image: 'images/elementi botanici/giglio1.webp',
       etsyUrl: 'https://www.etsy.com/shop/BloomingWildArt',
     },
   ];

@@ -103,7 +103,7 @@
           (click)="goToSlide(i)"
           [attr.aria-label]="'Vai a ' + ev.title"
           class="w-2.5 h-2.5 rounded-full transition-colors"
-          [class.bg-moss]="i === currentIndex()"
+          [class.bg-plum]="i === currentIndex()"
           [class.bg-gray-200]="i !== currentIndex()"
         ></button>
       }
@@ -126,55 +126,39 @@
   <div class="max-w-2xl w-full bg-white rounded shadow-xl p-6 md:p-10 z-10 border border-gray-200">
     <div class="flex flex-col items-center mb-8 text-center">
       <h2 class="text-3xl md:text-5xl font-title font-medium text-gray-900 tracking-wide">Prenota il tuo posto</h2>
-      @if (selectedEvent(); as sel) {
-        <h3 class="text-xs md:text-sm text-moss font-medium tracking-wider uppercase mt-3 bg-gray-50 border border-gray-200 py-2 px-4 rounded-full">
-          {{ sel.acceptedMessage }}
-        </h3>
-      }
     </div>
 
     @if (!bookingSuccess()) {
       <div class="flex items-center justify-center gap-2 mb-8 text-[10px] md:text-xs font-semibold tracking-widest uppercase">
-        <span class="flex items-center gap-1.5" [class.text-moss]="step1Complete()" [class.text-gray-400]="!step1Complete()">
+        <span class="flex items-center gap-1.5" [class.text-plum]="step1Complete()" [class.text-gray-400]="!step1Complete()">
           <span
             class="w-5 h-5 rounded-full border flex items-center justify-center"
-            [class.bg-moss]="step1Complete()"
-            [class.border-moss]="step1Complete()"
+            [class.bg-plum]="step1Complete()"
+            [class.border-plum]="step1Complete()"
             [class.text-white]="step1Complete()"
             [class.border-gray-300]="!step1Complete()"
           >1</span>
           Dati
         </span>
         <span class="w-6 h-px bg-gray-200"></span>
-        <span class="flex items-center gap-1.5" [class.text-moss]="step2Complete()" [class.text-gray-400]="!step2Complete()">
+        <span class="flex items-center gap-1.5" [class.text-plum]="step2Complete()" [class.text-gray-400]="!step2Complete()">
           <span
             class="w-5 h-5 rounded-full border flex items-center justify-center"
-            [class.bg-moss]="step2Complete()"
-            [class.border-moss]="step2Complete()"
+            [class.bg-plum]="step2Complete()"
+            [class.border-plum]="step2Complete()"
             [class.text-white]="step2Complete()"
             [class.border-gray-300]="!step2Complete()"
           >2</span>
           Fatturazione
         </span>
-        <span class="w-6 h-px bg-gray-200"></span>
-        <span class="flex items-center gap-1.5" [class.text-moss]="step3Complete()" [class.text-gray-400]="!step3Complete()">
-          <span
-            class="w-5 h-5 rounded-full border flex items-center justify-center"
-            [class.bg-moss]="step3Complete()"
-            [class.border-moss]="step3Complete()"
-            [class.text-white]="step3Complete()"
-            [class.border-gray-300]="!step3Complete()"
-          >3</span>
-          Indirizzo
-        </span>
       </div>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6 text-left text-sm">
-        <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2">1. Dati Partecipante e Regolamento</p>
+        <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2">1. Dati Partecipante</p>
 
         <div>
           <label for="event-select" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Seleziona l'evento *</label>
-          <select id="event-select" formControlName="eventId" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-moss focus:outline-none font-medium text-gray-800 transition-colors">
+          <select id="event-select" formControlName="eventId" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-plum focus:outline-none font-medium text-gray-800 transition-colors">
             <option [ngValue]="null" disabled>Seleziona un appuntamento...</option>
             @for (ev of eventsWithSeats(); track ev.id) {
               <option [ngValue]="ev.id" [disabled]="ev.isSoldOut">
@@ -187,29 +171,18 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label for="user-name" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Nome e Cognome *</label>
-            <input type="text" id="user-name" formControlName="name" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="Emanuela Viola">
+            <input type="text" id="user-name" formControlName="name" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="Emanuela Viola">
           </div>
           <div>
             <label for="user-email" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Email *</label>
-            <input type="email" id="user-email" formControlName="email" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="esempio@email.com">
+            <input type="email" id="user-email" formControlName="email" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="esempio@email.com">
           </div>
         </div>
-
-        @if (selectedEvent(); as sel) {
-          <div class="bg-gray-50 p-5 rounded border border-gray-200 space-y-3 text-xs text-gray-700 leading-relaxed">
-            <p class="text-gray-900 font-title italic text-sm tracking-wide">Note importanti per i partecipanti:</p>
-            <ul class="list-disc pl-5 space-y-2 font-medium">
-              @for (rule of sel.rules; track $index) {
-                <li [innerHTML]="rule"></li>
-              }
-            </ul>
-          </div>
-        }
 
         <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2 pt-4">2. Fatturazione</p>
         <div>
           <label for="billing-type" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Tipologia Account *</label>
-          <select id="billing-type" formControlName="billingType" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-moss focus:outline-none font-medium text-gray-800">
+          <select id="billing-type" formControlName="billingType" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-plum focus:outline-none font-medium text-gray-800">
             <option value="privato">Privato (Ricevuta con Codice Fiscale)</option>
             <option value="business">Azienda / Libero Professionista (Fattura con P.IVA)</option>
           </select>
@@ -218,41 +191,40 @@
         @if (isPrivato()) {
           <div>
             <label for="user-cf" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Codice Fiscale *</label>
-            <input type="text" id="user-cf" formControlName="cf" maxlength="16" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800 uppercase" placeholder="FMTLNZ90A01F205X">
+            <input type="text" id="user-cf" formControlName="cf" maxlength="16" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800 uppercase" placeholder="FMTLNZ90A01F205X">
           </div>
         } @else {
           <div class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label for="company-name" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Ragione Sociale *</label>
-                <input type="text" id="company-name" formControlName="companyName" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="Studio d'Arte S.r.l.">
+                <input type="text" id="company-name" formControlName="companyName" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="Studio d'Arte S.r.l.">
               </div>
               <div>
                 <label for="company-piva" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Partita IVA *</label>
-                <input type="text" id="company-piva" formControlName="companyPiva" maxlength="11" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="11 cifre numeriche">
+                <input type="text" id="company-piva" formControlName="companyPiva" maxlength="11" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="11 cifre numeriche">
               </div>
             </div>
             <div>
               <label for="company-sdi" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Codice Destinatario SDI *</label>
-              <input type="text" id="company-sdi" formControlName="companySdi" maxlength="7" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800 uppercase" placeholder="M5UXCR1">
+              <input type="text" id="company-sdi" formControlName="companySdi" maxlength="7" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800 uppercase" placeholder="M5UXCR1">
             </div>
           </div>
         }
 
-        <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2 pt-4">3. Indirizzo di Residenza o Sede</p>
         <div>
           <label for="billing-address" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Via e Numero Civico *</label>
-          <input type="text" id="billing-address" formControlName="address" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="Corso Umberto I, 45">
+          <input type="text" id="billing-address" formControlName="address" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="Corso Umberto I, 45">
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div>
             <label for="billing-cap" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">CAP *</label>
-            <input type="text" id="billing-cap" formControlName="cap" maxlength="5" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="74121">
+            <input type="text" id="billing-cap" formControlName="cap" maxlength="5" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="74121">
           </div>
           <div class="sm:col-span-2">
             <label for="billing-city" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Città e Provincia *</label>
-            <input type="text" id="billing-city" formControlName="city" class="w-full p-3 border border-gray-200 rounded focus:border-moss focus:outline-none font-medium text-gray-800" placeholder="Taranto (TA)">
+            <input type="text" id="billing-city" formControlName="city" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="Taranto (TA)">
           </div>
         </div>
 
@@ -269,7 +241,7 @@
     } @else {
       <div class="mt-6 bg-moss text-white text-center p-5 rounded border border-moss-hover shadow-lg font-title italic text-lg flex items-center justify-center gap-2">
         <app-icon name="sparkles" [size]="20" />
-        <span>Iscrizione salvata. Riceverai a breve una mail con la conferma e la ricevuta del tuo posto.</span>
+        <span>Iscrizione salvata! Il tuo posto è riservato: Silvia ti contatterà via email per la conferma.</span>
       </div>
     }
   </div>
