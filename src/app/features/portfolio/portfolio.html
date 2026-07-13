@@ -110,6 +110,8 @@
   <div
     class="fixed inset-0 z-60 bg-gray-900/90 flex items-center justify-center p-6"
     (click)="closeLightbox()"
+    (touchstart)="onLightboxTouchStart($event)"
+    (touchend)="onLightboxTouchEnd($event)"
   >
     <button
       type="button"
@@ -138,6 +140,18 @@
     <figure class="max-w-2xl w-full" (click)="$event.stopPropagation()">
       <div class="relative w-full aspect-square bg-white border-[6px] border-white overflow-hidden">
         <img [ngSrc]="item.src" fill [alt]="item.title" class="object-contain p-6" (contextmenu)="$event.preventDefault()" draggable="false" />
+
+        @if (showLightboxSwipeHint()) {
+          <div class="md:hidden absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+            <div class="bg-gray-900/70 text-white rounded-full p-3 shadow-lg animate-swipe-hint">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none" />
+                <path d="M4 9c1.8 1.2 1.8 4.8 0 6" />
+                <path d="M20 9c-1.8 1.2-1.8 4.8 0 6" />
+              </svg>
+            </div>
+          </div>
+        }
       </div>
       <figcaption class="text-center text-white font-body text-[11px] tracking-[0.15em] uppercase mt-4">{{ item.title }}</figcaption>
     </figure>

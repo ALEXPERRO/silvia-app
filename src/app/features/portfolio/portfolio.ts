@@ -31,7 +31,11 @@ export class Portfolio implements OnDestroy {
   protected readonly categories = this.content.galleryCategories;
   protected readonly activeCategory = signal<GalleryCategory | 'tutte'>('tutte');
   protected readonly lightboxItem = signal<GalleryItem | null>(null);
+  protected readonly showLightboxSwipeHint = signal(false);
   protected readonly currentPage = signal(0);
+
+  private touchStartX = 0;
+  private touchStartY = 0;
 
   protected readonly filteredItems = computed(() => {
     const category = this.activeCategory();
@@ -75,6 +79,7 @@ export class Portfolio implements OnDestroy {
 
   openLightbox(item: GalleryItem): void {
     this.lightboxItem.set(item);
+    this.showLightboxSwipeHint.set(true);
     this.document.body.style.overflow = 'hidden';
   }
 
@@ -95,6 +100,7 @@ export class Portfolio implements OnDestroy {
     const items = this.filteredItems();
     const idx = this.lightboxIndex();
     if (idx === -1 || items.length === 0) return;
+    this.showLightboxSwipeHint.set(false);
     this.lightboxItem.set(items[(idx + 1) % items.length]);
   }
 
@@ -102,7 +108,22 @@ export class Portfolio implements OnDestroy {
     const items = this.filteredItems();
     const idx = this.lightboxIndex();
     if (idx === -1 || items.length === 0) return;
+    this.showLightboxSwipeHint.set(false);
     this.lightboxItem.set(items[(idx - 1 + items.length) % items.length]);
+  }
+
+  onLightboxTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.changedTouches[0].clientX;
+    this.touchStartY = event.changedTouches[0].clientY;
+  }
+
+  onLightboxTouchEnd(event: TouchEvent): void {
+    const dx = event.changedTouches[0].clientX - this.touchStartX;
+    const dy = event.changedTouches[0].clientY - this.touchStartY;
+    // solo gesti chiaramente orizzontali, per non confondere lo swipe con un tap
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) this.showNext();
+    else this.showPrev();
   }
 
   @HostListener('document:keydown', ['$event'])
