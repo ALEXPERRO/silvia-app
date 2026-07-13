@@ -12,8 +12,6 @@ export interface PaintEvent {
   address: string;
   mapEmbedUrl: string;
   mapLink: string;
-  acceptedMessage: string;
-  rules: string[];
 }
 
 export interface PaintEventWithSeats extends PaintEvent {

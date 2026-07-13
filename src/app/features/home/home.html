@@ -46,7 +46,7 @@
       }
     </div>
 
-    <a routerLink="/portfolio" class="inline-flex items-center gap-1.5 bg-moss text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-moss-hover transition-colors uppercase">
+    <a routerLink="/portfolio" class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover transition-colors uppercase">
       Scopri il portfolio <app-icon name="chevron-right" [size]="14" />
     </a>
   </div>
@@ -66,7 +66,7 @@
         <p class="flex items-center gap-2"><app-icon name="calendar" [size]="15" /> <span>{{ nextEvent.date }}</span> • <span>{{ nextEvent.time }}</span></p>
         <p class="flex items-center gap-2"><app-icon name="map-pin" [size]="15" /> <span>{{ nextEvent.location }}</span>, <span>{{ nextEvent.address }}</span></p>
       </div>
-      <a routerLink="/eventi" class="inline-flex items-center gap-1.5 bg-moss text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-moss-hover transition-colors uppercase">
+      <a routerLink="/eventi" class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover transition-colors uppercase">
         <app-icon name="ticket" [size]="14" /> Scopri e prenota
       </a>
     </div>
@@ -76,16 +76,16 @@
 <!-- CTA SHOP -->
 <section class="bg-parchment py-14 sm:py-20 px-4">
   <div class="max-w-5xl mx-auto">
-    <div class="relative bg-plum text-white rounded p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+    <div class="relative bg-brand text-white rounded p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
       <div class="text-center md:text-left">
         <p class="font-title italic text-2xl md:text-3xl tracking-wide mb-1">Porta la magia a casa tua</p>
-        <p class="text-plum-soft text-sm">Stampe, sticker e segnalibri illustrati ti aspettano sullo shop Etsy.</p>
+        <p class="text-brand-soft text-sm">Stampe, sticker e segnalibri illustrati ti aspettano sullo shop Etsy.</p>
       </div>
       <a
         [href]="shopUrl"
         target="_blank"
         rel="noopener"
-        class="bg-white text-plum font-semibold text-xs tracking-widest uppercase px-6 py-4 rounded hover:bg-plum-soft hover:text-plum-hover transition-colors whitespace-nowrap"
+        class="bg-white text-brand font-semibold text-xs tracking-widest uppercase px-6 py-4 rounded hover:bg-brand-soft hover:text-brand-hover transition-colors whitespace-nowrap"
       >
         Vai al negozio Etsy →
       </a>

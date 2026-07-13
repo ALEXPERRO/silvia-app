@@ -20,12 +20,11 @@
   --color-red-400: #C57A61;
   --color-red-500: #AD5A40;
 
-  /* Blooming Wild ART palette — sampled from the logo (public/images/logo/logo.png) */
+  /* Blooming Wild ART palette — sampled from the logo (public/images/logo/logo.webp) */
   --color-parchment: #F7EFDF;
   --color-blush: #EEDCC7;
   --color-moss: #5C6B33;
   --color-moss-hover: #47531F;
-  --color-sage: #8A9A6E;
   --color-bark: #7C6248;
   --color-plum: #6E4F6B;
   --color-plum-hover: #5A3F58;
@@ -33,6 +32,18 @@
 
   --font-title: "Fraunces", serif;
   --font-body: "Work Sans", sans-serif;
+}
+
+/* Ruoli semantici — i template usano SOLO questi (bg-action, text-brand, ...):
+   - action: cosa puoi fare (bottoni, conferme)         -> oggi moss
+   - brand:  identità e stato (attivi, focus, banner)   -> oggi plum
+   Per ricolorare il sito basta ripuntare questi alias. */
+@theme inline {
+  --color-action: var(--color-moss);
+  --color-action-hover: var(--color-moss-hover);
+  --color-brand: var(--color-plum);
+  --color-brand-hover: var(--color-plum-hover);
+  --color-brand-soft: var(--color-plum-soft);
 }
 
 html {
@@ -44,7 +55,7 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-plum-soft);
+  background-color: var(--color-brand-soft);
   color: var(--color-gray-900);
 }
 
@@ -111,7 +122,7 @@ select.ng-invalid.ng-touched {
   left: 0;
   width: 0;
   height: 1px;
-  background-color: var(--color-plum);
+  background-color: var(--color-brand);
   transition: width 0.2s ease;
 }
 

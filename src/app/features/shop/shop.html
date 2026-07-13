@@ -11,16 +11,16 @@
 <div class="bg-blush py-10 px-4 flex flex-col items-center justify-center gap-6">
   <!-- Banner CTA -->
   <div class="max-w-6xl mx-auto w-full">
-    <div class="relative bg-plum text-white rounded p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+    <div class="relative bg-brand text-white rounded p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
       <div class="text-center md:text-left">
         <p class="font-title italic text-2xl md:text-3xl tracking-wide mb-1">Blooming Wild ART su Etsy</p>
-        <p class="text-plum-soft text-sm">Visita il negozio completo per scoprire tutte le illustrazioni disponibili.</p>
+        <p class="text-brand-soft text-sm">Visita il negozio completo per scoprire tutte le illustrazioni disponibili.</p>
       </div>
       <a
         [href]="shopUrl"
         target="_blank"
         rel="noopener"
-        class="bg-white text-plum font-semibold text-xs tracking-widest uppercase px-6 py-4 rounded hover:bg-plum-soft hover:text-plum-hover transition-colors whitespace-nowrap"
+        class="bg-white text-brand font-semibold text-xs tracking-widest uppercase px-6 py-4 rounded hover:bg-brand-soft hover:text-brand-hover transition-colors whitespace-nowrap"
       >
         Vai al negozio Etsy →
       </a>
@@ -39,7 +39,7 @@
     <!-- Griglia prodotti -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       @for (product of products; track product.id) {
-        <article appRevealOnScroll class="bg-white border border-gray-200 shadow-sm hover:shadow-lg hover:border-plum transition-all overflow-hidden flex flex-col">
+        <article appRevealOnScroll class="bg-white border border-gray-200 shadow-sm hover:shadow-lg hover:border-brand transition-all overflow-hidden flex flex-col">
           <div class="relative w-full aspect-square bg-gray-50">
             <img [ngSrc]="product.image" fill loading="lazy" [alt]="product.title" class="object-contain p-6" />
           </div>
@@ -52,7 +52,7 @@
                 [href]="product.etsyUrl"
                 target="_blank"
                 rel="noopener"
-                class="text-[10px] font-bold tracking-widest uppercase text-moss hover:text-moss-hover hover:underline"
+                class="text-[10px] font-bold tracking-widest uppercase text-brand hover:text-brand-hover hover:underline"
               >
                 Vedi su Etsy →
               </a>

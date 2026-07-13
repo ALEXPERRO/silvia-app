@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, Meta, SafeResourceUrl } from '@angular/platform-browser';
 import { NgClass } from '@angular/common';
 import { ContentService } from '../../core/services/content.service';
 import { SupabaseService, BookingSubmission } from '../../core/services/supabase.service';
@@ -96,6 +96,12 @@ export class Eventi {
   });
 
   constructor() {
+    inject(Meta).updateTag({
+      name: 'description',
+      content:
+        'Workshop e appuntamenti di pittura ad acquerello con Silvia Sgaramella: scopri le prossime date e prenota il tuo posto.',
+    });
+
     this.toggleBillingValidators(true);
     this.form.controls.billingType.valueChanges.pipe(takeUntilDestroyed()).subscribe((type) => {
       this.toggleBillingValidators(type === 'privato');

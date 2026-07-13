@@ -16,7 +16,7 @@
     <button
       type="button"
       (click)="scrollToPrev()"
-      class="hidden md:flex absolute md:-left-4 z-30 bg-white text-gray-700 w-12 h-12 rounded-full border border-gray-200 items-center justify-center shadow-md hover:bg-gray-50 hover:border-plum active:scale-95 transition-all select-none"
+      class="hidden md:flex absolute md:-left-4 z-30 bg-white text-gray-700 w-12 h-12 rounded-full border border-gray-200 items-center justify-center shadow-md hover:bg-gray-50 hover:border-brand active:scale-95 transition-all select-none"
     >
       <app-icon name="chevron-left" [size]="20" />
     </button>
@@ -35,7 +35,7 @@
               class="inline-flex w-fit items-center gap-1.5 text-xs md:text-sm font-title italic mb-4 px-3 py-1.5 rounded-full"
               [class.text-red-500]="ev.isSoldOut"
               [class.font-bold]="ev.isSoldOut"
-              [class.bg-plum]="!ev.isSoldOut"
+              [class.bg-brand]="!ev.isSoldOut"
               [class.text-white]="!ev.isSoldOut"
             >
               @if (ev.isSoldOut) {
@@ -53,13 +53,13 @@
             </div>
 
             <div class="flex flex-wrap gap-3">
-              <a [href]="ev.mapLink" target="_blank" class="flex items-center gap-1.5 border border-gray-200 text-gray-700 text-xs font-semibold tracking-widest px-4 py-3 rounded hover:bg-gray-50 hover:border-plum transition-colors uppercase"><app-icon name="map" [size]="14" /> Mappa</a>
+              <a [href]="ev.mapLink" target="_blank" class="flex items-center gap-1.5 border border-gray-200 text-gray-700 text-xs font-semibold tracking-widest px-4 py-3 rounded hover:bg-gray-50 hover:border-brand transition-colors uppercase"><app-icon name="map" [size]="14" /> Mappa</a>
               <button
                 type="button"
                 [disabled]="ev.isSoldOut"
                 (click)="selectEventAndScroll(ev.id)"
                 class="flex items-center gap-1.5 text-xs font-semibold tracking-widest px-5 py-3 rounded transition-all uppercase"
-                [ngClass]="ev.isSoldOut ? 'bg-gray-200 cursor-not-allowed text-gray-500' : 'bg-moss text-white hover:bg-moss-hover'"
+                [ngClass]="ev.isSoldOut ? 'bg-gray-200 cursor-not-allowed text-gray-500' : 'bg-action text-white hover:bg-action-hover'"
               >
                 @if (ev.isSoldOut) {
                   <app-icon name="ban" [size]="14" /> Esaurito
@@ -91,7 +91,7 @@
     <button
       type="button"
       (click)="scrollToNext()"
-      class="hidden md:flex absolute md:-right-4 z-30 bg-white text-gray-700 w-12 h-12 rounded-full border border-gray-200 items-center justify-center shadow-md hover:bg-gray-50 hover:border-plum active:scale-95 transition-all select-none"
+      class="hidden md:flex absolute md:-right-4 z-30 bg-white text-gray-700 w-12 h-12 rounded-full border border-gray-200 items-center justify-center shadow-md hover:bg-gray-50 hover:border-brand active:scale-95 transition-all select-none"
     >
       <app-icon name="chevron-right" [size]="20" />
     </button>
@@ -103,7 +103,7 @@
           (click)="goToSlide(i)"
           [attr.aria-label]="'Vai a ' + ev.title"
           class="w-2.5 h-2.5 rounded-full transition-colors"
-          [class.bg-plum]="i === currentIndex()"
+          [class.bg-brand]="i === currentIndex()"
           [class.bg-gray-200]="i !== currentIndex()"
         ></button>
       }
@@ -130,22 +130,22 @@
 
     @if (!bookingSuccess()) {
       <div class="flex items-center justify-center gap-2 mb-8 text-[10px] md:text-xs font-semibold tracking-widest uppercase">
-        <span class="flex items-center gap-1.5" [class.text-plum]="step1Complete()" [class.text-gray-400]="!step1Complete()">
+        <span class="flex items-center gap-1.5" [class.text-brand]="step1Complete()" [class.text-gray-400]="!step1Complete()">
           <span
             class="w-5 h-5 rounded-full border flex items-center justify-center"
-            [class.bg-plum]="step1Complete()"
-            [class.border-plum]="step1Complete()"
+            [class.bg-brand]="step1Complete()"
+            [class.border-brand]="step1Complete()"
             [class.text-white]="step1Complete()"
             [class.border-gray-300]="!step1Complete()"
           >1</span>
           Dati
         </span>
         <span class="w-6 h-px bg-gray-200"></span>
-        <span class="flex items-center gap-1.5" [class.text-plum]="step2Complete()" [class.text-gray-400]="!step2Complete()">
+        <span class="flex items-center gap-1.5" [class.text-brand]="step2Complete()" [class.text-gray-400]="!step2Complete()">
           <span
             class="w-5 h-5 rounded-full border flex items-center justify-center"
-            [class.bg-plum]="step2Complete()"
-            [class.border-plum]="step2Complete()"
+            [class.bg-brand]="step2Complete()"
+            [class.border-brand]="step2Complete()"
             [class.text-white]="step2Complete()"
             [class.border-gray-300]="!step2Complete()"
           >2</span>
@@ -158,7 +158,7 @@
 
         <div>
           <label for="event-select" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Seleziona l'evento *</label>
-          <select id="event-select" formControlName="eventId" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-plum focus:outline-none font-medium text-gray-800 transition-colors">
+          <select id="event-select" formControlName="eventId" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-brand focus:outline-none font-medium text-gray-800 transition-colors">
             <option [ngValue]="null" disabled>Seleziona un appuntamento...</option>
             @for (ev of eventsWithSeats(); track ev.id) {
               <option [ngValue]="ev.id" [disabled]="ev.isSoldOut">
@@ -171,18 +171,18 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label for="user-name" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Nome e Cognome *</label>
-            <input type="text" id="user-name" formControlName="name" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="Emanuela Viola">
+            <input type="text" id="user-name" formControlName="name" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800" placeholder="Emanuela Viola">
           </div>
           <div>
             <label for="user-email" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Email *</label>
-            <input type="email" id="user-email" formControlName="email" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="esempio@email.com">
+            <input type="email" id="user-email" formControlName="email" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800" placeholder="esempio@email.com">
           </div>
         </div>
 
         <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2 pt-4">2. Fatturazione</p>
         <div>
           <label for="billing-type" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Tipologia Account *</label>
-          <select id="billing-type" formControlName="billingType" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-plum focus:outline-none font-medium text-gray-800">
+          <select id="billing-type" formControlName="billingType" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-brand focus:outline-none font-medium text-gray-800">
             <option value="privato">Privato (Ricevuta con Codice Fiscale)</option>
             <option value="business">Azienda / Libero Professionista (Fattura con P.IVA)</option>
           </select>
@@ -191,40 +191,40 @@
         @if (isPrivato()) {
           <div>
             <label for="user-cf" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Codice Fiscale *</label>
-            <input type="text" id="user-cf" formControlName="cf" maxlength="16" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800 uppercase" placeholder="FMTLNZ90A01F205X">
+            <input type="text" id="user-cf" formControlName="cf" maxlength="16" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800 uppercase" placeholder="FMTLNZ90A01F205X">
           </div>
         } @else {
           <div class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label for="company-name" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Ragione Sociale *</label>
-                <input type="text" id="company-name" formControlName="companyName" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="Studio d'Arte S.r.l.">
+                <input type="text" id="company-name" formControlName="companyName" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800" placeholder="Studio d'Arte S.r.l.">
               </div>
               <div>
                 <label for="company-piva" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Partita IVA *</label>
-                <input type="text" id="company-piva" formControlName="companyPiva" maxlength="11" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="11 cifre numeriche">
+                <input type="text" id="company-piva" formControlName="companyPiva" maxlength="11" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800" placeholder="11 cifre numeriche">
               </div>
             </div>
             <div>
               <label for="company-sdi" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Codice Destinatario SDI *</label>
-              <input type="text" id="company-sdi" formControlName="companySdi" maxlength="7" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800 uppercase" placeholder="M5UXCR1">
+              <input type="text" id="company-sdi" formControlName="companySdi" maxlength="7" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800 uppercase" placeholder="M5UXCR1">
             </div>
           </div>
         }
 
         <div>
           <label for="billing-address" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Via e Numero Civico *</label>
-          <input type="text" id="billing-address" formControlName="address" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="Corso Umberto I, 45">
+          <input type="text" id="billing-address" formControlName="address" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800" placeholder="Corso Umberto I, 45">
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div>
             <label for="billing-cap" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">CAP *</label>
-            <input type="text" id="billing-cap" formControlName="cap" maxlength="5" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="74121">
+            <input type="text" id="billing-cap" formControlName="cap" maxlength="5" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800" placeholder="74121">
           </div>
           <div class="sm:col-span-2">
             <label for="billing-city" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Città e Provincia *</label>
-            <input type="text" id="billing-city" formControlName="city" class="w-full p-3 border border-gray-200 rounded focus:border-plum focus:outline-none font-medium text-gray-800" placeholder="Taranto (TA)">
+            <input type="text" id="billing-city" formControlName="city" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800" placeholder="Taranto (TA)">
           </div>
         </div>
 
@@ -233,13 +233,13 @@
         }
 
         <div class="text-center pt-6">
-          <button type="submit" [disabled]="submitting()" class="w-full md:w-auto bg-moss text-white font-medium text-sm tracking-widest py-4 px-10 rounded hover:bg-moss-hover transition-all uppercase disabled:opacity-50">
+          <button type="submit" [disabled]="submitting()" class="w-full md:w-auto bg-action text-white font-medium text-sm tracking-widest py-4 px-10 rounded hover:bg-action-hover transition-all uppercase disabled:opacity-50">
             {{ submitting() ? 'Invio in corso...' : 'Invia Iscrizione' }}
           </button>
         </div>
       </form>
     } @else {
-      <div class="mt-6 bg-moss text-white text-center p-5 rounded border border-moss-hover shadow-lg font-title italic text-lg flex items-center justify-center gap-2">
+      <div class="mt-6 bg-action text-white text-center p-5 rounded border border-action-hover shadow-lg font-title italic text-lg flex items-center justify-center gap-2">
         <app-icon name="sparkles" [size]="20" />
         <span>Iscrizione salvata! Il tuo posto è riservato: Silvia ti contatterà via email per la conferma.</span>
       </div>

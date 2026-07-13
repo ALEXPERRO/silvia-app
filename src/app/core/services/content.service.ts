@@ -35,13 +35,6 @@ export class ContentService {
       address: 'Taranto',
       mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d902.3278061068684!2d17.242222595367142!3d40.47400685701551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x134703dddd2916a5%3A0x15173fd259978ab3!2sArena%20Villa%20Peripato!5e0!3m2!1sit!2sit!4v1781182084534!5m2!1sit!2sit',
       mapLink: 'https://maps.app.goo.gl/5kkY74PXWWHTWBuW7',
-      acceptedMessage: "Usa il codice WHIMSY10 per ricevere il 10% di abbracci in piu'",
-      rules: [
-        "Comprendo e accetto che il mio fuso orario personale dovrà sincronizzarsi su Bari esattamente alle 18:00 (i ritardatari cantano per primi!).",
-        "Giuro solennemente di aver studiato il repertorio e di aver scelto la mia hit dalla <a href='https://docs.google.com/spreadsheets/d/1QZq5S1K9pq8tfgCBQkcjXSWAfp-xlwBkoWbpZPT5bmc/edit?gid=0#gid=0' target='_blank' class='text-plum underline font-black'>Lista Canzoni Ufficiale</a>. Non sono ammesse scene mute!",
-        'Autorizzo la diffusione di foto imbarazzanti e prometto di contribuire attivamente al reportage fotografico della serata per i posteri.',
-        'Accetto con entusiasmo i termini dell\'offerta speciale: abbracci gratis a richiesta durante tutta la serata. 🤗',
-      ],
     },
     {
       id: 2,
@@ -55,13 +48,6 @@ export class ContentService {
       address: 'Bari (BA)',
       mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000.9413204918733!2d16.87184287661214!3d41.127814411475734!2m3!1f0!2f0!3f0!3m2!1s0x1347e85292eb5f9d%3A0x7d6f5f9a76d8b0eb!2sPiazza%20del%20Ferrarese%2C%2070122%20Bari%20BA!5e0!3m2!1sit!2sit!4v1710000000000',
       mapLink: 'https://maps.google.com/?q=Piazza+del+Ferrarese+Bari',
-      acceptedMessage: 'Usa il codice BARIWILD per sbloccare adesivi extra illustrati da Silvia!',
-      rules: [
-        'Il vento del lungomare è un partecipante ufficiale: se vola una tela, si ride e si ricomincia!',
-        'È obbligatorio sporcarsi le dita di colore entro i primi 15 minuti dall\'inizio.',
-        "Le canzoni da spiaggia degli anni '80 e '90 saranno la nostra colonna sonora portante.",
-        'Sorrisi e condivisione dei tubetti di colore sono requisiti minimi di ammissione. 🎨',
-      ],
     },
     {
       id: 3,
@@ -75,13 +61,6 @@ export class ContentService {
       address: 'Lecce (LE)',
       mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3035.1232049187333!2d18.16812347661214!3d40.352114411475734!2m3!1f0!2f0!3f0!3m2!1s0x1344295292eb5f9d%3A0x7d6f5f9a76d8b0eb!2sPiazza%20del%20Duomo%2C%20Lecce!5e0!3m2!1sit!2sit!4v1710000000002',
       mapLink: 'https://maps.google.com/?q=Piazza+del+Duomo+Lecce',
-      acceptedMessage: 'Codice SALENTOWILD: +15% di allegria e tarallini inclusi!',
-      rules: [
-        "Vietato dire 'Non so disegnare'. Qui siamo tutti esploratori astratti!",
-        'Le opere d\'arte prodotte devono contenere almeno un dettaglio giallo o fucsia fluo.',
-        'Ogni partecipante deve scambiare un consiglio cromatico con il proprio vicino di sedia.',
-        'Accettazione incondizionata della pizzica di sottofondo durante i momenti di asciugatura acrilici.',
-      ],
     },
     {
       id: 4,
@@ -95,13 +74,6 @@ export class ContentService {
       address: 'Foggia (FG)',
       mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.1232049187333!2d15.55312347661214!3d41.462114411475734!2m3!1f0!2f0!3f0!3m2!1s0x133c295292eb5f9d%3A0x7d6f5f9a76d8b0eb!2sCorso%20Vittorio%20Emanuele%2C%20Foggia!5e0!3m2!1sit!2sit!4v1710000000003',
       mapLink: 'https://maps.google.com/?q=Corso+Vittorio+Emanuele+Foggia',
-      acceptedMessage: 'Codice SPAZIOFOGGIA attivo: ricevi un mini-pennello da viaggio omaggio!',
-      rules: [
-        "L'orario delle 16:00 è sacro, ma il caffè pre-evento lo è ancora di più.",
-        'I pennelli si passano a destra ogni volta che suona il timer a sorpresa!',
-        "Ispirarsi ai cartoni animati anni '80 durante la sessione è caldamente consigliato.",
-        "Tutti i partecipanti firmano l'opera dell'altro in segno di amicizia artistica.",
-      ],
     },
   ];
 

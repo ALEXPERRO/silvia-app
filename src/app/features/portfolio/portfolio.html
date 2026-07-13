@@ -15,9 +15,9 @@
       <button
         type="button"
         (click)="setCategory(cat.value)"
-        class="pb-1 border-b-2 transition-colors hover:text-moss-hover"
-        [class.text-plum]="activeCategory() === cat.value"
-        [class.border-plum]="activeCategory() === cat.value"
+        class="pb-1 border-b-2 transition-colors hover:text-brand"
+        [class.text-brand]="activeCategory() === cat.value"
+        [class.border-brand]="activeCategory() === cat.value"
         [class.text-gray-600]="activeCategory() !== cat.value"
         [class.border-transparent]="activeCategory() !== cat.value"
       >
@@ -36,7 +36,7 @@
 <section class="bg-blush pb-24 px-4">
   <div class="max-w-6xl mx-auto">
     <!-- Griglia -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
+    <div id="galleria" class="scroll-mt-24 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
       @for (item of pagedItems(); track item.src) {
         <button
           type="button"
@@ -44,7 +44,7 @@
           appRevealOnScroll
           class="group text-left"
         >
-          <div class="relative aspect-square bg-white border border-gray-200 shadow-sm group-hover:shadow-lg group-hover:border-plum transition-all overflow-hidden">
+          <div class="relative aspect-square bg-white border border-gray-200 shadow-sm group-hover:shadow-lg group-hover:border-brand transition-all overflow-hidden">
             <img
               [ngSrc]="item.src"
               fill
@@ -70,7 +70,7 @@
           type="button"
           (click)="prevPage()"
           [disabled]="currentPage() === 0"
-          class="w-9 h-9 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 hover:bg-gray-50 hover:border-plum disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          class="w-9 h-9 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 hover:bg-gray-50 hover:border-brand disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           aria-label="Pagina precedente"
         >
           <app-icon name="chevron-left" [size]="16" />
@@ -82,7 +82,7 @@
             (click)="goToPage(page)"
             [attr.aria-label]="'Vai a pagina ' + (page + 1)"
             class="w-9 h-9 rounded-full text-xs font-semibold tracking-wide transition-colors"
-            [class.bg-plum]="page === currentPage()"
+            [class.bg-brand]="page === currentPage()"
             [class.text-white]="page === currentPage()"
             [class.text-gray-600]="page !== currentPage()"
             [class.hover:bg-gray-100]="page !== currentPage()"
@@ -95,7 +95,7 @@
           type="button"
           (click)="nextPage()"
           [disabled]="currentPage() === totalPages() - 1"
-          class="w-9 h-9 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 hover:bg-gray-50 hover:border-plum disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          class="w-9 h-9 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 hover:bg-gray-50 hover:border-brand disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           aria-label="Pagina successiva"
         >
           <app-icon name="chevron-right" [size]="16" />
@@ -114,7 +114,7 @@
     <button
       type="button"
       (click)="closeLightbox()"
-      class="absolute top-6 right-6 text-white hover:text-plum-hover transition-colors"
+      class="absolute top-6 right-6 text-white hover:text-brand-hover transition-colors"
       aria-label="Chiudi"
     >
       <app-icon name="x" [size]="28" />
@@ -122,7 +122,7 @@
     <button
       type="button"
       (click)="$event.stopPropagation(); showPrev()"
-      class="absolute left-4 md:left-8 text-white hover:text-plum-hover transition-colors"
+      class="absolute left-4 md:left-8 text-white hover:text-brand-hover transition-colors"
       aria-label="Immagine precedente"
     >
       <app-icon name="chevron-left" [size]="32" />
@@ -130,7 +130,7 @@
     <button
       type="button"
       (click)="$event.stopPropagation(); showNext()"
-      class="absolute right-4 md:right-8 text-white hover:text-plum-hover transition-colors"
+      class="absolute right-4 md:right-8 text-white hover:text-brand-hover transition-colors"
       aria-label="Immagine successiva"
     >
       <app-icon name="chevron-right" [size]="32" />
