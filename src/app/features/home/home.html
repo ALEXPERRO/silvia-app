@@ -1,4 +1,4 @@
-<section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-20 pb-8 sm:pb-16 px-4">
+<section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-20 pb-6 sm:pb-16 px-4">
   <div class="max-w-3xl md:max-w-5xl mx-auto text-center">
     <h1 class="text-3xl sm:text-4xl md:text-6xl text-gray-900 font-title mb-1 sm:mb-4 text-center">About me</h1>
     <div class="text-center text-gray-600 max-w-2xl md:max-w-4xl mx-auto text-xs sm:text-sm md:text-base font-body space-y-2 sm:space-y-3">
@@ -21,27 +21,31 @@
       class="absolute z-0 w-[140%] max-w-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-15 pointer-events-none select-none"
     />
 
-    <!-- Flourish: topo, angolo basso -->
-    <img
-      ngSrc="images/animali/topo.webp"
-      width="250"
-      height="250"
-      alt=""
-      class="absolute z-10 bottom-2 -left-4 w-20 sm:w-28 md:w-36 -scale-x-100 pointer-events-none select-none"
-    />
+    <!-- Ritratto + flourish: i fiori sono ancorati a questo box (stessa dimensione del
+         ritratto), non al contenitore largo, cosi la loro posizione resta stabile ad ogni breakpoint -->
+    <div class="relative z-10">
+      <!-- Flourish: topo, angolo basso -->
+      <img
+        ngSrc="images/animali/topo.webp"
+        width="250"
+        height="250"
+        alt=""
+        class="absolute z-30 -bottom-12 md:-bottom-20 -left-14 sm:-left-10 md:-left-26 w-24 sm:w-32 md:w-40 -scale-x-100 pointer-events-none select-none"
+      />
 
-    <!-- Flourish: giglio, angolo alto -->
-    <img
-      ngSrc="images/elementi botanici/giglio1.webp"
-      width="300"
-      height="300"
-      alt=""
-      class="absolute z-10 -top-4 -right-4 w-24 sm:w-32 md:w-40 rotate-30 pointer-events-none select-none"
-    />
+      <!-- Flourish: giglio, angolo alto -->
+      <img
+        ngSrc="images/elementi botanici/giglio1.webp"
+        width="300"
+        height="300"
+        alt=""
+        class="absolute z-30 -top-8 md:-top-16 -right-9 sm:-right-8 md:-right-18 w-24 sm:w-32 md:w-40 rotate-3 pointer-events-none select-none"
+      />
 
-    <!-- Layer 2: ritratto, protagonista -->
-    <div class="relative z-20 w-56 sm:w-64 md:w-80 aspect-3/4 border-[6px] border-white shadow-2xl hover:scale-[1.02] transition-transform duration-300 ease-out overflow-hidden">
-      <img [ngSrc]="cover.main.src" [style.transform]="'scale(' + cover.main.scale + ')'" fill priority alt="Silvia" class="object-cover" />
+      <!-- Layer 2: ritratto, protagonista -->
+      <div class="relative z-20 w-56 sm:w-64 md:w-80 aspect-3/4 border-[6px] border-white shadow-2xl hover:scale-[1.02] transition-transform duration-300 ease-out overflow-hidden">
+        <img [ngSrc]="cover.main.src" [style.transform]="'scale(' + cover.main.scale + ')'" fill priority alt="Silvia" class="object-cover" />
+      </div>
     </div>
 
     <!-- Layer 3: logo firma, piccolo e nitido -->
@@ -91,7 +95,7 @@
         <p class="flex items-center gap-2"><app-icon name="calendar" [size]="15" /> <span>{{ nextEvent.date }}</span> • <span>{{ nextEvent.time }}</span></p>
         <p class="flex items-center gap-2"><app-icon name="map-pin" [size]="15" /> <span>{{ nextEvent.location }}</span>, <span>{{ nextEvent.address }}</span></p>
       </div>
-      <a routerLink="/eventi" class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover transition-colors uppercase">
+      <a routerLink="/eventi" class="flex w-fit mx-auto items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover transition-colors uppercase">
         <app-icon name="ticket" [size]="14" /> Scopri e prenota
       </a>
     </div>

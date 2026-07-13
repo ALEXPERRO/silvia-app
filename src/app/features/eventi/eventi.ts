@@ -170,6 +170,8 @@ export class Eventi {
 
   selectEventAndScroll(eventId: number): void {
     this.form.controls.eventId.setValue(eventId);
+    this.bookingSuccess.set(false);
+    this.errorMessage.set(null);
     this.showBookingSection.set(true);
     setTimeout(() => this.bookingSectionRef?.nativeElement.scrollIntoView({ behavior: 'smooth' }));
   }
