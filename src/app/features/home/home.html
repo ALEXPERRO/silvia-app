@@ -14,7 +14,7 @@
   <div class="relative w-full max-w-5xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] gap-3 sm:gap-8 md:gap-16 items-center">
       <div class="relative flex justify-center order-2 md:order-1">
-        <img ngSrc="images/composizioni/volpe_piante.webp" width="250" height="250" alt="" class="absolute -bottom-20 -left-2 w-44 sm:w-96 sm:-left-24 sm:-bottom-52 md:-bottom-72 md:-left-70 md:w-lg -scale-x-100 rotate-2 pointer-events-none select-none" />
+        <img ngSrc="images/animali/topo.webp" width="250" height="250" alt="" class="absolute bottom-10 -left-6 w-28 sm:w-56 sm:-left-24 sm:-bottom-52 md:-bottom-72 md:-left-70 md:w-72 -scale-x-100 pointer-events-none select-none" />
         <img [ngSrc]="cover.logo.src" width="1447" height="899" alt="Blooming Wild ART" class="relative z-10 w-36 sm:w-40 md:w-80 lg:w-lg" />
       </div>
 
@@ -75,20 +75,19 @@
 
 <!-- CTA SHOP -->
 <section class="bg-parchment py-14 sm:py-20 px-4">
-  <div class="max-w-5xl mx-auto">
-    <div class="relative bg-brand text-white rounded p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-      <div class="text-center md:text-left">
-        <p class="font-title italic text-2xl md:text-3xl tracking-wide mb-1">Porta la magia a casa tua</p>
-        <p class="text-brand-soft text-sm">Stampe, sticker e segnalibri illustrati ti aspettano sullo shop Etsy.</p>
-      </div>
-      <a
-        [href]="shopUrl"
-        target="_blank"
-        rel="noopener"
-        class="bg-white text-brand font-semibold text-xs tracking-widest uppercase px-6 py-4 rounded hover:bg-brand-soft hover:text-brand-hover transition-colors whitespace-nowrap"
-      >
-        Vai al negozio Etsy →
-      </a>
-    </div>
+  <div class="max-w-5xl mx-auto text-center">
+    <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">Porta la magia a casa tua</h2>
+    <p class="text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body mb-10">
+      Stampe, sticker e segnalibri illustrati ti aspettano sullo shop Etsy.
+    </p>
+
+    <a
+      [href]="shopUrl"
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover transition-colors uppercase"
+    >
+      Vai al negozio Etsy →
+    </a>
   </div>
 </section>

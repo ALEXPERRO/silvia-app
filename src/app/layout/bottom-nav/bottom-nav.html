@@ -1,14 +1,14 @@
 <nav
-  class="md:hidden fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] inset-x-4 z-50 bg-brand-soft border border-gray-200 rounded-2xl shadow-lg"
+  class="md:hidden fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] inset-x-4 z-50 bg-brand rounded-2xl shadow-lg"
 >
   <ul class="flex items-center justify-around py-3 px-2 font-semibold text-[10px] tracking-widest uppercase">
     @for (item of navItems; track item.path) {
       <li>
         <a
           [routerLink]="item.path"
-          routerLinkActive="active text-brand"
+          routerLinkActive="text-white"
           [routerLinkActiveOptions]="{ exact: item.path === '/' }"
-          class="hover:text-brand transition-colors whitespace-nowrap"
+          class="text-white/70 hover:text-white transition-colors whitespace-nowrap"
         >
           {{ item.label }}
         </a>
