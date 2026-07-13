@@ -79,13 +79,14 @@
     </div>
 
     @if (showSwipeHint()) {
-      <div class="md:hidden absolute inset-0 flex items-center justify-center pointer-events-none z-30 transition-opacity duration-500">
-        <div class="bg-gray-900/70 text-white rounded-full p-3 shadow-lg animate-swipe-hint">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <div class="md:hidden absolute inset-x-0 bottom-4 flex justify-center pointer-events-none z-30 transition-opacity duration-500">
+        <div class="flex items-center gap-2 bg-gray-900/70 text-white rounded-full pl-2.5 pr-3.5 py-2 shadow-lg animate-swipe-hint">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none" />
             <path d="M4 9c1.8 1.2 1.8 4.8 0 6" />
             <path d="M20 9c-1.8 1.2-1.8 4.8 0 6" />
           </svg>
+          <span class="text-[10px] font-semibold tracking-widest uppercase whitespace-nowrap">Scorri per altri eventi</span>
         </div>
       </div>
     }
