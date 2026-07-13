@@ -36,8 +36,22 @@ export class SupabaseService {
     return this.clientPromise;
   }
 
-  /** Mappa id evento -> posti disponibili, letta dalla tabella `eventi`. */
-  async getEventSeats(): Promise<Record<number, number>> {
+  // Cache condivisa dei posti: l'app la scalda al primo render (vedi App) così
+  // atterrando su Eventi i dati sono già pronti e il badge non "scatta" da
+  // 10 disponibili a esaurito. Il TTL evita di mostrare conteggi vecchi.
+  private seatsCache: { promise: Promise<Record<number, number>>; fetchedAt: number } | null = null;
+  private static readonly SEATS_TTL_MS = 60_000;
+
+  /** Mappa id evento -> posti disponibili, con cache condivisa (TTL 60s). */
+  getEventSeats(): Promise<Record<number, number>> {
+    const now = Date.now();
+    if (!this.seatsCache || now - this.seatsCache.fetchedAt > SupabaseService.SEATS_TTL_MS) {
+      this.seatsCache = { promise: this.fetchEventSeats(), fetchedAt: now };
+    }
+    return this.seatsCache.promise;
+  }
+
+  private async fetchEventSeats(): Promise<Record<number, number>> {
     const seats: Record<number, number> = {};
     try {
       const client = await this.getClient();
@@ -65,6 +79,7 @@ export class SupabaseService {
       .from('eventi')
       .update({ posti_disponibili: newSeatCount })
       .eq('id', eventId);
+    this.seatsCache = null; // i posti sono cambiati: la prossima lettura rifà la query
     return { error };
   }
 

@@ -39,6 +39,7 @@ export class Eventi {
   protected readonly events = this.content.events;
 
   private readonly seats = signal<Record<number, number>>({});
+  protected readonly seatsLoaded = signal(false);
   protected readonly currentIndex = signal(0);
   protected readonly showSwipeHint = signal(true);
   protected readonly showBookingSection = signal(false);
@@ -108,7 +109,11 @@ export class Eventi {
     });
 
     afterNextRender(() => {
-      this.supabase.getEventSeats().then((seatMap) => this.seats.set(seatMap));
+      // di norma risolve subito: la cache è già stata scaldata all'avvio (vedi App)
+      this.supabase.getEventSeats().then((seatMap) => {
+        this.seats.set(seatMap);
+        this.seatsLoaded.set(true);
+      });
     });
   }
 

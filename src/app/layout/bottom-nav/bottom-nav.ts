@@ -3,12 +3,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NAV_ITEMS } from '../nav-items';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-bottom-nav',
   standalone: true,
   imports: [RouterLink, RouterLinkActive],
-  templateUrl: './navbar.html',
+  templateUrl: './bottom-nav.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Navbar {
+export class BottomNav {
   protected readonly navItems = NAV_ITEMS;
 }
