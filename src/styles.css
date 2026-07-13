@@ -50,6 +50,15 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Tailwind v4 preflight lascia cursor:default sui bottoni;
+   qui ripristiniamo il pointer per tutti gli elementi cliccabili. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 body {
   overflow-x: hidden;
 }
