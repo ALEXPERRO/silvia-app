@@ -22,6 +22,11 @@ export const routes: Routes = [
     title: 'Blooming Wild ART — Shop',
   },
   {
+    path: 'gestione-prenotazioni',
+    loadComponent: () => import('./features/gestione/gestione').then((m) => m.Gestione),
+    title: 'Blooming Wild ART — Gestione',
+  },
+  {
     path: '**',
     redirectTo: '',
   },
