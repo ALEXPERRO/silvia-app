@@ -64,12 +64,16 @@ update eventi set
 where id = 4;
 ```
 
-`data`/`ora_inizio`/`ora_fine`/`luogo`/`indirizzo` restano nullable a livello di
-database anche dopo il backfill (nessun vincolo `not null` aggiunto in questa fase):
-per i 4 eventi esistenti il backfill li popola comunque tutti, e per i nuovi eventi
-che Silvia creerà in Fase 2 sarà il form di amministrazione a richiederli come
-obbligatori lato UI, evitando di dover irrigidire lo schema due volte (una ora, una
-quando la Fase 2 definisce esattamente quali campi il form rende obbligatori).
+Delle nuove colonne, solo `data`, `ora_inizio`, `ora_fine` e `locandina_url` restano
+nullable a livello di database (non hanno un default sensato: una data/ora vuota o
+una locandina non ancora caricata non ha un valore di ripiego ragionevole).
+`descrizione`, `luogo`, `indirizzo`, `prezzo` e `pubblicato` sono invece `not null`
+con un default (stringa vuota, `0`, `true`), perché un default sensato esiste ed è
+già quello giusto per gli eventi esistenti dopo il backfill. Per i nuovi eventi che
+Silvia creerà in Fase 2 sarà comunque il form di amministrazione a richiedere tutti
+i campi come obbligatori lato UI (compresi quelli nullable), evitando di dover
+irrigidire lo schema una seconda volta quando la Fase 2 definisce esattamente quali
+campi il form rende obbligatori.
 
 Nessuna modifica alle RLS policy esistenti: `eventi` è già leggibile in `select` da
 `anon` e `authenticated` (vedi `rls_lockdown.sql` e `admin_gestione.sql`), e le nuove

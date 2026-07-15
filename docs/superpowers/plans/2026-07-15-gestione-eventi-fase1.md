@@ -24,8 +24,10 @@ transcribed directly from it.
 ## Global Constraints
 
 - Exact column names on `eventi`: `descrizione`, `data`, `ora_inizio`, `ora_fine`,
-  `luogo`, `indirizzo`, `prezzo`, `locandina_url`, `pubblicato`. No `not null`
-  constraints added on the new columns in this phase (see spec Sezione 1).
+  `luogo`, `indirizzo`, `prezzo`, `locandina_url`, `pubblicato`. Per Task 1's SQL,
+  `data`/`ora_inizio`/`ora_fine`/`locandina_url` are nullable (no sensible default);
+  `descrizione`/`luogo`/`indirizzo`/`prezzo`/`pubblicato` are `not null` with a
+  default (see spec Sezione 1).
 - Exact TypeScript field names on `PaintEvent`: `descrizione`, `data`, `oraInizio`,
   `oraFine`, `luogo`, `indirizzo`, `prezzo`, `locandinaUrl` (camelCase; the mapping
   from snake_case DB columns happens only inside `getPublishedEvents()`).
