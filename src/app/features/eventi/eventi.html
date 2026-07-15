@@ -35,6 +35,7 @@
         <div class="relative w-full min-w-full bg-white rounded shadow-lg overflow-hidden z-10 flex flex-col md:flex-row border border-gray-200 snap-start shrink-0">
           <div class="p-6 md:p-10 md:w-1/2 flex flex-col justify-center text-left">
             <h3 class="text-2xl md:text-4xl font-title font-medium text-gray-900 mb-1 tracking-wide">{{ ev.title }}</h3>
+            <p class="text-sm font-title italic text-brand mb-2">€ {{ ev.prezzo | number: '1.2-2' }}</p>
 
             <p
               class="inline-flex w-fit items-center gap-1.5 text-xs md:text-sm font-title italic mb-4 px-3 py-1.5 rounded-full"
@@ -196,7 +197,7 @@
           <label for="user-numero-posti" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Numero di Partecipanti *</label>
           <input type="number" id="user-numero-posti" formControlName="numeroPosti" min="1" step="1" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800">
           @if (selectedEvent(); as ev) {
-            <p class="text-xs text-gray-600 mt-2">Posti disponibili per questo evento: {{ ev.seatsAvailable }}</p>
+            <p class="text-xs text-gray-600 mt-2">Posti disponibili per questo evento: {{ ev.seatsAvailable }} · € {{ ev.prezzo | number: '1.2-2' }} a persona</p>
           }
         </div>
 

@@ -11,7 +11,7 @@ import {
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
-import { NgClass } from '@angular/common';
+import { DecimalPipe, NgClass } from '@angular/common';
 import { SupabaseService, BookingSubmission } from '../../core/services/supabase.service';
 import { PaintEvent, PaintEventWithSeats } from '../../core/models/event.model';
 import { formatDataItaliana, formatFasciaOraria, buildMapsUrl } from '../../core/utils/event-format.util';
@@ -22,7 +22,7 @@ const DEFAULT_SEATS = 10;
 @Component({
   selector: 'app-eventi',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, Icon],
+  imports: [ReactiveFormsModule, NgClass, DecimalPipe, Icon],
   templateUrl: './eventi.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
