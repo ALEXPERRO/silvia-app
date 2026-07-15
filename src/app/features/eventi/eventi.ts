@@ -211,17 +211,18 @@ export class Eventi {
       citta: v.city,
     };
 
-    const { error: insertError } = await this.supabase.insertBooking(payload);
-    if (insertError) {
-      console.error(insertError);
+    const { success, error } = await this.supabase.prenotaPosto(eventId, payload);
+    if (error) {
+      console.error(error);
       this.errorMessage.set('Si è verificato un problema con la registrazione. Riprova.');
       this.submitting.set(false);
       return;
     }
-
-    const { error: updateError } = await this.supabase.decrementSeats(eventId, currentSeats - 1);
-    if (updateError) {
-      console.error('Errore aggiornamento contatore posti:', updateError);
+    if (!success) {
+      this.errorMessage.set('Ops! I posti per questo evento si sono esauriti un istante fa.');
+      this.submitting.set(false);
+      this.supabase.getEventSeats().then((seatMap) => this.seats.set(seatMap));
+      return;
     }
 
     this.seats.update((s) => ({ ...s, [eventId]: currentSeats - 1 }));

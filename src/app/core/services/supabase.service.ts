@@ -67,20 +67,29 @@ export class SupabaseService {
     return seats;
   }
 
-  async insertBooking(payload: BookingSubmission): Promise<{ error: unknown }> {
+  /**
+   * Prenota un posto in modo atomico (funzione `prenota_posto`, vedi supabase/prenota_posto.sql):
+   * scala il posto e inserisce la prenotazione nella stessa transazione lato server, quindi
+   * niente race condition tra letture e scritture separate. Richiede supabase/rls_lockdown.sql
+   * applicato, perché dopo quel file il client non può più scrivere `eventi` direttamente.
+   */
+  async prenotaPosto(eventId: number, payload: BookingSubmission): Promise<{ success: boolean; error: unknown }> {
     const client = await this.getClient();
-    const { error } = await client.from('prenotazioni').insert([payload]);
-    return { error };
-  }
-
-  async decrementSeats(eventId: number, newSeatCount: number): Promise<{ error: unknown }> {
-    const client = await this.getClient();
-    const { error } = await client
-      .from('eventi')
-      .update({ posti_disponibili: newSeatCount })
-      .eq('id', eventId);
-    this.seatsCache = null; // i posti sono cambiati: la prossima lettura rifà la query
-    return { error };
+    const { data, error } = await client.rpc('prenota_posto', {
+      p_evento_id: eventId,
+      p_evento_titolo: payload.evento_titolo,
+      p_nome_completo: payload.nome_completo,
+      p_email: payload.email,
+      p_codice_fiscale: payload.codice_fiscale,
+      p_ragione_sociale: payload.ragione_sociale,
+      p_partita_iva: payload.partita_iva,
+      p_sdi: payload.sdi,
+      p_indirizzo: payload.indirizzo,
+      p_cap: payload.cap,
+      p_citta: payload.citta,
+    });
+    this.seatsCache = null; // i posti sono cambiati (prenotato o appena esaurito): rifai la query
+    return { success: data === true, error };
   }
 
   async insertNewsletterSignup(email: string): Promise<{ error: unknown }> {
