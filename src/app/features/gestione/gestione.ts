@@ -29,10 +29,17 @@ export class Gestione {
     inject(Meta).updateTag({ name: 'robots', content: 'noindex, nofollow' });
 
     afterNextRender(() => {
-      this.admin.getSession().then((hasSession) => {
-        this.authenticated.set(hasSession);
-        this.checkingSession.set(false);
-      });
+      this.admin
+        .getSession()
+        .then((hasSession) => {
+          this.authenticated.set(hasSession);
+        })
+        .catch(() => {
+          this.loginError.set('Impossibile contattare il server. Riprova.');
+        })
+        .finally(() => {
+          this.checkingSession.set(false);
+        });
     });
   }
 
@@ -44,13 +51,18 @@ export class Gestione {
     }
     this.signingIn.set(true);
     const { email, password } = this.loginForm.getRawValue();
-    const { error } = await this.admin.signIn(email, password);
-    this.signingIn.set(false);
-    if (error) {
-      this.loginError.set('Email o password non corretti.');
-      return;
+    try {
+      const { error } = await this.admin.signIn(email, password);
+      if (error) {
+        this.loginError.set('Email o password non corretti.');
+        return;
+      }
+      this.authenticated.set(true);
+    } catch {
+      this.loginError.set('Impossibile contattare il server. Riprova.');
+    } finally {
+      this.signingIn.set(false);
     }
-    this.authenticated.set(true);
   }
 
   async onLogout(): Promise<void> {
