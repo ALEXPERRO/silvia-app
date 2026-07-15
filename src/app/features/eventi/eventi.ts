@@ -61,6 +61,7 @@ export class Eventi {
     eventId: this.fb.control<number | null>(null, Validators.required),
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
+    numeroPosti: this.fb.nonNullable.control(1, [Validators.required, Validators.min(1)]),
     billingType: this.fb.control<'privato' | 'business'>('privato', Validators.required),
     cf: [''],
     companyName: [''],
@@ -84,7 +85,7 @@ export class Eventi {
   protected readonly step1Complete = computed(() => {
     this.formStatus();
     const c = this.form.controls;
-    return c.eventId.valid && c.name.valid && c.email.valid;
+    return c.eventId.valid && c.name.valid && c.email.valid && c.numeroPosti.valid;
   });
 
   protected readonly step2Complete = computed(() => {
@@ -200,9 +201,13 @@ export class Eventi {
     const eventId = this.form.controls.eventId.value!;
     const currentSeats = this.seats()[eventId] ?? DEFAULT_SEATS;
     const matchingEvent = this.events.find((ev) => ev.id === eventId);
+    const numeroPosti = Math.round(this.form.controls.numeroPosti.value);
 
-    if (currentSeats <= 0) {
-      this.errorMessage.set('Ops! I posti per questo evento si sono esauriti un istante fa.');
+    if (currentSeats < numeroPosti) {
+      const postiParola = currentSeats === 1 ? 'posto disponibile' : 'posti disponibili';
+      this.errorMessage.set(
+        `Solo ${currentSeats} ${postiParola} per questo evento: riduci il numero di partecipanti o scegli un'altra data.`,
+      );
       return;
     }
 
@@ -214,6 +219,7 @@ export class Eventi {
       evento_titolo: matchingEvent?.title ?? 'Evento sconosciuto',
       nome_completo: v.name,
       email: v.email,
+      numero_posti: numeroPosti,
       codice_fiscale: isPrivato ? v.cf || null : null,
       ragione_sociale: isPrivato ? null : v.companyName || null,
       partita_iva: isPrivato ? null : v.companyPiva || null,
@@ -237,9 +243,9 @@ export class Eventi {
       return;
     }
 
-    this.seats.update((s) => ({ ...s, [eventId]: currentSeats - 1 }));
+    this.seats.update((s) => ({ ...s, [eventId]: currentSeats - numeroPosti }));
     this.submitting.set(false);
     this.bookingSuccess.set(true);
-    this.form.reset({ billingType: 'privato' });
+    this.form.reset({ billingType: 'privato', numeroPosti: 1 });
   }
 }

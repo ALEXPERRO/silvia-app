@@ -6,6 +6,7 @@ export interface BookingSubmission {
   evento_titolo: string;
   nome_completo: string;
   email: string;
+  numero_posti: number;
   codice_fiscale: string | null;
   ragione_sociale: string | null;
   partita_iva: string | null;
@@ -82,6 +83,7 @@ export class SupabaseService {
     const client = await this.getClient();
     const { data, error } = await client.rpc('prenota_posto', {
       p_evento_id: eventId,
+      p_numero_posti: payload.numero_posti,
       p_evento_titolo: payload.evento_titolo,
       p_nome_completo: payload.nome_completo,
       p_email: payload.email,

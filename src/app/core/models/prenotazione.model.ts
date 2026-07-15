@@ -4,6 +4,7 @@ export interface Prenotazione {
   evento_titolo: string;
   nome_completo: string;
   email: string;
+  numero_posti: number;
   codice_fiscale: string | null;
   ragione_sociale: string | null;
   partita_iva: string | null;

@@ -60,6 +60,9 @@
                 <p class="font-medium text-gray-900">
                   {{ b.nome_completo }}
                   <span class="text-xs text-gray-600 font-normal">({{ b.codice_fiscale ? 'privato' : 'azienda' }})</span>
+                  @if (b.numero_posti > 1) {
+                    <span class="text-xs text-brand font-semibold">— {{ b.numero_posti }} persone</span>
+                  }
                 </p>
                 <p class="text-xs text-gray-600">{{ b.email }} — {{ b.created_at | date: 'dd/MM/yyyy' }}</p>
               </div>

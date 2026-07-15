@@ -182,6 +182,14 @@
           </div>
         </div>
 
+        <div>
+          <label for="user-numero-posti" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Numero di Partecipanti *</label>
+          <input type="number" id="user-numero-posti" formControlName="numeroPosti" min="1" step="1" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800">
+          @if (selectedEvent(); as ev) {
+            <p class="text-xs text-gray-600 mt-2">Posti disponibili per questo evento: {{ ev.seatsAvailable }}</p>
+          }
+        </div>
+
         <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2 pt-4">2. Fatturazione</p>
         <div>
           <label for="billing-type" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Tipologia Account *</label>
