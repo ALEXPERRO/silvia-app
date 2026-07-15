@@ -1,20 +1,20 @@
-export interface EventMessage {
-  body: string;
-}
-
 export interface PaintEvent {
   id: number;
   title: string;
-  message: EventMessage;
-  date: string;
-  time: string;
-  location: string;
-  address: string;
-  mapEmbedUrl: string;
-  mapLink: string;
+  descrizione: string;
+  data: string;
+  oraInizio: string;
+  oraFine: string;
+  luogo: string;
+  indirizzo: string;
+  prezzo: number;
+  locandinaUrl: string | null;
 }
 
 export interface PaintEventWithSeats extends PaintEvent {
   seatsAvailable: number;
   isSoldOut: boolean;
+  dateLabel: string;
+  timeLabel: string;
+  mapsUrl: string;
 }
