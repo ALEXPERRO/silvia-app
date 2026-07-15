@@ -96,8 +96,11 @@ export class Gestione {
   }
 
   async onLogout(): Promise<void> {
-    await this.admin.signOut();
-    this.authenticated.set(false);
+    try {
+      await this.admin.signOut();
+    } finally {
+      this.authenticated.set(false);
+    }
   }
 
   private loadData(): void {
