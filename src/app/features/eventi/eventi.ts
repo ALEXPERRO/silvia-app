@@ -35,6 +35,7 @@ export class Eventi {
 
   @ViewChild('sliderRef') private sliderRef?: ElementRef<HTMLDivElement>;
   @ViewChild('bookingSection') private bookingSectionRef?: ElementRef<HTMLDivElement>;
+  @ViewChild('privacyNotice') private privacyNoticeRef?: ElementRef<HTMLDivElement>;
 
   protected readonly events = this.content.events;
 
@@ -43,6 +44,7 @@ export class Eventi {
   protected readonly currentIndex = signal(0);
   protected readonly showSwipeHint = signal(true);
   protected readonly showBookingSection = signal(false);
+  protected readonly showPrivacyNotice = signal(false);
   protected readonly submitting = signal(false);
   protected readonly bookingSuccess = signal(false);
   protected readonly errorMessage = signal<string | null>(null);
@@ -67,6 +69,7 @@ export class Eventi {
     address: ['', Validators.required],
     cap: ['', [Validators.required, Validators.pattern(/^[0-9]{5}$/)]],
     city: ['', Validators.required],
+    privacyAccepted: [false, Validators.requiredTrue],
   });
 
   private readonly billingType = toSignal(this.form.controls.billingType.valueChanges, {
@@ -174,6 +177,15 @@ export class Eventi {
     this.errorMessage.set(null);
     this.showBookingSection.set(true);
     setTimeout(() => this.bookingSectionRef?.nativeElement.scrollIntoView({ behavior: 'smooth' }));
+  }
+
+  openPrivacyNotice(): void {
+    this.showPrivacyNotice.set(true);
+    setTimeout(() => this.privacyNoticeRef?.nativeElement.scrollIntoView({ behavior: 'smooth' }));
+  }
+
+  togglePrivacyNotice(): void {
+    this.showPrivacyNotice.update((v) => !v);
   }
 
   async onSubmit(): Promise<void> {
