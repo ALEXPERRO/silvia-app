@@ -32,64 +32,204 @@
         <button type="button" (click)="onLogout()" class="text-xs font-semibold tracking-widest uppercase text-gray-600 border border-gray-200 rounded px-4 py-2 hover:border-brand hover:text-brand transition-colors">Esci</button>
       </div>
 
-      <label class="flex items-center gap-2 text-xs text-gray-600 mb-8">
-        <input type="checkbox" [checked]="showCancelled()" (change)="showCancelled.set(!showCancelled())" class="accent-brand" />
-        Mostra annullate
-      </label>
+      <div class="flex gap-2 mb-8">
+        <button
+          type="button"
+          (click)="selectTab('prenotazioni')"
+          [ngClass]="activeTab() === 'prenotazioni' ? 'bg-action text-white' : 'border border-gray-200 text-gray-600'"
+          class="text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded transition-colors"
+        >Prenotazioni</button>
+        <button
+          type="button"
+          (click)="selectTab('eventi')"
+          [ngClass]="activeTab() === 'eventi' ? 'bg-action text-white' : 'border border-gray-200 text-gray-600'"
+          class="text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded transition-colors"
+        >Eventi</button>
+      </div>
 
-      @if (actionError(); as err) {
-        <p class="text-red-500 text-xs font-semibold text-center mb-6">{{ err }}</p>
-      }
+      @if (activeTab() === 'prenotazioni') {
+        <label class="flex items-center gap-2 text-xs text-gray-600 mb-8">
+          <input type="checkbox" [checked]="showCancelled()" (change)="showCancelled.set(!showCancelled())" class="accent-brand" />
+          Mostra annullate
+        </label>
 
-      @if (groupedBookings().length === 0) {
-        <p class="text-gray-600 text-sm">Nessuna prenotazione ancora.</p>
-      }
+        @if (actionError(); as err) {
+          <p class="text-red-500 text-xs font-semibold text-center mb-6">{{ err }}</p>
+        }
 
-      @for (group of groupedBookings(); track group.titolo) {
-        <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-6">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-title font-medium text-gray-900 tracking-wide">{{ group.titolo }}</h2>
-            @if (group.postiDisponibili !== null) {
-              <span class="text-xs text-gray-600 font-medium">{{ group.postiDisponibili }} posti disponibili</span>
+        @if (groupedBookings().length === 0) {
+          <p class="text-gray-600 text-sm">Nessuna prenotazione ancora.</p>
+        }
+
+        @for (group of groupedBookings(); track group.titolo) {
+          <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-6">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-lg font-title font-medium text-gray-900 tracking-wide">{{ group.titolo }}</h2>
+              @if (group.postiDisponibili !== null) {
+                <span class="text-xs text-gray-600 font-medium">{{ group.postiDisponibili }} posti disponibili</span>
+              }
+            </div>
+
+            @for (b of group.prenotazioni; track b.id) {
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-3 border-t border-gray-200 text-sm">
+                <div>
+                  <p class="font-medium text-gray-900">
+                    {{ b.nome_completo }}
+                    <span class="text-xs text-gray-600 font-normal">({{ b.codice_fiscale ? 'privato' : 'azienda' }})</span>
+                    @if (b.numero_posti > 1) {
+                      <span class="text-xs text-brand font-semibold">— {{ b.numero_posti }} persone</span>
+                    }
+                  </p>
+                  <p class="text-xs text-gray-600">{{ b.email }} — {{ b.created_at | date: 'dd/MM/yyyy' }}</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button
+                    type="button"
+                    (click)="togglePaid(b)"
+                    [ngClass]="b.pagato ? 'bg-action text-white' : 'border border-gray-200 text-gray-600'"
+                    class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded transition-colors"
+                  >
+                    {{ b.pagato ? 'Pagato' : 'Non pagato' }}
+                  </button>
+                  @if (confirmingCancelId() === b.id) {
+                    <button type="button" (click)="confirmCancel(b.id)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded bg-red-500 text-white">
+                      Conferma annullamento?
+                    </button>
+                  } @else if (!b.cancellata) {
+                    <button type="button" (click)="armCancel(b.id)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-500 transition-colors">
+                      Annulla prenotazione
+                    </button>
+                  } @else {
+                    <span class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 text-gray-400">Annullata</span>
+                  }
+                </div>
+              </div>
             }
           </div>
+        }
+      } @else {
+        @if (eventActionError(); as err) {
+          <p class="text-red-500 text-xs font-semibold text-center mb-6">{{ err }}</p>
+        }
 
-          @for (b of group.prenotazioni; track b.id) {
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-3 border-t border-gray-200 text-sm">
+        @if (!showEventForm()) {
+          <button type="button" (click)="openNewEventForm()" class="bg-action text-white text-xs font-semibold tracking-widest uppercase px-5 py-3 rounded mb-6 hover:bg-action-hover transition-colors">
+            + Nuovo evento
+          </button>
+        }
+
+        @if (showEventForm()) {
+          <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-6">
+            <h2 class="text-lg font-title font-medium text-gray-900 tracking-wide mb-4">
+              {{ editingEventId() !== null ? 'Modifica evento' : 'Nuovo evento' }}
+            </h2>
+            <form [formGroup]="eventForm" (ngSubmit)="onSubmitEvent()" class="space-y-4 text-left text-sm">
               <div>
-                <p class="font-medium text-gray-900">
-                  {{ b.nome_completo }}
-                  <span class="text-xs text-gray-600 font-normal">({{ b.codice_fiscale ? 'privato' : 'azienda' }})</span>
-                  @if (b.numero_posti > 1) {
-                    <span class="text-xs text-brand font-semibold">— {{ b.numero_posti }} persone</span>
+                <label for="ev-titolo" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Titolo *</label>
+                <input type="text" id="ev-titolo" formControlName="titolo" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800">
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="ev-luogo" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Luogo *</label>
+                  <input type="text" id="ev-luogo" formControlName="luogo" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800" placeholder="Villa Peripato">
+                </div>
+                <div>
+                  <label for="ev-indirizzo" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Indirizzo *</label>
+                  <input type="text" id="ev-indirizzo" formControlName="indirizzo" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800" placeholder="Taranto">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label for="ev-data" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Data *</label>
+                  <input type="date" id="ev-data" formControlName="data" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800">
+                </div>
+                <div>
+                  <label for="ev-ora-inizio" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Ora inizio *</label>
+                  <input type="time" id="ev-ora-inizio" formControlName="oraInizio" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800">
+                </div>
+                <div>
+                  <label for="ev-ora-fine" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Ora fine *</label>
+                  <input type="time" id="ev-ora-fine" formControlName="oraFine" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800">
+                </div>
+              </div>
+
+              <div>
+                <label for="ev-descrizione" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Descrizione *</label>
+                <textarea id="ev-descrizione" formControlName="descrizione" rows="4" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800"></textarea>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="ev-prezzo" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Prezzo (€) *</label>
+                  <input type="number" id="ev-prezzo" formControlName="prezzo" step="0.01" min="0" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800">
+                </div>
+                <div>
+                  <label for="ev-capienza" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Posti totali *</label>
+                  <input type="number" id="ev-capienza" formControlName="capienzaTotale" step="1" min="0" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800">
+                  @if (editingEventId() !== null) {
+                    <p class="text-xs text-gray-600 mt-2">Di cui {{ giaPrenotatiCorrente() }} già prenotati</p>
                   }
-                </p>
-                <p class="text-xs text-gray-600">{{ b.email }} — {{ b.created_at | date: 'dd/MM/yyyy' }}</p>
+                </div>
               </div>
-              <div class="flex items-center gap-2">
-                <button
-                  type="button"
-                  (click)="togglePaid(b)"
-                  [ngClass]="b.pagato ? 'bg-action text-white' : 'border border-gray-200 text-gray-600'"
-                  class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded transition-colors"
-                >
-                  {{ b.pagato ? 'Pagato' : 'Non pagato' }}
-                </button>
-                @if (confirmingCancelId() === b.id) {
-                  <button type="button" (click)="confirmCancel(b.id)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded bg-red-500 text-white">
-                    Conferma annullamento?
-                  </button>
-                } @else if (!b.cancellata) {
-                  <button type="button" (click)="armCancel(b.id)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-500 transition-colors">
-                    Annulla prenotazione
-                  </button>
-                } @else {
-                  <span class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 text-gray-400">Annullata</span>
+
+              <div>
+                <label for="ev-locandina" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Locandina</label>
+                @if (currentLocandinaUrl(); as url) {
+                  <img [src]="url" alt="Locandina attuale" class="w-32 h-32 object-cover rounded border border-gray-200 mb-2">
                 }
+                <input type="file" id="ev-locandina" accept="image/*" (change)="onLocandinaSelected($event)" class="w-full text-sm text-gray-600">
               </div>
+
+              <label class="flex items-center gap-2 text-xs text-gray-600">
+                <input type="checkbox" formControlName="pubblicato" class="accent-brand" />
+                Pubblica subito
+              </label>
+
+              @if (eventFormError(); as err) {
+                <p class="text-red-500 text-xs font-semibold text-center">{{ err }}</p>
+              }
+
+              <div class="flex items-center gap-3 pt-2">
+                <button type="submit" [disabled]="savingEvent()" class="bg-action text-white font-medium text-xs tracking-widest py-3 px-6 rounded hover:bg-action-hover transition-all uppercase disabled:opacity-50">
+                  {{ savingEvent() ? 'Salvataggio...' : 'Salva evento' }}
+                </button>
+                <button type="button" (click)="closeEventForm()" class="text-xs font-semibold tracking-widest uppercase text-gray-600 border border-gray-200 rounded px-6 py-3 hover:border-brand hover:text-brand transition-colors">
+                  Annulla
+                </button>
+              </div>
+            </form>
+          </div>
+        }
+
+        @if (adminEvents().length === 0 && eventsTabLoaded()) {
+          <p class="text-gray-600 text-sm">Nessun evento ancora. Creane uno con "Nuovo evento".</p>
+        }
+
+        @for (ev of adminEvents(); track ev.id) {
+          <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-4 flex items-center justify-between gap-4">
+            <div>
+              <p class="font-medium text-gray-900">
+                {{ ev.title }}
+                <span
+                  class="text-[10px] font-semibold tracking-widest uppercase px-2 py-1 rounded ml-2"
+                  [ngClass]="ev.pubblicato ? 'bg-action text-white' : 'bg-gray-200 text-gray-600'"
+                >{{ ev.pubblicato ? 'Pubblicato' : 'Nascosto' }}</span>
+              </p>
+              <p class="text-xs text-gray-600 mt-1">
+                {{ ev.data | date: 'dd/MM/yyyy' }} · {{ formatOrario(ev.oraInizio, ev.oraFine) }} ·
+                {{ ev.postiDisponibili }} posti disponibili · € {{ ev.prezzo | number: '1.2-2' }}
+              </p>
             </div>
-          }
-        </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <button type="button" (click)="openEditEventForm(ev)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-brand hover:text-brand transition-colors">Modifica</button>
+              <button type="button" (click)="toggleEventoPubblicato(ev)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-500 transition-colors">
+                {{ ev.pubblicato ? 'Nascondi' : 'Pubblica' }}
+              </button>
+            </div>
+          </div>
+        }
       }
     </div>
   </section>

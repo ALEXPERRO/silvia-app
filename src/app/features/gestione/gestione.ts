@@ -1,15 +1,17 @@
 import { ChangeDetectionStrategy, Component, afterNextRender, computed, inject, signal } from '@angular/core';
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
 import { AdminService } from '../../core/services/admin.service';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { Prenotazione } from '../../core/models/prenotazione.model';
+import { EventFormValue, PaintEventAdmin } from '../../core/models/event.model';
+import { formatFasciaOraria } from '../../core/utils/event-format.util';
 
 @Component({
   selector: 'app-gestione',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe, NgClass],
+  imports: [ReactiveFormsModule, DatePipe, DecimalPipe, NgClass],
   templateUrl: './gestione.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -28,9 +30,39 @@ export class Gestione {
   protected readonly confirmingCancelId = signal<number | null>(null);
   protected readonly actionError = signal<string | null>(null);
 
+  protected readonly activeTab = signal<'prenotazioni' | 'eventi'>('prenotazioni');
+  protected readonly adminEvents = signal<PaintEventAdmin[]>([]);
+  protected readonly eventsTabLoaded = signal(false);
+  protected readonly eventActionError = signal<string | null>(null);
+  // riusa la stessa utility della pagina pubblica Eventi (Fase 1) invece di
+  // duplicare la logica di formattazione orario nel template.
+  protected readonly formatOrario = formatFasciaOraria;
+
+  protected readonly showEventForm = signal(false);
+  protected readonly editingEventId = signal<number | null>(null);
+  protected readonly selectedLocandinaFile = signal<File | null>(null);
+  protected readonly currentLocandinaUrl = signal<string | null>(null);
+  protected readonly savingEvent = signal(false);
+  protected readonly eventFormError = signal<string | null>(null);
+  // mostrato nel form ("Di cui N già prenotati"), calcolato una volta all'apertura
+  protected readonly giaPrenotatiCorrente = signal(0);
+
   protected readonly loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
+  });
+
+  protected readonly eventForm = this.fb.nonNullable.group({
+    titolo: ['', Validators.required],
+    luogo: ['', Validators.required],
+    indirizzo: ['', Validators.required],
+    data: ['', Validators.required],
+    oraInizio: ['', Validators.required],
+    oraFine: ['', Validators.required],
+    descrizione: ['', Validators.required],
+    prezzo: this.fb.nonNullable.control(0, [Validators.required, Validators.min(0)]),
+    capienzaTotale: this.fb.nonNullable.control(10, [Validators.required, Validators.min(0)]),
+    pubblicato: [true],
   });
 
   protected readonly groupedBookings = computed(() => {
@@ -143,6 +175,135 @@ export class Gestione {
       this.actionError.set('Impossibile annullare la prenotazione. Riprova.');
     } finally {
       this.confirmingCancelId.set(null);
+    }
+  }
+
+  selectTab(tab: 'prenotazioni' | 'eventi'): void {
+    this.activeTab.set(tab);
+    if (tab === 'eventi' && !this.eventsTabLoaded()) {
+      this.admin.getAllEvents().then((events) => {
+        this.adminEvents.set(events);
+        this.eventsTabLoaded.set(true);
+      });
+    }
+  }
+
+  /** Somma i posti delle prenotazioni attive (non annullate) collegate a un evento,
+   *  riusando i dati già caricati per la scheda Prenotazioni (nessuna query extra). */
+  private postiGiaPrenotati(eventoId: number): number {
+    return this.bookings()
+      .filter((b) => b.evento_id === eventoId && !b.cancellata)
+      .reduce((sum, b) => sum + b.numero_posti, 0);
+  }
+
+  openNewEventForm(): void {
+    this.editingEventId.set(null);
+    this.eventFormError.set(null);
+    this.selectedLocandinaFile.set(null);
+    this.currentLocandinaUrl.set(null);
+    this.giaPrenotatiCorrente.set(0);
+    this.eventForm.reset({ prezzo: 0, capienzaTotale: 10, pubblicato: true });
+    this.showEventForm.set(true);
+  }
+
+  openEditEventForm(ev: PaintEventAdmin): void {
+    this.editingEventId.set(ev.id);
+    this.eventFormError.set(null);
+    this.selectedLocandinaFile.set(null);
+    this.currentLocandinaUrl.set(ev.locandinaUrl);
+    const giaPrenotati = this.postiGiaPrenotati(ev.id);
+    this.giaPrenotatiCorrente.set(giaPrenotati);
+    this.eventForm.reset({
+      titolo: ev.title,
+      luogo: ev.luogo,
+      indirizzo: ev.indirizzo,
+      data: ev.data,
+      oraInizio: ev.oraInizio.slice(0, 5),
+      oraFine: ev.oraFine.slice(0, 5),
+      descrizione: ev.descrizione,
+      prezzo: ev.prezzo,
+      capienzaTotale: ev.postiDisponibili + giaPrenotati,
+      pubblicato: ev.pubblicato,
+    });
+    this.showEventForm.set(true);
+  }
+
+  closeEventForm(): void {
+    this.showEventForm.set(false);
+  }
+
+  onLocandinaSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.selectedLocandinaFile.set(input.files?.[0] ?? null);
+  }
+
+  async toggleEventoPubblicato(ev: PaintEventAdmin): Promise<void> {
+    this.eventActionError.set(null);
+    try {
+      const { error } = await this.admin.togglePubblicato(ev.id, !ev.pubblicato);
+      if (error) {
+        this.eventActionError.set("Impossibile aggiornare lo stato dell'evento. Riprova.");
+        return;
+      }
+      this.adminEvents.update((list) =>
+        list.map((e) => (e.id === ev.id ? { ...e, pubblicato: !ev.pubblicato } : e)),
+      );
+    } catch {
+      this.eventActionError.set("Impossibile aggiornare lo stato dell'evento. Riprova.");
+    }
+  }
+
+  async onSubmitEvent(): Promise<void> {
+    this.eventFormError.set(null);
+    if (this.eventForm.invalid) {
+      this.eventForm.markAllAsTouched();
+      this.eventFormError.set('Controlla i campi evidenziati: alcuni dati mancano o non sono validi.');
+      return;
+    }
+
+    const editingId = this.editingEventId();
+    const giaPrenotati = editingId !== null ? this.postiGiaPrenotati(editingId) : 0;
+    const v = this.eventForm.getRawValue();
+    const postiDisponibili = v.capienzaTotale - giaPrenotati;
+
+    if (postiDisponibili < 0) {
+      this.eventFormError.set(
+        `Ci sono già ${giaPrenotati} persone prenotate: non puoi impostare meno di ${giaPrenotati} posti totali.`,
+      );
+      return;
+    }
+
+    this.savingEvent.set(true);
+    try {
+      let locandinaUrl = this.currentLocandinaUrl();
+
+      const file = this.selectedLocandinaFile();
+      if (file) {
+        const { url, error } = await this.admin.uploadLocandina(file);
+        if (error) {
+          this.eventFormError.set('Impossibile caricare la locandina. Riprova.');
+          return;
+        }
+        locandinaUrl = url;
+      }
+
+      const fields: EventFormValue = { ...v, locandinaUrl };
+      const { error } = editingId !== null
+        ? await this.admin.updateEvent(editingId, fields, postiDisponibili)
+        : await this.admin.createEvent(fields, postiDisponibili);
+
+      if (error) {
+        this.eventFormError.set("Impossibile salvare l'evento. Riprova.");
+        return;
+      }
+
+      this.showEventForm.set(false);
+      this.eventsTabLoaded.set(false);
+      this.selectTab('eventi');
+    } catch {
+      this.eventFormError.set("Impossibile salvare l'evento. Riprova.");
+    } finally {
+      this.savingEvent.set(false);
     }
   }
 }
