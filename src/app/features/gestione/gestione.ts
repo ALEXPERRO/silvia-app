@@ -107,14 +107,18 @@ export class Gestione {
 
   async togglePaid(booking: Prenotazione): Promise<void> {
     this.actionError.set(null);
-    const { error } = await this.admin.setPaid(booking.id, !booking.pagato);
-    if (error) {
+    try {
+      const { error } = await this.admin.setPaid(booking.id, !booking.pagato);
+      if (error) {
+        this.actionError.set('Impossibile aggiornare lo stato del pagamento. Riprova.');
+        return;
+      }
+      this.bookings.update((list) =>
+        list.map((b) => (b.id === booking.id ? { ...b, pagato: !booking.pagato } : b)),
+      );
+    } catch {
       this.actionError.set('Impossibile aggiornare lo stato del pagamento. Riprova.');
-      return;
     }
-    this.bookings.update((list) =>
-      list.map((b) => (b.id === booking.id ? { ...b, pagato: !booking.pagato } : b)),
-    );
   }
 
   armCancel(id: number): void {
@@ -123,13 +127,19 @@ export class Gestione {
 
   async confirmCancel(id: number): Promise<void> {
     this.actionError.set(null);
-    const { success, error } = await this.admin.cancelBooking(id);
-    this.confirmingCancelId.set(null);
-    if (error || !success) {
+    try {
+      const { success, error } = await this.admin.cancelBooking(id);
+      if (error || !success) {
+        this.actionError.set('Impossibile annullare la prenotazione. Riprova.');
+        return;
+      }
+      this.bookings.update((list) => list.map((b) => (b.id === id ? { ...b, cancellata: true } : b)));
+      this.supabase.invalidateSeatsCache();
+      this.supabase.getEventSeats().then((seatMap) => this.seats.set(seatMap));
+    } catch {
       this.actionError.set('Impossibile annullare la prenotazione. Riprova.');
-      return;
+    } finally {
+      this.confirmingCancelId.set(null);
     }
-    this.bookings.update((list) => list.map((b) => (b.id === id ? { ...b, cancellata: true } : b)));
-    this.supabase.getEventSeats().then((seatMap) => this.seats.set(seatMap));
   }
 }

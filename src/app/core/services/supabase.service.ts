@@ -51,6 +51,11 @@ export class SupabaseService {
     return this.seatsCache.promise;
   }
 
+  /** Invalida la cache posti: da chiamare quando un'azione altrove (es. annullamento) cambia il conteggio. */
+  invalidateSeatsCache(): void {
+    this.seatsCache = null;
+  }
+
   private async fetchEventSeats(): Promise<Record<number, number>> {
     const seats: Record<number, number> = {};
     try {
