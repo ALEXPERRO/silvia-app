@@ -25,11 +25,11 @@
     </div>
   </section>
 } @else {
-  <section class="min-h-screen bg-parchment px-4 py-10">
+  <section class="min-h-screen bg-parchment px-4 pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-24 pb-10">
     <div class="max-w-4xl mx-auto">
-      <div class="flex items-center justify-between mb-4">
-        <h1 class="text-2xl font-title font-medium text-gray-900 tracking-wide">Gestione prenotazioni</h1>
-        <button type="button" (click)="onLogout()" class="text-xs font-semibold tracking-widest uppercase text-gray-600 hover:text-brand transition-colors">Esci</button>
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
+        <h1 class="text-3xl font-title font-medium text-gray-900 tracking-wide">Gestione prenotazioni</h1>
+        <button type="button" (click)="onLogout()" class="text-xs font-semibold tracking-widest uppercase text-gray-600 border border-gray-200 rounded px-4 py-2 hover:border-brand hover:text-brand transition-colors">Esci</button>
       </div>
 
       <label class="flex items-center gap-2 text-xs text-gray-600 mb-8">
