@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
+import { PaintEvent } from '../models/event.model';
 
 export interface BookingSubmission {
   evento_titolo: string;
@@ -71,6 +72,29 @@ export class SupabaseService {
       console.error('Errore nel recupero dati dal DB:', err);
     }
     return seats;
+  }
+
+  /** Eventi pubblicati, ordinati per data crescente (usato da Eventi e Home). */
+  async getPublishedEvents(): Promise<PaintEvent[]> {
+    const client = await this.getClient();
+    const { data, error } = await client
+      .from('eventi')
+      .select('*')
+      .eq('pubblicato', true)
+      .order('data', { ascending: true });
+    if (error || !data) return [];
+    return data.map((row) => ({
+      id: row['id'],
+      title: row['titolo'],
+      descrizione: row['descrizione'],
+      data: row['data'],
+      oraInizio: row['ora_inizio'],
+      oraFine: row['ora_fine'],
+      luogo: row['luogo'],
+      indirizzo: row['indirizzo'],
+      prezzo: row['prezzo'],
+      locandinaUrl: row['locandina_url'],
+    }));
   }
 
   /**
