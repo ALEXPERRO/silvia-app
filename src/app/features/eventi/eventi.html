@@ -48,8 +48,11 @@
 
           <div class="absolute inset-x-0 bottom-0 p-6 md:p-10 text-white">
             <p
-              class="inline-flex w-fit items-center gap-1.5 md:gap-2 text-xs md:text-base font-title italic mb-3 md:mb-4 px-3 py-1.5 md:px-4 md:py-2 rounded-full text-white"
+              class="inline-flex w-fit items-center gap-1.5 md:gap-2 text-xs md:text-base font-title italic mb-3 md:mb-4 px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-md"
               [class.bg-red-500]="seatsLoaded() && ev.isSoldOut"
+              [class.text-white]="seatsLoaded() && ev.isSoldOut"
+              [class.bg-white]="!seatsLoaded() || !ev.isSoldOut"
+              [class.text-gray-900]="!seatsLoaded() || !ev.isSoldOut"
             >
               @if (!seatsLoaded()) {
                 <app-icon name="sparkles" [size]="16" /> Verifica disponibilità in corso…
