@@ -1,9 +1,9 @@
 <section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-20 pb-6 md:pb-16 px-4">
   <div class="max-w-2xl mx-auto text-center">
-    <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 tracking-wide text-center">
+    <h1 class="text-4xl md:text-7xl text-gray-900 font-title mb-4 tracking-wide text-center">
       I Nostri Prossimi Eventi
     </h1>
-    <p class="text-center text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body">
+    <p class="text-center text-gray-600 max-w-xl mx-auto text-sm md:text-lg font-body">
       Vieni a dipingere con me e riscopri la magia della natura attraverso l'acquerello. Scopri i prossimi workshop in programma e coltiva la tua creatività in un'atmosfera calda e rilassante.
     </p>
   </div>
@@ -187,7 +187,7 @@
             }
           </select>
           @if (selectedEvent(); as ev) {
-            <p class="text-xs text-gray-600 mt-2 leading-relaxed">{{ ev.descrizione }}</p>
+            <p class="text-xs md:text-base text-gray-600 mt-2 leading-relaxed">{{ ev.descrizione }}</p>
           }
         </div>
 
