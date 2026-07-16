@@ -114,13 +114,13 @@
       <app-icon name="chevron-right" [size]="20" />
     </button>
 
-    <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center gap-2">
+    <div class="absolute -bottom-8 md:-bottom-10 left-1/2 -translate-x-1/2 flex items-center justify-center gap-2 md:gap-3">
       @for (ev of eventsWithSeats(); track ev.id; let i = $index) {
         <button
           type="button"
           (click)="goToSlide(i)"
           [attr.aria-label]="'Vai a ' + ev.title"
-          class="w-2.5 h-2.5 rounded-full transition-colors"
+          class="w-2.5 h-2.5 md:w-4 md:h-4 rounded-full transition-colors"
           [class.bg-brand]="i === currentIndex()"
           [class.bg-gray-200]="i !== currentIndex()"
         ></button>
