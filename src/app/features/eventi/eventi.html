@@ -48,7 +48,7 @@
                 class="inline-flex w-fit items-center gap-1.5 md:gap-2 text-xs md:text-base font-title italic px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-md"
                 [class.bg-red-500]="seatsLoaded() && ev.isSoldOut"
                 [class.text-white]="seatsLoaded() && ev.isSoldOut"
-                [class.bg-brand-soft]="!seatsLoaded() || !ev.isSoldOut"
+                [class.bg-white]="!seatsLoaded() || !ev.isSoldOut"
                 [class.text-gray-900]="!seatsLoaded() || !ev.isSoldOut"
               >
                 @if (!seatsLoaded()) {
@@ -59,7 +59,7 @@
                   <app-icon name="sparkles" [size]="16" /> Solo {{ ev.seatsAvailable }} posti ancora disponibili
                 }
               </p>
-              <span class="bg-brand-soft text-gray-900 font-title italic text-xs md:text-base px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-md">
+              <span class="bg-white text-gray-900 font-title italic text-xs md:text-base px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-md">
                 € {{ ev.prezzo | number: '1.2-2' }}
               </span>
             </div>
