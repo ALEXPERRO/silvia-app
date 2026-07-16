@@ -222,7 +222,7 @@ export class Gestione {
       oraFine: ev.oraFine.slice(0, 5),
       descrizione: ev.descrizione,
       prezzo: ev.prezzo,
-      capienzaTotale: ev.postiDisponibili + giaPrenotati,
+      capienzaTotale: ev.postiTotali,
       pubblicato: ev.pubblicato,
     });
     this.showEventForm.set(true);

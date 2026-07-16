@@ -22,6 +22,7 @@ export interface PaintEventWithSeats extends PaintEvent {
 /** Vista admin di un evento: espone anche i campi gestionali che il pubblico
  *  non deve mai vedere (posti "grezzi" e stato di pubblicazione). */
 export interface PaintEventAdmin extends PaintEvent {
+  postiTotali: number;
   postiDisponibili: number;
   pubblicato: boolean;
 }

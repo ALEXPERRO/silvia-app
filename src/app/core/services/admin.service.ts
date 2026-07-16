@@ -82,6 +82,7 @@ export class AdminService {
       indirizzo: row['indirizzo'],
       prezzo: row['prezzo'],
       locandinaUrl: row['locandina_url'],
+      postiTotali: row['posti_totali'],
       postiDisponibili: row['posti_disponibili'],
       pubblicato: row['pubblicato'],
     }));
@@ -124,6 +125,7 @@ export class AdminService {
       ora_fine: fields.oraFine,
       descrizione: fields.descrizione,
       prezzo: fields.prezzo,
+      posti_totali: fields.capienzaTotale,
       posti_disponibili: postiDisponibili,
       locandina_url: fields.locandinaUrl,
       pubblicato: fields.pubblicato,
