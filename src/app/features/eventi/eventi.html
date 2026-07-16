@@ -10,7 +10,7 @@
 </section>
 
 <!-- SEZIONE EVENTI SLIDER -->
-<section class="bg-blush min-h-[70vh] py-10 px-4 relative flex flex-col items-center justify-center">
+<section class="bg-blush min-h-[70vh] md:min-h-screen py-10 px-4 relative flex flex-col items-center justify-center">
   @if (!eventsLoaded()) {
     <p class="text-gray-600 text-sm">Caricamento eventi…</p>
   } @else if (eventsWithSeats().length === 0) {
@@ -42,13 +42,13 @@
 
           <div class="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-transparent"></div>
 
-          <span class="absolute top-4 right-4 bg-white text-gray-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+          <span class="absolute top-4 right-4 md:top-6 md:right-6 bg-white text-gray-900 text-xs md:text-lg font-bold px-3 py-1.5 md:px-5 md:py-2.5 rounded-full shadow-md">
             € {{ ev.prezzo | number: '1.2-2' }}
           </span>
 
-          <div class="absolute inset-x-0 bottom-0 p-6 md:p-8 text-white">
+          <div class="absolute inset-x-0 bottom-0 p-6 md:p-10 text-white">
             <p
-              class="inline-flex w-fit items-center gap-1.5 text-xs md:text-sm font-title italic mb-3 px-3 py-1.5 rounded-full text-white"
+              class="inline-flex w-fit items-center gap-1.5 md:gap-2 text-xs md:text-base font-title italic mb-3 md:mb-4 px-3 py-1.5 md:px-4 md:py-2 rounded-full text-white"
               [class.bg-red-500]="seatsLoaded() && ev.isSoldOut"
               [class.bg-brand]="!seatsLoaded() || !ev.isSoldOut"
             >
@@ -61,24 +61,24 @@
               }
             </p>
 
-            <h3 class="text-2xl md:text-4xl font-title font-medium mb-1 tracking-wide">{{ ev.title }}</h3>
+            <h3 class="text-2xl md:text-5xl font-title font-medium mb-1 md:mb-2 tracking-wide">{{ ev.title }}</h3>
 
-            <p class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs md:text-sm opacity-90 mb-5">
-              <span class="flex items-center gap-1.5"><app-icon name="calendar" [size]="15" /> {{ ev.dateLabel }} · {{ ev.timeLabel }}</span>
-              <span class="flex items-center gap-1.5"><app-icon name="map-pin" [size]="15" /> {{ ev.luogo }}, {{ ev.indirizzo }}</span>
+            <p class="flex flex-wrap items-center gap-x-2 md:gap-x-3 gap-y-1 text-xs md:text-lg opacity-90 mb-5 md:mb-6">
+              <span class="flex items-center gap-1.5 md:gap-2"><app-icon name="calendar" [size]="15" /> {{ ev.dateLabel }} · {{ ev.timeLabel }}</span>
+              <span class="flex items-center gap-1.5 md:gap-2"><app-icon name="map-pin" [size]="15" /> {{ ev.luogo }}, {{ ev.indirizzo }}</span>
             </p>
 
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-3 md:gap-4">
               <a
                 [href]="ev.mapsUrl"
                 target="_blank"
-                class="flex items-center gap-1.5 border border-white/40 text-white text-xs font-semibold tracking-widest px-4 py-3 rounded hover:bg-white/10 transition-colors uppercase"
+                class="flex items-center gap-1.5 md:gap-2 border border-white/40 text-white text-xs md:text-base font-semibold tracking-widest px-4 py-3 md:px-6 md:py-4 rounded hover:bg-white/10 transition-colors uppercase"
               ><app-icon name="map" [size]="14" /> Mappa</a>
               <button
                 type="button"
                 [disabled]="ev.isSoldOut"
                 (click)="selectEventAndScroll(ev.id)"
-                class="flex items-center gap-1.5 text-xs font-semibold tracking-widest px-5 py-3 rounded transition-all uppercase"
+                class="flex items-center gap-1.5 md:gap-2 text-xs md:text-base font-semibold tracking-widest px-5 py-3 md:px-7 md:py-4 rounded transition-all uppercase"
                 [ngClass]="ev.isSoldOut ? 'bg-white/20 cursor-not-allowed text-white/60' : 'bg-action text-white hover:bg-action-hover'"
               >
                 @if (ev.isSoldOut) {
