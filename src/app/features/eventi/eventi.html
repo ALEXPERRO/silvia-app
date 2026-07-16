@@ -10,7 +10,7 @@
 </section>
 
 <!-- SEZIONE EVENTI SLIDER -->
-<section class="bg-blush min-h-[70vh] md:min-h-screen py-10 px-4 relative flex flex-col items-center justify-center">
+<section class="bg-blush min-h-[70vh] py-10 px-4 relative flex flex-col items-center justify-center">
   @if (!eventsLoaded()) {
     <p class="text-gray-600 text-sm">Caricamento eventi…</p>
   } @else if (eventsWithSeats().length === 0) {
