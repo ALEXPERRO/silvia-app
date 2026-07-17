@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { PaintEvent } from '../models/event.model';
+import { GalleryItem } from '../models/gallery-item.model';
 
 export interface BookingSubmission {
   evento_titolo: string;
@@ -94,6 +95,25 @@ export class SupabaseService {
       indirizzo: row['indirizzo'],
       prezzo: row['prezzo'],
       locandinaUrl: row['locandina_url'],
+    }));
+  }
+
+  /** Immagini portfolio pubblicate, ordinate per categoria poi per ordine manuale. */
+  async getPublishedPortfolioItems(): Promise<GalleryItem[]> {
+    const client = await this.getClient();
+    const { data, error } = await client
+      .from('portfolio_immagini')
+      .select('*')
+      .eq('pubblicato', true)
+      .order('categoria', { ascending: true })
+      .order('ordine', { ascending: true });
+    if (error || !data) return [];
+    return data.map((row) => ({
+      id: row['id'],
+      src: row['src'],
+      title: row['titolo'],
+      category: row['categoria'],
+      ordine: row['ordine'],
     }));
   }
 
