@@ -69,16 +69,20 @@ export class Gestione {
     Array.from(new Set(this.adminPortfolio().map((i) => i.category))),
   );
 
+  protected readonly NUOVA_CATEGORIA_VALUE = '__nuova__';
+
   protected readonly showAddPortfolioForm = signal(false);
   protected readonly newPortfolioCategoria = signal('');
+  protected readonly isNewCategoriaSelected = signal(false);
   protected readonly newPortfolioRows = signal<{ file: File; titolo: string; previewUrl: string }[]>([]);
   protected readonly savingPortfolio = signal(false);
   protected readonly portfolioFormError = signal<string | null>(null);
 
   protected readonly editingPortfolioItem = signal<GalleryItemAdmin | null>(null);
+  protected readonly editPortfolioCategoria = signal('');
+  protected readonly isEditCategoriaNew = signal(false);
   protected readonly editPortfolioForm = this.fb.nonNullable.group({
     titolo: ['', Validators.required],
-    categoria: ['', Validators.required],
   });
 
   protected readonly loginForm = this.fb.nonNullable.group({
@@ -375,9 +379,21 @@ export class Gestione {
   openAddPortfolioForm(): void {
     this.portfolioFormError.set(null);
     this.newPortfolioCategoria.set('');
+    // se non esiste ancora nessuna categoria, parte già in modalità "nuova categoria"
+    this.isNewCategoriaSelected.set(this.existingCategorie().length === 0);
     this.newPortfolioRows().forEach((r) => URL.revokeObjectURL(r.previewUrl));
     this.newPortfolioRows.set([]);
     this.showAddPortfolioForm.set(true);
+  }
+
+  onCategoriaSelectChange(value: string): void {
+    if (value === this.NUOVA_CATEGORIA_VALUE) {
+      this.isNewCategoriaSelected.set(true);
+      this.newPortfolioCategoria.set('');
+    } else {
+      this.isNewCategoriaSelected.set(false);
+      this.newPortfolioCategoria.set(value);
+    }
   }
 
   closeAddPortfolioForm(): void {
@@ -452,11 +468,23 @@ export class Gestione {
   openEditPortfolioForm(item: GalleryItemAdmin): void {
     this.editingPortfolioItem.set(item);
     this.portfolioFormError.set(null);
-    this.editPortfolioForm.reset({ titolo: item.title, categoria: item.category });
+    this.editPortfolioForm.reset({ titolo: item.title });
+    this.editPortfolioCategoria.set(item.category);
+    this.isEditCategoriaNew.set(false);
   }
 
   closeEditPortfolioForm(): void {
     this.editingPortfolioItem.set(null);
+  }
+
+  onEditCategoriaSelectChange(value: string): void {
+    if (value === this.NUOVA_CATEGORIA_VALUE) {
+      this.isEditCategoriaNew.set(true);
+      this.editPortfolioCategoria.set('');
+    } else {
+      this.isEditCategoriaNew.set(false);
+      this.editPortfolioCategoria.set(value);
+    }
   }
 
   async onSubmitEditPortfolio(): Promise<void> {
@@ -468,8 +496,12 @@ export class Gestione {
     const item = this.editingPortfolioItem();
     if (!item) return;
 
-    const { titolo, categoria } = this.editPortfolioForm.getRawValue();
-    const categoriaTrim = categoria.trim();
+    const categoriaTrim = this.editPortfolioCategoria().trim();
+    if (!categoriaTrim) {
+      this.portfolioFormError.set('Scegli o scrivi una categoria.');
+      return;
+    }
+    const { titolo } = this.editPortfolioForm.getRawValue();
     const ordine = categoriaTrim !== item.category ? this.nextOrdineForCategoria(categoriaTrim) : item.ordine;
 
     this.savingPortfolio.set(true);
