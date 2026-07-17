@@ -35,8 +35,11 @@ use it too).
   its row). A new public Storage bucket `portfolio` with public `select`,
   `authenticated` `insert` (no `update`/`delete` policy on the bucket itself —
   images aren't replaced in-place, per spec).
-- Exact new dependency: `@angular/cdk@^20.3.0` (matches this project's
-  `@angular/core` version). Install with `npm install @angular/cdk@^20.3.0`.
+- Exact new dependency: `@angular/cdk@^20.2.0` (the 20.x line tops out at
+  20.2.14 — `^20.3.0` was the plan's original guess but that version was
+  never published; corrected during Task 4 after verifying `@angular/cdk`'s
+  peerDependencies against this project's installed `@angular/core@20.3.26`).
+  Install with `npm install @angular/cdk@^20.2.0`.
 - Exact TypeScript field names: `GalleryItemAdmin` extends `GalleryItem`
   (id, src, title, category, ordine) with `pubblicato: boolean`.
 - `existingCategorie` (the datalist source) and the `<datalist id="categorie-esistenti">`
@@ -328,7 +331,7 @@ Prenotazioni/Eventi tab logic survives completely untouched.
 
 - [ ] **Step 1: Install the new dependency**
 
-Run: `npm install @angular/cdk@^20.3.0`
+Run: `npm install @angular/cdk@^20.2.0`
 Expected: `package.json`/`package-lock.json` gain `@angular/cdk` as a
 dependency. Commit these two files together with the rest of this task (do
 not commit them separately).
