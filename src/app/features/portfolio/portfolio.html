@@ -7,11 +7,16 @@
   </div>
 </section>
 
+@if (!itemsLoaded()) {
+  <p class="text-center text-gray-600 py-12">Caricamento galleria…</p>
+} @else if (allItems().length === 0) {
+  <p class="text-center text-gray-600 py-12">Nessuna illustrazione disponibile al momento.</p>
+} @else {
 <!-- Separatore -->
 <div class="bg-blush py-10 px-4 flex flex-col items-center justify-center gap-6">
   <!-- Filtri categoria -->
   <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 font-body text-xs md:text-sm tracking-widest uppercase bg-white rounded shadow-sm border border-gray-200 py-4 px-6">
-    @for (cat of categories; track cat.value) {
+    @for (cat of categories(); track cat.value) {
       <button
         type="button"
         (click)="setCategory(cat.value)"
@@ -104,6 +109,7 @@
     }
   </div>
 </section>
+}
 
 <!-- Lightbox -->
 @if (lightboxItem(); as item) {

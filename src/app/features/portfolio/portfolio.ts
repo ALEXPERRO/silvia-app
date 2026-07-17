@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, afterNextRender, computed, inject, signal } from '@angular/core';
 import { DOCUMENT, NgOptimizedImage } from '@angular/common';
 import { Meta } from '@angular/platform-browser';
-import { ContentService } from '../../core/services/content.service';
-import { GalleryCategory, GalleryItem } from '../../core/models/gallery-item.model';
+import { SupabaseService } from '../../core/services/supabase.service';
+import { GalleryCategoryOption, GalleryItem } from '../../core/models/gallery-item.model';
 import { Icon } from '../../shared/icon/icon';
 import { RevealOnScroll } from '../../shared/reveal-on-scroll/reveal-on-scroll';
 
@@ -16,9 +16,10 @@ const PAGE_SIZE = 20;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Portfolio implements OnDestroy {
-  private readonly content = inject(ContentService);
+  private readonly supabase = inject(SupabaseService);
   private readonly document = inject(DOCUMENT);
-  private readonly allItems = this.content.galleryItems;
+  protected readonly allItems = signal<GalleryItem[]>([]);
+  protected readonly itemsLoaded = signal(false);
 
   constructor() {
     inject(Meta).updateTag({
@@ -26,10 +27,20 @@ export class Portfolio implements OnDestroy {
       content:
         'Esplora la raccolta di illustrazioni ad acquerello di Silvia Sgaramella: composizioni, animali, elementi botanici e insetti.',
     });
+
+    afterNextRender(() => {
+      this.supabase.getPublishedPortfolioItems().then((items) => {
+        this.allItems.set(items);
+        this.itemsLoaded.set(true);
+      });
+    });
   }
 
-  protected readonly categories = this.content.galleryCategories;
-  protected readonly activeCategory = signal<GalleryCategory | 'tutte'>('tutte');
+  protected readonly categories = computed<GalleryCategoryOption[]>(() => {
+    const distinct = Array.from(new Set(this.allItems().map((item) => item.category)));
+    return [{ value: 'tutte', label: 'Tutte' }, ...distinct.map((c) => ({ value: c, label: c }))];
+  });
+  protected readonly activeCategory = signal<string>('tutte');
   protected readonly lightboxItem = signal<GalleryItem | null>(null);
   protected readonly showLightboxSwipeHint = signal(false);
   protected readonly currentPage = signal(0);
@@ -39,7 +50,8 @@ export class Portfolio implements OnDestroy {
 
   protected readonly filteredItems = computed(() => {
     const category = this.activeCategory();
-    return category === 'tutte' ? this.allItems : this.allItems.filter((item) => item.category === category);
+    const items = this.allItems();
+    return category === 'tutte' ? items : items.filter((item) => item.category === category);
   });
 
   protected readonly totalPages = computed(() => Math.ceil(this.filteredItems().length / PAGE_SIZE));
@@ -57,7 +69,7 @@ export class Portfolio implements OnDestroy {
     return this.filteredItems().findIndex((i) => i.src === item.src);
   });
 
-  setCategory(category: GalleryCategory | 'tutte'): void {
+  setCategory(category: string): void {
     this.activeCategory.set(category);
     this.currentPage.set(0);
   }
