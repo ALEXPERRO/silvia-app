@@ -5,14 +5,16 @@
     <app-icon name="instagram" [size]="22" />
   </a>
 
-  <a
-    href="https://www.paypal.me/Zylvja"
-    target="_blank"
-    rel="noopener"
-    class="inline-flex items-center gap-1.5 mt-5 border border-gray-200 text-gray-600 text-xs font-semibold tracking-widest uppercase px-4 py-2.5 rounded hover:border-brand hover:text-brand transition-colors"
-  >
-    <app-icon name="sparkles" [size]="14" /> Offrimi un caffè
-  </a>
+  <div class="mt-5">
+    <a
+      href="https://www.paypal.me/Zylvja"
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center gap-2 bg-brand text-white text-xs font-semibold tracking-widest uppercase px-5 py-2.5 rounded-full shadow-sm hover:bg-brand-hover transition-colors"
+    >
+      <app-icon name="sparkles" [size]="14" /> Offrimi un caffè
+    </a>
+  </div>
 
   <form [formGroup]="newsletterForm" (ngSubmit)="onNewsletterSubmit()" class="max-w-sm mx-auto mt-6 flex flex-col items-center gap-2">
     @if (!newsletterSuccess()) {
