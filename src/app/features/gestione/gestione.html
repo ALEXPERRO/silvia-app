@@ -45,6 +45,12 @@
           [ngClass]="activeTab() === 'eventi' ? 'bg-action text-white' : 'border border-gray-200 text-gray-600'"
           class="text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded transition-colors"
         >Eventi</button>
+        <button
+          type="button"
+          (click)="selectTab('portfolio')"
+          [ngClass]="activeTab() === 'portfolio' ? 'bg-action text-white' : 'border border-gray-200 text-gray-600'"
+          class="text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded transition-colors"
+        >Portfolio</button>
       </div>
 
       @if (activeTab() === 'prenotazioni') {
@@ -107,7 +113,7 @@
             }
           </div>
         }
-      } @else {
+      } @else if (activeTab() === 'eventi') {
         @if (eventActionError(); as err) {
           <p class="text-red-500 text-xs font-semibold text-center mb-6">{{ err }}</p>
         }
@@ -227,6 +233,134 @@
               <button type="button" (click)="toggleEventoPubblicato(ev)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-500 transition-colors">
                 {{ ev.pubblicato ? 'Nascondi' : 'Pubblica' }}
               </button>
+            </div>
+          </div>
+        }
+      } @else {
+        <datalist id="categorie-esistenti">
+          @for (c of existingCategorie(); track c) {
+            <option [value]="c"></option>
+          }
+        </datalist>
+
+        @if (portfolioActionError(); as err) {
+          <p class="text-red-500 text-xs font-semibold text-center mb-6">{{ err }}</p>
+        }
+
+        @if (!showAddPortfolioForm() && !editingPortfolioItem()) {
+          <button type="button" (click)="openAddPortfolioForm()" class="bg-action text-white text-xs font-semibold tracking-widest uppercase px-5 py-3 rounded mb-6 hover:bg-action-hover transition-colors">
+            + Aggiungi immagini
+          </button>
+        }
+
+        @if (showAddPortfolioForm()) {
+          <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-6">
+            <h2 class="text-lg font-title font-medium text-gray-900 tracking-wide mb-4">Aggiungi immagini</h2>
+
+            <div class="mb-4">
+              <label for="new-portfolio-categoria" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Categoria *</label>
+              <input
+                type="text"
+                id="new-portfolio-categoria"
+                list="categorie-esistenti"
+                [value]="newPortfolioCategoria()"
+                (input)="newPortfolioCategoria.set($any($event.target).value)"
+                placeholder="Scegli o scrivi una categoria"
+                class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="new-portfolio-files" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Immagini *</label>
+              <input type="file" id="new-portfolio-files" accept="image/*" multiple (change)="onPortfolioFilesSelected($event)" class="w-full text-sm text-gray-600">
+            </div>
+
+            @if (newPortfolioRows().length > 0) {
+              <div class="space-y-3 mb-4">
+                @for (row of newPortfolioRows(); track row.previewUrl; let i = $index) {
+                  <div class="flex items-center gap-3">
+                    <img [src]="row.previewUrl" alt="" class="w-16 h-16 object-cover rounded border border-gray-200 shrink-0">
+                    <input
+                      type="text"
+                      [value]="row.titolo"
+                      (input)="updatePortfolioRowTitle(i, $any($event.target).value)"
+                      placeholder="Titolo di questa immagine"
+                      class="flex-1 p-2.5 border border-gray-200 rounded focus:border-brand focus:outline-none text-sm text-gray-800"
+                    />
+                  </div>
+                }
+              </div>
+            }
+
+            @if (portfolioFormError(); as err) {
+              <p class="text-red-500 text-xs font-semibold text-center mb-4">{{ err }}</p>
+            }
+
+            <div class="flex items-center gap-3">
+              <button type="button" [disabled]="savingPortfolio()" (click)="onSubmitAddPortfolio()" class="bg-action text-white font-medium text-xs tracking-widest py-3 px-6 rounded hover:bg-action-hover transition-all uppercase disabled:opacity-50">
+                {{ savingPortfolio() ? 'Caricamento...' : 'Salva immagini' }}
+              </button>
+              <button type="button" (click)="closeAddPortfolioForm()" class="text-xs font-semibold tracking-widest uppercase text-gray-600 border border-gray-200 rounded px-6 py-3 hover:border-brand hover:text-brand transition-colors">
+                Annulla
+              </button>
+            </div>
+          </div>
+        }
+
+        @if (editingPortfolioItem(); as item) {
+          <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-6">
+            <h2 class="text-lg font-title font-medium text-gray-900 tracking-wide mb-4">Modifica immagine</h2>
+            <form [formGroup]="editPortfolioForm" (ngSubmit)="onSubmitEditPortfolio()" class="space-y-4 text-left text-sm">
+              <div>
+                <label for="edit-portfolio-titolo" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Titolo *</label>
+                <input type="text" id="edit-portfolio-titolo" formControlName="titolo" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800">
+              </div>
+              <div>
+                <label for="edit-portfolio-categoria" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Categoria *</label>
+                <input type="text" id="edit-portfolio-categoria" formControlName="categoria" list="categorie-esistenti" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800">
+              </div>
+              @if (portfolioFormError(); as err) {
+                <p class="text-red-500 text-xs font-semibold text-center">{{ err }}</p>
+              }
+              <div class="flex items-center gap-3">
+                <button type="submit" [disabled]="savingPortfolio()" class="bg-action text-white font-medium text-xs tracking-widest py-3 px-6 rounded hover:bg-action-hover transition-all uppercase disabled:opacity-50">
+                  {{ savingPortfolio() ? 'Salvataggio...' : 'Salva modifiche' }}
+                </button>
+                <button type="button" (click)="closeEditPortfolioForm()" class="text-xs font-semibold tracking-widest uppercase text-gray-600 border border-gray-200 rounded px-6 py-3 hover:border-brand hover:text-brand transition-colors">
+                  Annulla
+                </button>
+              </div>
+            </form>
+          </div>
+        }
+
+        @if (adminPortfolio().length === 0 && portfolioTabLoaded()) {
+          <p class="text-gray-600 text-sm">Nessuna immagine ancora.</p>
+        }
+
+        @for (group of groupedPortfolio(); track group.category) {
+          <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-6">
+            <h2 class="text-lg font-title font-medium text-gray-900 tracking-wide mb-4">{{ group.category }}</h2>
+            <div cdkDropList (cdkDropListDropped)="onPortfolioDrop($event, group)" class="space-y-2">
+              @for (item of group.items; track item.id) {
+                <div cdkDrag class="flex items-center gap-3 py-2 border-t border-gray-200 first:border-t-0 bg-white">
+                  <span cdkDragHandle class="cursor-move text-gray-400 hover:text-gray-600 shrink-0 text-lg">⠿</span>
+                  <img [src]="item.src" [alt]="item.title" class="w-12 h-12 object-cover rounded border border-gray-200 shrink-0">
+                  <p class="flex-1 text-sm font-medium text-gray-900">
+                    {{ item.title }}
+                    <span
+                      class="text-[10px] font-semibold tracking-widest uppercase px-2 py-1 rounded ml-2"
+                      [ngClass]="item.pubblicato ? 'bg-action text-white' : 'bg-gray-200 text-gray-600'"
+                    >{{ item.pubblicato ? 'Pubblicato' : 'Nascosto' }}</span>
+                  </p>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <button type="button" (click)="openEditPortfolioForm(item)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-brand hover:text-brand transition-colors">Modifica</button>
+                    <button type="button" (click)="togglePortfolioPubblicato(item)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-500 transition-colors">
+                      {{ item.pubblicato ? 'Nascondi' : 'Pubblica' }}
+                    </button>
+                  </div>
+                </div>
+              }
             </div>
           </div>
         }

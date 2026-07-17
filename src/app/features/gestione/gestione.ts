@@ -2,16 +2,18 @@ import { ChangeDetectionStrategy, Component, afterNextRender, computed, inject, 
 import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AdminService } from '../../core/services/admin.service';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { Prenotazione } from '../../core/models/prenotazione.model';
 import { EventFormValue, PaintEventAdmin } from '../../core/models/event.model';
+import { GalleryItemAdmin } from '../../core/models/gallery-item.model';
 import { formatFasciaOraria } from '../../core/utils/event-format.util';
 
 @Component({
   selector: 'app-gestione',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe, DecimalPipe, NgClass],
+  imports: [ReactiveFormsModule, DatePipe, DecimalPipe, NgClass, DragDropModule],
   templateUrl: './gestione.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -30,7 +32,7 @@ export class Gestione {
   protected readonly confirmingCancelId = signal<number | null>(null);
   protected readonly actionError = signal<string | null>(null);
 
-  protected readonly activeTab = signal<'prenotazioni' | 'eventi'>('prenotazioni');
+  protected readonly activeTab = signal<'prenotazioni' | 'eventi' | 'portfolio'>('prenotazioni');
   protected readonly adminEvents = signal<PaintEventAdmin[]>([]);
   protected readonly eventsTabLoaded = signal(false);
   protected readonly eventActionError = signal<string | null>(null);
@@ -46,6 +48,35 @@ export class Gestione {
   protected readonly eventFormError = signal<string | null>(null);
   // mostrato nel form ("Di cui N già prenotati"), calcolato una volta all'apertura
   protected readonly giaPrenotatiCorrente = signal(0);
+
+  protected readonly adminPortfolio = signal<GalleryItemAdmin[]>([]);
+  protected readonly portfolioTabLoaded = signal(false);
+  protected readonly portfolioActionError = signal<string | null>(null);
+
+  protected readonly groupedPortfolio = computed(() => {
+    const groups = new Map<string, GalleryItemAdmin[]>();
+    for (const item of this.adminPortfolio()) {
+      if (!groups.has(item.category)) groups.set(item.category, []);
+      groups.get(item.category)!.push(item);
+    }
+    return Array.from(groups.entries()).map(([category, items]) => ({ category, items }));
+  });
+
+  protected readonly existingCategorie = computed(() =>
+    Array.from(new Set(this.adminPortfolio().map((i) => i.category))),
+  );
+
+  protected readonly showAddPortfolioForm = signal(false);
+  protected readonly newPortfolioCategoria = signal('');
+  protected readonly newPortfolioRows = signal<{ file: File; titolo: string; previewUrl: string }[]>([]);
+  protected readonly savingPortfolio = signal(false);
+  protected readonly portfolioFormError = signal<string | null>(null);
+
+  protected readonly editingPortfolioItem = signal<GalleryItemAdmin | null>(null);
+  protected readonly editPortfolioForm = this.fb.nonNullable.group({
+    titolo: ['', Validators.required],
+    categoria: ['', Validators.required],
+  });
 
   protected readonly loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -178,12 +209,18 @@ export class Gestione {
     }
   }
 
-  selectTab(tab: 'prenotazioni' | 'eventi'): void {
+  selectTab(tab: 'prenotazioni' | 'eventi' | 'portfolio'): void {
     this.activeTab.set(tab);
     if (tab === 'eventi' && !this.eventsTabLoaded()) {
       this.admin.getAllEvents().then((events) => {
         this.adminEvents.set(events);
         this.eventsTabLoaded.set(true);
+      });
+    }
+    if (tab === 'portfolio' && !this.portfolioTabLoaded()) {
+      this.admin.getAllPortfolioItems().then((items) => {
+        this.adminPortfolio.set(items);
+        this.portfolioTabLoaded.set(true);
       });
     }
   }
@@ -304,6 +341,146 @@ export class Gestione {
       this.eventFormError.set("Impossibile salvare l'evento. Riprova.");
     } finally {
       this.savingEvent.set(false);
+    }
+  }
+
+  async onPortfolioDrop(event: CdkDragDrop<GalleryItemAdmin[]>, group: { items: GalleryItemAdmin[] }): Promise<void> {
+    moveItemInArray(group.items, event.previousIndex, event.currentIndex);
+    const updates = group.items.map((item, i) => ({ id: item.id, ordine: i }));
+    updates.forEach((u, i) => (group.items[i].ordine = u.ordine));
+    this.portfolioActionError.set(null);
+    const { error } = await this.admin.reorderPortfolioItems(updates);
+    if (error) this.portfolioActionError.set('Impossibile salvare il nuovo ordine. Riprova.');
+  }
+
+  async togglePortfolioPubblicato(item: GalleryItemAdmin): Promise<void> {
+    this.portfolioActionError.set(null);
+    try {
+      const { error } = await this.admin.togglePortfolioPubblicato(item.id, !item.pubblicato);
+      if (error) {
+        this.portfolioActionError.set("Impossibile aggiornare lo stato dell'immagine. Riprova.");
+        return;
+      }
+      this.adminPortfolio.update((list) =>
+        list.map((i) => (i.id === item.id ? { ...i, pubblicato: !item.pubblicato } : i)),
+      );
+    } catch {
+      this.portfolioActionError.set("Impossibile aggiornare lo stato dell'immagine. Riprova.");
+    }
+  }
+
+  openAddPortfolioForm(): void {
+    this.portfolioFormError.set(null);
+    this.newPortfolioCategoria.set('');
+    this.newPortfolioRows.set([]);
+    this.showAddPortfolioForm.set(true);
+  }
+
+  closeAddPortfolioForm(): void {
+    this.showAddPortfolioForm.set(false);
+  }
+
+  onPortfolioFilesSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const files = Array.from(input.files ?? []);
+    this.newPortfolioRows.set(files.map((file) => ({ file, titolo: '', previewUrl: URL.createObjectURL(file) })));
+  }
+
+  updatePortfolioRowTitle(index: number, titolo: string): void {
+    this.newPortfolioRows.update((rows) => rows.map((r, i) => (i === index ? { ...r, titolo } : r)));
+  }
+
+  private nextOrdineForCategoria(categoria: string): number {
+    const existing = this.adminPortfolio().filter((i) => i.category === categoria);
+    return existing.length > 0 ? Math.max(...existing.map((i) => i.ordine)) + 1 : 0;
+  }
+
+  async onSubmitAddPortfolio(): Promise<void> {
+    this.portfolioFormError.set(null);
+    const categoria = this.newPortfolioCategoria().trim();
+    const rows = this.newPortfolioRows();
+
+    if (!categoria) {
+      this.portfolioFormError.set('Scegli o scrivi una categoria.');
+      return;
+    }
+    if (rows.length === 0) {
+      this.portfolioFormError.set('Seleziona almeno un file.');
+      return;
+    }
+    if (rows.some((r) => !r.titolo.trim())) {
+      this.portfolioFormError.set('Ogni immagine ha bisogno di un titolo.');
+      return;
+    }
+
+    this.savingPortfolio.set(true);
+    try {
+      let nextOrdine = this.nextOrdineForCategoria(categoria);
+      const items: { src: string; titolo: string; categoria: string; ordine: number }[] = [];
+
+      for (const row of rows) {
+        const { url, error } = await this.admin.uploadPortfolioImage(row.file);
+        if (error || !url) {
+          this.portfolioFormError.set(`Impossibile caricare "${row.file.name}". Riprova.`);
+          return;
+        }
+        items.push({ src: url, titolo: row.titolo.trim(), categoria, ordine: nextOrdine });
+        nextOrdine++;
+      }
+
+      const { error } = await this.admin.createPortfolioItems(items);
+      if (error) {
+        this.portfolioFormError.set('Immagini caricate ma non salvate nel database. Riprova.');
+        return;
+      }
+
+      this.showAddPortfolioForm.set(false);
+      this.portfolioTabLoaded.set(false);
+      this.selectTab('portfolio');
+    } catch {
+      this.portfolioFormError.set('Impossibile completare il caricamento. Riprova.');
+    } finally {
+      this.savingPortfolio.set(false);
+    }
+  }
+
+  openEditPortfolioForm(item: GalleryItemAdmin): void {
+    this.editingPortfolioItem.set(item);
+    this.portfolioFormError.set(null);
+    this.editPortfolioForm.reset({ titolo: item.title, categoria: item.category });
+  }
+
+  closeEditPortfolioForm(): void {
+    this.editingPortfolioItem.set(null);
+  }
+
+  async onSubmitEditPortfolio(): Promise<void> {
+    this.portfolioFormError.set(null);
+    if (this.editPortfolioForm.invalid) {
+      this.editPortfolioForm.markAllAsTouched();
+      return;
+    }
+    const item = this.editingPortfolioItem();
+    if (!item) return;
+
+    const { titolo, categoria } = this.editPortfolioForm.getRawValue();
+    const categoriaTrim = categoria.trim();
+    const ordine = categoriaTrim !== item.category ? this.nextOrdineForCategoria(categoriaTrim) : item.ordine;
+
+    this.savingPortfolio.set(true);
+    try {
+      const { error } = await this.admin.updatePortfolioItem(item.id, titolo.trim(), categoriaTrim, ordine);
+      if (error) {
+        this.portfolioFormError.set("Impossibile salvare le modifiche. Riprova.");
+        return;
+      }
+      this.editingPortfolioItem.set(null);
+      this.portfolioTabLoaded.set(false);
+      this.selectTab('portfolio');
+    } catch {
+      this.portfolioFormError.set("Impossibile salvare le modifiche. Riprova.");
+    } finally {
+      this.savingPortfolio.set(false);
     }
   }
 }
