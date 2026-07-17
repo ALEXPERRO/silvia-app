@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ShopProduct } from '../models/product.model';
-import { GalleryCategory, GalleryCategoryOption, GalleryItem } from '../models/gallery-item.model';
-import { PORTFOLIO_RAW_FILES } from '../data/portfolio-manifest.data';
-import { titleFromFileName } from '../utils/text.util';
 
 export interface CoverImage {
   src: string;
@@ -61,31 +58,4 @@ export class ContentService {
       etsyUrl: 'https://www.etsy.com/shop/BloomingWildArt',
     },
   ];
-
-  readonly galleryCategories: GalleryCategoryOption[] = [
-    { value: 'tutte', label: 'Tutte' },
-    { value: 'composizioni', label: 'Composizioni' },
-    { value: 'animali', label: 'Animali' },
-    { value: 'elementi-botanici', label: 'Elementi Botanici' },
-    { value: 'insetti', label: 'Insetti' },
-  ];
-
-  readonly galleryItems: GalleryItem[] = this.buildGalleryItems();
-
-  private buildGalleryItems(): GalleryItem[] {
-    const items: GalleryItem[] = [];
-    (Object.keys(PORTFOLIO_RAW_FILES) as GalleryCategory[]).forEach((category) => {
-      const { folder, files } = PORTFOLIO_RAW_FILES[category];
-      files.forEach((relativePath) => {
-        const fileName = relativePath.split('/').pop()!;
-        items.push({
-          src: `images/${folder}/${relativePath}`,
-          title: titleFromFileName(fileName),
-          category,
-          featured: category === 'composizioni',
-        });
-      });
-    });
-    return items;
-  }
 }
