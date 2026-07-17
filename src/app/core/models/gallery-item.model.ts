@@ -10,3 +10,9 @@ export interface GalleryCategoryOption {
   value: string;
   label: string;
 }
+
+/** Vista admin di un'immagine portfolio: espone anche lo stato di pubblicazione,
+ *  che il pubblico non deve mai vedere/gestire. */
+export interface GalleryItemAdmin extends GalleryItem {
+  pubblicato: boolean;
+}
