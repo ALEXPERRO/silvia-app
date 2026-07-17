@@ -142,10 +142,4 @@ export class SupabaseService {
     this.seatsCache = null; // i posti sono cambiati (prenotato o appena esaurito): rifai la query
     return { success: data === true, error };
   }
-
-  async insertNewsletterSignup(email: string): Promise<{ error: unknown }> {
-    const client = await this.getClient();
-    const { error } = await client.from('iscrizioni_newsletter').insert([{ email }]);
-    return { error };
-  }
 }

@@ -16,34 +16,5 @@
     </a>
   </div>
 
-  <form [formGroup]="newsletterForm" (ngSubmit)="onNewsletterSubmit()" class="max-w-sm mx-auto mt-6 flex flex-col items-center gap-2">
-    @if (!newsletterSuccess()) {
-      <label for="newsletter-email" class="text-xs font-bold text-gray-600 uppercase tracking-widest">Resta aggiornata/o sulle novità</label>
-      <div class="flex w-full gap-2">
-        <input
-          type="email"
-          id="newsletter-email"
-          formControlName="email"
-          placeholder="La tua email"
-          class="flex-1 p-2.5 border border-gray-200 rounded bg-white focus:border-brand focus:outline-none text-gray-800 text-sm"
-        />
-        <button
-          type="submit"
-          [disabled]="newsletterSubmitting()"
-          class="bg-action text-white text-xs font-semibold tracking-widest uppercase px-4 py-2.5 rounded hover:bg-action-hover transition-all disabled:opacity-50"
-        >
-          {{ newsletterSubmitting() ? '...' : 'Iscriviti' }}
-        </button>
-      </div>
-      @if (newsletterError(); as err) {
-        <p class="text-red-500 text-xs">{{ err }}</p>
-      }
-    } @else {
-      <p class="text-action font-medium text-sm flex items-center gap-1.5">
-        <app-icon name="sparkles" [size]="16" /> Iscrizione confermata, grazie!
-      </p>
-    }
-  </form>
-
   <p class="text-xs text-gray-500 tracking-wider font-light mt-6">{{ footer.credits }}</p>
 </footer>
