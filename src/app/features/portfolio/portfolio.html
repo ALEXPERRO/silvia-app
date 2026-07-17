@@ -51,11 +51,10 @@
         >
           <div class="relative aspect-square bg-white border border-gray-200 shadow-sm group-hover:shadow-lg group-hover:border-brand transition-all overflow-hidden">
             <img
-              [ngSrc]="item.src"
-              fill
+              [src]="item.src"
               loading="lazy"
               [alt]="item.title"
-              class="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+              class="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
               (contextmenu)="$event.preventDefault()"
               draggable="false"
             />
@@ -145,7 +144,7 @@
     </button>
     <figure class="max-w-2xl w-full" (click)="$event.stopPropagation()">
       <div class="relative w-full aspect-square bg-white border-[6px] border-white overflow-hidden">
-        <img [ngSrc]="item.src" fill [alt]="item.title" class="object-contain p-6" (contextmenu)="$event.preventDefault()" draggable="false" />
+        <img [src]="item.src" [alt]="item.title" class="absolute inset-0 w-full h-full object-contain p-6" (contextmenu)="$event.preventDefault()" draggable="false" />
 
         @if (showLightboxSwipeHint()) {
           <div class="md:hidden absolute inset-0 flex items-center justify-center pointer-events-none z-10">

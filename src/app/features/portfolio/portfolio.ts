@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, afterNextRender, computed, inject, signal } from '@angular/core';
-import { DOCUMENT, NgOptimizedImage } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { Meta } from '@angular/platform-browser';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { GalleryCategoryOption, GalleryItem } from '../../core/models/gallery-item.model';
@@ -11,7 +11,7 @@ const PAGE_SIZE = 20;
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [NgOptimizedImage, Icon, RevealOnScroll],
+  imports: [Icon, RevealOnScroll],
   templateUrl: './portfolio.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
