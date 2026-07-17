@@ -59,7 +59,10 @@ export class Gestione {
       if (!groups.has(item.category)) groups.set(item.category, []);
       groups.get(item.category)!.push(item);
     }
-    return Array.from(groups.entries()).map(([category, items]) => ({ category, items }));
+    return Array.from(groups.entries()).map(([category, items]) => ({
+      category,
+      items: items.sort((a, b) => a.ordine - b.ordine),
+    }));
   });
 
   protected readonly existingCategorie = computed(() =>
@@ -372,6 +375,7 @@ export class Gestione {
   openAddPortfolioForm(): void {
     this.portfolioFormError.set(null);
     this.newPortfolioCategoria.set('');
+    this.newPortfolioRows().forEach((r) => URL.revokeObjectURL(r.previewUrl));
     this.newPortfolioRows.set([]);
     this.showAddPortfolioForm.set(true);
   }
@@ -383,6 +387,7 @@ export class Gestione {
   onPortfolioFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const files = Array.from(input.files ?? []);
+    this.newPortfolioRows().forEach((r) => URL.revokeObjectURL(r.previewUrl));
     this.newPortfolioRows.set(files.map((file) => ({ file, titolo: '', previewUrl: URL.createObjectURL(file) })));
   }
 
