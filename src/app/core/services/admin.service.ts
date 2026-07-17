@@ -3,6 +3,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { Prenotazione } from '../models/prenotazione.model';
 import { EventFormValue, PaintEventAdmin } from '../models/event.model';
+import { GalleryItemAdmin } from '../models/gallery-item.model';
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
@@ -113,6 +114,77 @@ export class AdminService {
     if (error) return { url: null, error };
     const { data } = client.storage.from('locandine').getPublicUrl(path);
     return { url: data.publicUrl, error: null };
+  }
+
+  /** Tutte le immagini portfolio (pubblicate e nascoste), ordinate per categoria poi ordine. */
+  async getAllPortfolioItems(): Promise<GalleryItemAdmin[]> {
+    const client = await this.getClient();
+    const { data, error } = await client
+      .from('portfolio_immagini')
+      .select('*')
+      .order('categoria', { ascending: true })
+      .order('ordine', { ascending: true });
+    if (error || !data) return [];
+    return data.map((row) => ({
+      id: row['id'],
+      src: row['src'],
+      title: row['titolo'],
+      category: row['categoria'],
+      ordine: row['ordine'],
+      pubblicato: row['pubblicato'],
+    }));
+  }
+
+  async uploadPortfolioImage(file: File): Promise<{ url: string | null; error: unknown }> {
+    const client = await this.getClient();
+    const path = `${crypto.randomUUID()}-${file.name}`;
+    const { error } = await client.storage.from('portfolio').upload(path, file);
+    if (error) return { url: null, error };
+    const { data } = client.storage.from('portfolio').getPublicUrl(path);
+    return { url: data.publicUrl, error: null };
+  }
+
+  /** Inserisce più immagini insieme (upload multiplo), già con src/titolo/categoria/ordine calcolati dal chiamante. */
+  async createPortfolioItems(
+    items: { src: string; titolo: string; categoria: string; ordine: number }[],
+  ): Promise<{ error: unknown }> {
+    const client = await this.getClient();
+    const { error } = await client.from('portfolio_immagini').insert(
+      items.map((i) => ({ src: i.src, titolo: i.titolo, categoria: i.categoria, ordine: i.ordine })),
+    );
+    return { error };
+  }
+
+  async updatePortfolioItem(
+    id: number,
+    titolo: string,
+    categoria: string,
+    ordine: number,
+  ): Promise<{ error: unknown }> {
+    const client = await this.getClient();
+    const { error } = await client
+      .from('portfolio_immagini')
+      .update({ titolo, categoria, ordine })
+      .eq('id', id);
+    return { error };
+  }
+
+  async togglePortfolioPubblicato(id: number, pubblicato: boolean): Promise<{ error: unknown }> {
+    const client = await this.getClient();
+    const { error } = await client.from('portfolio_immagini').update({ pubblicato }).eq('id', id);
+    return { error };
+  }
+
+  /** Dopo un trascinamento: salva il nuovo ordine di tutte le immagini della categoria toccata
+   *  (una update per riga: nessuna funzione SQL dedicata, il numero di immagini per
+   *  categoria è troppo piccolo per giustificarne una). */
+  async reorderPortfolioItems(updates: { id: number; ordine: number }[]): Promise<{ error: unknown }> {
+    const client = await this.getClient();
+    const results = await Promise.all(
+      updates.map((u) => client.from('portfolio_immagini').update({ ordine: u.ordine }).eq('id', u.id)),
+    );
+    const failed = results.find((r) => r.error);
+    return { error: failed?.error ?? null };
   }
 
   private toRow(fields: EventFormValue, postiDisponibili: number) {
