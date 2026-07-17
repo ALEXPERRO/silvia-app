@@ -1,17 +1,12 @@
-export type GalleryCategory =
-  | 'composizioni'
-  | 'animali'
-  | 'elementi-botanici'
-  | 'insetti';
-
 export interface GalleryItem {
+  id: number;
   src: string;
   title: string;
-  category: GalleryCategory;
-  featured: boolean;
+  category: string;
+  ordine: number;
 }
 
 export interface GalleryCategoryOption {
-  value: GalleryCategory | 'tutte';
+  value: string;
   label: string;
 }
