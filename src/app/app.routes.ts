@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { eventoResolver } from './features/evento-dettaglio/evento-dettaglio.resolver';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,11 @@ export const routes: Routes = [
     path: 'eventi',
     loadComponent: () => import('./features/eventi/eventi').then((m) => m.Eventi),
     title: 'Blooming Wild ART — Eventi',
+  },
+  {
+    path: 'eventi/:slugId',
+    loadComponent: () => import('./features/evento-dettaglio/evento-dettaglio').then((m) => m.EventoDettaglio),
+    resolve: { event: eventoResolver },
   },
   {
     path: 'shop',
