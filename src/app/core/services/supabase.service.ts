@@ -98,6 +98,30 @@ export class SupabaseService {
     }));
   }
 
+  /** Un singolo evento pubblicato per id, o null se non esiste/non è pubblicato. */
+  async getEventoById(id: number): Promise<PaintEvent | null> {
+    const client = await this.getClient();
+    const { data, error } = await client
+      .from('eventi')
+      .select('*')
+      .eq('id', id)
+      .eq('pubblicato', true)
+      .maybeSingle();
+    if (error || !data) return null;
+    return {
+      id: data['id'],
+      title: data['titolo'],
+      descrizione: data['descrizione'],
+      data: data['data'],
+      oraInizio: data['ora_inizio'],
+      oraFine: data['ora_fine'],
+      luogo: data['luogo'],
+      indirizzo: data['indirizzo'],
+      prezzo: data['prezzo'],
+      locandinaUrl: data['locandina_url'],
+    };
+  }
+
   /** Immagini portfolio pubblicate, ordinate per categoria poi per ordine manuale. */
   async getPublishedPortfolioItems(): Promise<GalleryItem[]> {
     const client = await this.getClient();
