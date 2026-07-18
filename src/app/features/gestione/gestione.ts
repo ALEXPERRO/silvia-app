@@ -69,6 +69,25 @@ export class Gestione {
     Array.from(new Set(this.adminPortfolio().map((i) => i.category))),
   );
 
+  protected readonly portfolioCategoryFilter = signal<string | null>(null);
+  protected readonly portfolioSearchQuery = signal('');
+
+  protected readonly filteredGroupedPortfolio = computed(() => {
+    const categoryFilter = this.portfolioCategoryFilter();
+    const query = this.portfolioSearchQuery().trim().toLowerCase();
+    return this.groupedPortfolio()
+      .filter((group) => !categoryFilter || group.category === categoryFilter)
+      .map((group) => ({
+        category: group.category,
+        items: query ? group.items.filter((i) => i.title.toLowerCase().includes(query)) : group.items,
+      }))
+      .filter((group) => group.items.length > 0);
+  });
+
+  toggleCategoryFilter(category: string): void {
+    this.portfolioCategoryFilter.update((current) => (current === category ? null : category));
+  }
+
   protected readonly NUOVA_CATEGORIA_VALUE = '__nuova__';
 
   protected readonly showAddPortfolioForm = signal(false);

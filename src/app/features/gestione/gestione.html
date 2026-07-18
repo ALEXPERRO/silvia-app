@@ -244,14 +244,37 @@
         @if (existingCategorie().length > 0) {
           <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-6">
             <h2 class="text-lg font-title font-medium text-gray-900 tracking-wide mb-4">Categorie</h2>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2 mb-5">
+              <button
+                type="button"
+                (click)="portfolioCategoryFilter.set(null)"
+                class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide px-3 py-1.5 rounded-full transition-colors"
+                [ngClass]="portfolioCategoryFilter() === null ? 'bg-brand text-white' : 'bg-brand-soft text-brand hover:opacity-80'"
+              >
+                Tutte
+              </button>
               @for (group of groupedPortfolio(); track group.category) {
-                <span class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide px-3 py-1.5 rounded-full bg-brand-soft text-brand">
+                <button
+                  type="button"
+                  (click)="toggleCategoryFilter(group.category)"
+                  class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide px-3 py-1.5 rounded-full transition-colors"
+                  [ngClass]="portfolioCategoryFilter() === group.category ? 'bg-brand text-white' : 'bg-brand-soft text-brand hover:opacity-80'"
+                >
                   {{ group.category }}
-                  <span class="text-[10px] font-bold text-brand/70">({{ group.items.length }})</span>
-                </span>
+                  <span class="text-[10px] font-bold opacity-70">({{ group.items.length }})</span>
+                </button>
               }
             </div>
+
+            <label for="portfolio-search" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Cerca per nome</label>
+            <input
+              type="text"
+              id="portfolio-search"
+              [value]="portfolioSearchQuery()"
+              (input)="portfolioSearchQuery.set($any($event.target).value)"
+              placeholder="Titolo dell'immagine..."
+              class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800"
+            />
           </div>
         }
 
@@ -386,10 +409,19 @@
           <p class="text-gray-600 text-sm">Nessuna immagine ancora.</p>
         }
 
-        @for (group of groupedPortfolio(); track group.category) {
+        @if (adminPortfolio().length > 0 && filteredGroupedPortfolio().length === 0) {
+          <p class="text-gray-600 text-sm">Nessuna immagine corrisponde ai filtri.</p>
+        }
+
+        @for (group of filteredGroupedPortfolio(); track group.category) {
           <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-6">
             <h2 class="text-lg font-title font-medium text-gray-900 tracking-wide mb-4">{{ group.category }}</h2>
-            <div cdkDropList (cdkDropListDropped)="onPortfolioDrop($event, group)" class="space-y-2">
+            <div
+              cdkDropList
+              [cdkDropListDisabled]="portfolioSearchQuery().trim().length > 0"
+              (cdkDropListDropped)="onPortfolioDrop($event, group)"
+              class="space-y-2"
+            >
               @for (item of group.items; track item.id) {
                 <div cdkDrag class="flex items-center gap-3 py-2 border-t border-gray-200 first:border-t-0 bg-white">
                   <span cdkDragHandle class="cursor-move text-gray-400 hover:text-gray-600 shrink-0 text-lg">⠿</span>
