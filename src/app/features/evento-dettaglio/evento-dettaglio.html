@@ -1,6 +1,7 @@
-<section class="relative w-full h-[50vh] md:h-[60vh] min-h-95 overflow-hidden">
+<section class="relative w-full h-[60vh] md:h-[70vh] min-h-105 overflow-hidden bg-bark">
   @if (event().locandinaUrl) {
-    <img [src]="event().locandinaUrl" [alt]="event().title" class="absolute inset-0 w-full h-full object-cover" />
+    <img [src]="event().locandinaUrl" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-50" />
+    <img [src]="event().locandinaUrl" [alt]="event().title" class="absolute inset-0 w-full h-full object-contain" />
   } @else {
     <div class="absolute inset-0 bg-gradient-to-br from-action via-bark to-brand"></div>
     <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 28px 28px;"></div>
