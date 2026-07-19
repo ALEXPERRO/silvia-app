@@ -3,7 +3,7 @@
 
     <!-- Ritratto: full-bleed su mobile (come una copertina editoriale), inserito nella griglia da desktop -->
     <div>
-      <div class="relative aspect-3/4 border border-gray-200 md:shadow-warm-lg overflow-hidden">
+      <div class="relative aspect-3/4 overflow-hidden">
         <img
           [ngSrc]="cover.main.src"
           [style.transform]="'scale(' + cover.main.scale + ')'"
@@ -14,37 +14,40 @@
         />
       </div>
 
-      <!-- Firma: la grande scritta a pennello del logo, con un unico fiore in
-           quiete dietro, invece di più decorazioni sparse. -->
-      <div class="relative isolate mt-10 md:mt-12 flex justify-center md:justify-start">
-        <img
-          ngSrc="images/elementi botanici/giglio1.webp"
-          width="300"
-          height="300"
-          alt=""
-          class="absolute -z-10 -left-4 md:-left-8 top-1/2 -translate-y-1/2 w-20 md:w-28 opacity-80 pointer-events-none select-none"
-        />
+      <!-- Firma: la scritta a pennello del logo sovrapposta al bordo della foto
+           (non impilata sotto), con un unico fiore come marchio d'autore accanto. -->
+      <div class="relative isolate -mt-16 md:-mt-24 pl-4 md:pl-8">
         <img
           [ngSrc]="cover.logo.src"
           width="1447"
           height="899"
           alt="Blooming Wild ART"
-          class="w-56 md:w-72"
+          class="w-52 md:w-72 drop-shadow-[0_0_18px_rgba(247,239,223,0.95)]"
+        />
+        <img
+          ngSrc="images/elementi botanici/giglio1.webp"
+          width="300"
+          height="300"
+          alt=""
+          class="absolute -z-10 -top-4 -right-1 md:-top-6 md:right-2 w-14 md:w-20 drop-shadow-[0_0_14px_rgba(247,239,223,0.95)] pointer-events-none select-none"
         />
       </div>
     </div>
 
-    <!-- Testo: allineato a sinistra su desktop, con la prima frase come pull-quote -->
-    <div class="text-center md:text-left px-4 md:px-0 mt-8 md:mt-0">
-      <p class="hidden md:flex items-center gap-1.5 font-body text-sm tracking-[0.15em] uppercase text-bark mb-3 whitespace-nowrap">
-        <app-icon name="leaf" [size]="14" class="shrink-0" />
+    <!-- Testo: allineato a sinistra su desktop. La citazione, non "About me", è il vero titolo. -->
+    <div class="text-center md:text-left px-4 md:px-0 mt-14 md:mt-0">
+      <p class="flex items-center gap-1.5 justify-center md:justify-start font-body text-xs tracking-[0.15em] uppercase text-bark mb-8 md:mb-10">
+        <app-icon name="leaf" [size]="13" class="shrink-0" />
         Silvia Sgaramella · Illustrazioni ad acquerello
       </p>
-      <h1 class="text-3xl sm:text-4xl md:text-7xl text-gray-900 font-title mb-6">About me</h1>
+      <h1 class="sr-only">About me</h1>
 
-      <p class="font-title italic text-xl sm:text-2xl md:text-3xl text-brand leading-snug mb-6">
-        Fin da bambina ho sempre guardato il mondo naturale con gli occhi della meraviglia, convinta che dietro ogni foglia si nascondesse una storia e dentro ogni tana un piccolo segreto.
-      </p>
+      <div class="relative">
+        <span aria-hidden="true" class="font-title text-brand/20 text-[5rem] md:text-[7rem] leading-none absolute -top-2 md:-top-6 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 select-none">&rdquo;</span>
+        <p class="relative font-title italic text-2xl sm:text-3xl md:text-4xl text-brand leading-snug mb-6 pt-6 md:pt-8">
+          Fin da bambina ho sempre guardato il mondo naturale con gli occhi della meraviglia, convinta che dietro ogni foglia si nascondesse una storia e dentro ogni tana un piccolo segreto.
+        </p>
+      </div>
 
       <div class="text-gray-600 max-w-xl mx-auto md:mx-0 text-sm md:text-base font-body space-y-3">
         <p>Oggi uso i miei acquerelli per rivelare quel pizzico di magia che troppo spesso dimentichiamo di cercare.</p>
