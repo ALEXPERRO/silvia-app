@@ -14,40 +14,26 @@
         />
       </div>
 
-      <!-- Firma: la scritta a pennello del logo sovrapposta al bordo della foto
-           (non impilata sotto), con un unico fiore come marchio d'autore accanto. -->
-      <div class="relative isolate -mt-6 md:-mt-10 pl-8 md:pl-16">
-        <img
-          [ngSrc]="cover.logo.src"
-          width="1447"
-          height="899"
-          alt="Blooming Wild ART"
-          class="w-52 md:w-72 drop-shadow-[0_0_18px_rgba(247,239,223,0.95)]"
-        />
-        <img
-          ngSrc="images/elementi botanici/giglio1.webp"
-          width="300"
-          height="300"
-          alt=""
-          class="absolute -z-10 -top-6 -right-3 md:-top-9 md:-right-5 w-14 md:w-20 drop-shadow-[0_0_14px_rgba(247,239,223,0.95)] pointer-events-none select-none"
-        />
-      </div>
+      <img
+        [ngSrc]="cover.logo.src"
+        width="1447"
+        height="899"
+        alt="Blooming Wild ART"
+        class="hidden md:block w-32 mt-6"
+      />
     </div>
 
-    <!-- Testo: allineato a sinistra su desktop. La citazione, non "About me", è il vero titolo. -->
-    <div class="text-center md:text-left px-4 md:px-0 mt-14 md:mt-0">
-      <p class="flex items-center gap-1.5 justify-center md:justify-start font-body text-xs tracking-[0.15em] uppercase text-bark mb-8 md:mb-10">
-        <app-icon name="leaf" [size]="13" class="shrink-0" />
+    <!-- Testo: allineato a sinistra su desktop, con la prima frase come pull-quote -->
+    <div class="text-center md:text-left px-4 md:px-0 mt-8 md:mt-0">
+      <p class="hidden md:flex items-center gap-1.5 font-body text-sm tracking-[0.15em] uppercase text-bark mb-3 whitespace-nowrap">
+        <app-icon name="leaf" [size]="14" class="shrink-0" />
         Silvia Sgaramella · Illustrazioni ad acquerello
       </p>
-      <h1 class="sr-only">About me</h1>
+      <h1 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">About me</h1>
 
-      <div class="relative">
-        <span aria-hidden="true" class="font-title text-brand/20 text-[5rem] md:text-[7rem] leading-none absolute -top-2 md:-top-6 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 select-none">&rdquo;</span>
-        <p class="relative font-title italic text-2xl sm:text-3xl md:text-4xl text-brand leading-snug mb-6 pt-6 md:pt-8">
-          Fin da bambina ho sempre guardato il mondo naturale con gli occhi della meraviglia, convinta che dietro ogni foglia si nascondesse una storia e dentro ogni tana un piccolo segreto.
-        </p>
-      </div>
+      <p class="font-title italic text-xl sm:text-2xl md:text-3xl text-brand leading-snug mb-6">
+        Fin da bambina ho sempre guardato il mondo naturale con gli occhi della meraviglia, convinta che dietro ogni foglia si nascondesse una storia e dentro ogni tana un piccolo segreto.
+      </p>
 
       <div class="text-gray-600 max-w-xl mx-auto md:mx-0 text-sm md:text-base font-body space-y-3">
         <p>Oggi uso i miei acquerelli per rivelare quel pizzico di magia che troppo spesso dimentichiamo di cercare.</p>
