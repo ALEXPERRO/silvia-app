@@ -8,7 +8,7 @@ import { SupabaseService } from '../../core/services/supabase.service';
 import { Prenotazione } from '../../core/models/prenotazione.model';
 import { EventFormValue, PaintEventAdmin } from '../../core/models/event.model';
 import { GalleryItemAdmin } from '../../core/models/gallery-item.model';
-import { formatFasciaOraria } from '../../core/utils/event-format.util';
+import { formatFasciaOraria, buildEventoUrl } from '../../core/utils/event-format.util';
 
 @Component({
   selector: 'app-gestione',
@@ -36,6 +36,7 @@ export class Gestione {
   protected readonly adminEvents = signal<PaintEventAdmin[]>([]);
   protected readonly eventsTabLoaded = signal(false);
   protected readonly eventActionError = signal<string | null>(null);
+  protected readonly linkCopiedId = signal<number | null>(null);
   // riusa la stessa utility della pagina pubblica Eventi (Fase 1) invece di
   // duplicare la logica di formattazione orario nel template.
   protected readonly formatOrario = formatFasciaOraria;
@@ -313,6 +314,17 @@ export class Gestione {
       );
     } catch {
       this.eventActionError.set("Impossibile aggiornare lo stato dell'evento. Riprova.");
+    }
+  }
+
+  async copyEventoLink(ev: PaintEventAdmin): Promise<void> {
+    const url = buildEventoUrl(ev.title, ev.id);
+    try {
+      await navigator.clipboard.writeText(url);
+      this.linkCopiedId.set(ev.id);
+      setTimeout(() => this.linkCopiedId.update((id) => (id === ev.id ? null : id)), 2000);
+    } catch {
+      this.eventActionError.set('Impossibile copiare il link. Riprova.');
     }
   }
 
