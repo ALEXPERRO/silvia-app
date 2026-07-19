@@ -1,9 +1,10 @@
 <section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-32 pb-14 sm:pb-20 md:pb-28 overflow-x-clip">
   <div class="max-w-3xl mx-auto text-center px-4 mb-10 md:mb-14">
     <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-3 tracking-wide">About me</h1>
-    <p class="flex items-center justify-center gap-1.5 font-body text-sm tracking-[0.15em] uppercase text-bark">
+    <p class="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-1.5 font-body text-sm tracking-[0.15em] uppercase text-bark">
       <span class="hidden md:inline-flex"><app-icon name="leaf" [size]="14" class="shrink-0" /></span>
-      Silvia Sgaramella · Illustrazioni ad acquerello
+      <span>Silvia Sgaramella<span class="hidden md:inline"> ·</span></span>
+      <span>Illustrazioni ad acquerello</span>
     </p>
   </div>
 
@@ -11,7 +12,7 @@
 
     <!-- Ritratto: full-bleed su mobile (come una copertina editoriale), inserito nella griglia da desktop -->
     <div>
-      <div class="relative aspect-4/5 md:aspect-3/4 overflow-hidden">
+      <div class="relative aspect-3/4 md:aspect-3/4 overflow-hidden">
         <img
           [ngSrc]="cover.main.src"
           [style.transform]="'scale(' + cover.main.scale + ')'"
@@ -25,7 +26,7 @@
     </div>
 
     <!-- Testo: allineato a sinistra su desktop, con la prima frase come pull-quote -->
-    <div class="text-center md:text-left px-4 md:px-0 mt-5 md:mt-0">
+    <div class="text-center md:text-left px-4 md:px-0 -mt-12 md:mt-0">
       <img
         [ngSrc]="cover.logo.src"
         width="1447"
