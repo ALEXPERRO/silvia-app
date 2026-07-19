@@ -45,10 +45,6 @@
 </section>
 
 <section class="bg-parchment py-10 px-4">
-  <div class="max-w-2xl mx-auto mb-10">
-    <p class="text-gray-700 text-sm md:text-base leading-relaxed">{{ event().descrizione }}</p>
-  </div>
-
   @if (isPast) {
     <div class="max-w-2xl mx-auto bg-white rounded shadow-lg border border-gray-200 p-8 text-center">
       <p class="text-gray-600 text-sm md:text-base">Questo evento si è già svolto. Segui la pagina <a routerLink="/eventi" class="text-brand underline hover:text-brand-hover">Eventi</a> per scoprire i prossimi appuntamenti.</p>
