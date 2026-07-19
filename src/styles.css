@@ -32,6 +32,34 @@
 
   --font-title: "Fraunces", serif;
   --font-body: "Work Sans", sans-serif;
+
+  /* Ombre calde (ink/plum invece del grigio neutro di default) per dare peso
+     "fisico" a card e bottoni senza il look piatto di shadow-sm/shadow-lg. */
+  --shadow-warm: 0 1px 2px 0 rgba(44, 36, 21, 0.06), 0 10px 24px -10px rgba(110, 79, 107, 0.35);
+  --shadow-warm-lg: 0 4px 10px 0 rgba(44, 36, 21, 0.08), 0 22px 40px -14px rgba(110, 79, 107, 0.42);
+}
+
+/* Texture botanica appena percettibile su tutti gli sfondi parchment/blush del sito.
+   Il pattern viene prima "moltiplicato" contro il colore di base (sparisce il bianco,
+   resta solo il tratto), poi coperto da un velo quasi opaco dello stesso colore cosi
+   il risultato e percepibile solo da vicino, non un motivo ripetuto vistoso. */
+.bg-parchment,
+.bg-blush {
+  background-repeat: repeat, repeat;
+  background-size: auto, 320px;
+  background-blend-mode: normal, multiply;
+}
+
+.bg-parchment {
+  background-image:
+    linear-gradient(rgba(247, 239, 223, 0.92), rgba(247, 239, 223, 0.92)),
+    url('/images/pattern/pattern_fiori_bianchi.webp');
+}
+
+.bg-blush {
+  background-image:
+    linear-gradient(rgba(238, 220, 199, 0.92), rgba(238, 220, 199, 0.92)),
+    url('/images/pattern/pattern_fiori_bianchi.webp');
 }
 
 /* Ruoli semantici — i template usano SOLO questi (bg-action, text-brand, ...):
@@ -81,6 +109,17 @@ select.ng-invalid.ng-touched {
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Bordo inferiore "strappato", come una pagina staccata da un taccuino —
+   usato sul ritratto di About me al posto di un bordo dritto. */
+.torn-edge {
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 95%,
+    90% 100%, 80% 93%, 70% 99%, 60% 94%,
+    50% 100%, 40% 93%, 30% 99%, 20% 94%,
+    10% 100%, 0% 96%
+  );
 }
 
 /* Indizio di swipe sulle card eventi (mobile) — suggerisce lo scorrimento laterale */

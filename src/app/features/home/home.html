@@ -1,63 +1,80 @@
-<section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-20 pb-6 sm:pb-16 px-4">
-  <div class="max-w-3xl md:max-w-7xl mx-auto text-center">
-    <h1 class="text-3xl sm:text-4xl md:text-7xl text-gray-900 font-title mb-1 sm:mb-4 text-center">About me</h1>
-    <div class="text-center text-gray-600 max-w-2xl md:max-w-6xl mx-auto text-xs sm:text-sm md:text-lg font-body space-y-2 sm:space-y-3">
-      <p>Fin da bambina ho sempre guardato il mondo naturale con gli occhi della meraviglia, convinta che dietro ogni foglia si nascondesse una storia e dentro ogni tana un piccolo segreto. Oggi uso i miei acquerelli per rivelare quel pizzico di magia che troppo spesso dimentichiamo di cercare.</p>
-      <p>Dipingo piante, fiori e animali creando composizioni animate da una delicata magia.</p>
-      <p>Quando non ho un pennello in mano, probabilmente mi troverai a passeggiare nella natura in cerca di ispirazione, o raggomitolata sul divano con una tazza fumante e un libro.</p>
-      <p>Se anche voi avete bisogno della vostra dose quotidiana di incanto siete nel posto giusto.</p>
+<section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-32 pb-14 sm:pb-20 md:pb-28 md:px-8 overflow-x-clip">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-12 md:gap-16 items-center">
+
+    <!-- Ritratto: full-bleed su mobile (come una copertina editoriale), pagina di taccuino da desktop -->
+    <div>
+      <div class="relative md:-rotate-[1.5deg]">
+        <div class="relative aspect-3/4 torn-edge overflow-hidden md:shadow-warm-lg">
+          <img
+            [ngSrc]="cover.main.src"
+            [style.transform]="'scale(' + cover.main.scale + ')'"
+            fill
+            priority
+            alt="Silvia"
+            class="object-cover"
+          />
+        </div>
+
+        <!-- Cartellino stile etichetta da erbario, ancorato sul bordo "strappato" della foto -->
+        <div class="absolute z-20 bottom-4 left-4 md:bottom-6 md:left-6 max-w-[15rem] rotate-1 bg-parchment border border-dashed border-gray-300 shadow-warm px-3.5 py-2">
+          <p class="flex items-center gap-1.5 font-title italic text-sm text-gray-900">
+            <app-icon name="leaf" [size]="12" class="shrink-0 text-bark" />
+            Silvia Sgaramella
+          </p>
+          <p class="text-[10px] tracking-[0.15em] uppercase text-gray-500 mt-0.5">Illustrazioni ad acquerello</p>
+        </div>
+
+        <!-- Un solo flourish firma, invece di più elementi sparsi -->
+        <img
+          ngSrc="images/elementi botanici/giglio1.webp"
+          width="300"
+          height="300"
+          alt=""
+          class="absolute z-20 top-3 right-3 md:-top-12 md:-right-10 w-16 md:w-24 rotate-3 pointer-events-none select-none"
+        />
+      </div>
+
+      <img
+        [ngSrc]="cover.logo.src"
+        width="1447"
+        height="899"
+        alt="Blooming Wild ART"
+        class="hidden md:block w-32 mt-10"
+      />
+    </div>
+
+    <!-- Testo: allineato a sinistra su desktop, con la prima frase come pull-quote -->
+    <div class="text-center md:text-left px-4 md:px-0 mt-8 md:mt-0">
+      <p class="hidden md:flex items-center gap-1.5 font-body text-sm tracking-[0.15em] uppercase text-bark mb-3 whitespace-nowrap">
+        <app-icon name="leaf" [size]="14" class="shrink-0" />
+        Silvia Sgaramella · Illustrazioni ad acquerello
+      </p>
+      <h1 class="text-3xl sm:text-4xl md:text-7xl text-gray-900 font-title mb-6">About me</h1>
+
+      <p class="font-title italic text-xl sm:text-2xl md:text-3xl text-brand leading-snug mb-4">
+        Fin da bambina ho sempre guardato il mondo naturale con gli occhi della meraviglia, convinta che dietro ogni foglia si nascondesse una storia e dentro ogni tana un piccolo segreto.
+      </p>
+
+      <div class="flex items-center gap-3 mb-5 justify-center md:justify-start">
+        <span class="h-px w-10 bg-gray-200"></span>
+        <img
+          ngSrc="images/elementi botanici/foglia1.webp"
+          width="120"
+          height="170"
+          alt=""
+          class="w-6 h-auto -rotate-[15deg] pointer-events-none select-none"
+        />
+      </div>
+
+      <div class="text-gray-600 max-w-xl mx-auto md:mx-0 text-sm md:text-base font-body space-y-3">
+        <p>Oggi uso i miei acquerelli per rivelare quel pizzico di magia che troppo spesso dimentichiamo di cercare.</p>
+        <p>Dipingo piante, fiori e animali creando composizioni animate da una delicata magia.</p>
+        <p>Quando non ho un pennello in mano, probabilmente mi troverai a passeggiare nella natura in cerca di ispirazione, o raggomitolata sul divano con una tazza fumante e un libro.</p>
+        <p>Se anche voi avete bisogno della vostra dose quotidiana di incanto siete nel posto giusto.</p>
+      </div>
     </div>
   </div>
 </section>
-
-<header class="relative bg-blush flex items-center justify-center px-4 py-16 sm:py-20 md:py-28 mt-4 sm:mt-10 overflow-x-clip">
-  <div class="relative w-full max-w-md sm:max-w-lg md:max-w-2xl mx-auto flex flex-col items-center">
-    <!-- Layer 1: logo come texture di sfondo, sfumato -->
-    <img
-      [ngSrc]="cover.logo.src"
-      width="1447"
-      height="899"
-      alt=""
-      class="absolute z-0 w-[140%] max-w-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-15 pointer-events-none select-none"
-    />
-
-    <!-- Ritratto + flourish: i fiori sono ancorati a questo box (stessa dimensione del
-         ritratto), non al contenitore largo, cosi la loro posizione resta stabile ad ogni breakpoint -->
-    <div class="relative z-10">
-      <!-- Flourish: topo, angolo basso -->
-      <img
-        ngSrc="images/animali/topo.webp"
-        width="250"
-        height="250"
-        alt=""
-        class="absolute z-30 -bottom-12 md:-bottom-20 -left-14 sm:-left-10 md:-left-26 w-24 sm:w-32 md:w-40 -scale-x-100 pointer-events-none select-none"
-      />
-
-      <!-- Flourish: giglio, angolo alto -->
-      <img
-        ngSrc="images/elementi botanici/giglio1.webp"
-        width="300"
-        height="300"
-        alt=""
-        class="absolute z-30 -top-8 md:-top-16 -right-9 sm:-right-8 md:-right-18 w-24 sm:w-32 md:w-40 rotate-3 pointer-events-none select-none"
-      />
-
-      <!-- Layer 2: ritratto, protagonista -->
-      <div class="relative z-20 w-56 sm:w-64 md:w-80 aspect-3/4 border-[6px] border-white shadow-2xl hover:scale-[1.02] transition-transform duration-300 ease-out overflow-hidden">
-        <img [ngSrc]="cover.main.src" [style.transform]="'scale(' + cover.main.scale + ')'" fill priority alt="Silvia" class="object-cover" />
-      </div>
-    </div>
-
-    <!-- Layer 3: logo firma, piccolo e nitido -->
-    <img
-      [ngSrc]="cover.logo.src"
-      width="1447"
-      height="899"
-      alt="Blooming Wild ART"
-      class="relative z-20 w-32 sm:w-36 md:w-44 -mt-2"
-    />
-  </div>
-</header>
 
 <!-- ANTEPRIMA PORTFOLIO -->
 <section class="bg-parchment py-14 sm:py-20 px-4">
@@ -69,13 +86,13 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10">
       @for (src of portfolioPreview; track src) {
-        <div class="relative aspect-square bg-white border border-gray-200 shadow-sm overflow-hidden">
+        <div class="relative aspect-square bg-white border border-gray-200 shadow-warm overflow-hidden">
           <img [ngSrc]="src" fill loading="lazy" alt="" class="object-contain p-4" (contextmenu)="$event.preventDefault()" draggable="false" />
         </div>
       }
     </div>
 
-    <a routerLink="/portfolio" class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover transition-colors uppercase">
+    <a routerLink="/portfolio" class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase">
       Scopri il portfolio <app-icon name="chevron-right" [size]="14" />
     </a>
   </div>
@@ -90,13 +107,13 @@
       Vieni a dipingere con me: posti limitati, meraviglia garantita.
     </p>
 
-    <div class="relative bg-white rounded shadow-lg border border-gray-200 p-6 md:p-10 text-left">
+    <div class="relative bg-white rounded shadow-warm-lg border border-gray-200 p-6 md:p-10 text-left">
       <h3 class="text-2xl md:text-3xl font-title font-medium text-gray-900 mb-4 tracking-wide">{{ ev.title }}</h3>
       <div class="space-y-2 mb-6 text-xs md:text-sm text-gray-600 font-medium border-l-2 border-gray-200 pl-4">
         <p class="flex items-center gap-2"><app-icon name="calendar" [size]="15" /> <span>{{ ev.dateLabel }}</span> • <span>{{ ev.timeLabel }}</span></p>
         <p class="flex items-center gap-2"><app-icon name="map-pin" [size]="15" /> <span>{{ ev.luogo }}</span>, <span>{{ ev.indirizzo }}</span></p>
       </div>
-      <a routerLink="/eventi" class="flex w-fit mx-auto items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover transition-colors uppercase">
+      <a routerLink="/eventi" class="flex w-fit mx-auto items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase">
         <app-icon name="ticket" [size]="14" /> Scopri e prenota
       </a>
     </div>
@@ -116,7 +133,7 @@
       [href]="shopUrl"
       target="_blank"
       rel="noopener"
-      class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover transition-colors uppercase"
+      class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase"
     >
       Vai al negozio Etsy →
     </a>
