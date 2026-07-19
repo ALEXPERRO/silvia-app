@@ -214,8 +214,8 @@
         }
 
         @for (ev of adminEvents(); track ev.id) {
-          <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-4 flex items-center justify-between gap-4">
-            <div>
+          <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="min-w-0">
               <p class="font-medium text-gray-900">
                 {{ ev.title }}
                 <span
@@ -228,7 +228,7 @@
                 {{ ev.postiDisponibili }} posti disponibili · € {{ ev.prezzo | number: '1.2-2' }}
               </p>
             </div>
-            <div class="flex items-center gap-2 shrink-0">
+            <div class="flex items-center gap-2 flex-wrap shrink-0">
               <button type="button" (click)="copyEventoLink(ev)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-brand hover:text-brand transition-colors">
                 {{ linkCopiedId() === ev.id ? 'Copiato!' : 'Copia link' }}
               </button>
@@ -426,17 +426,19 @@
               class="space-y-2"
             >
               @for (item of group.items; track item.id) {
-                <div cdkDrag class="flex items-center gap-3 py-2 border-t border-gray-200 first:border-t-0 bg-white">
-                  <span cdkDragHandle class="cursor-move text-gray-400 hover:text-gray-600 shrink-0 text-lg">⠿</span>
-                  <img [src]="item.src" [alt]="item.title" class="w-12 h-12 object-cover rounded border border-gray-200 shrink-0">
-                  <p class="flex-1 text-sm font-medium text-gray-900">
-                    {{ item.title }}
-                    <span
-                      class="text-[10px] font-semibold tracking-widest uppercase px-2 py-1 rounded ml-2"
-                      [ngClass]="item.pubblicato ? 'bg-action text-white' : 'bg-gray-200 text-gray-600'"
-                    >{{ item.pubblicato ? 'Pubblicato' : 'Nascosto' }}</span>
-                  </p>
-                  <div class="flex items-center gap-2 shrink-0">
+                <div cdkDrag class="flex flex-col sm:flex-row sm:items-center gap-3 py-3 border-t border-gray-200 first:border-t-0 bg-white">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span cdkDragHandle class="cursor-move text-gray-400 hover:text-gray-600 shrink-0 text-lg">⠿</span>
+                    <img [src]="item.src" [alt]="item.title" class="w-12 h-12 object-cover rounded border border-gray-200 shrink-0">
+                    <p class="flex-1 min-w-0 text-sm font-medium text-gray-900">
+                      {{ item.title }}
+                      <span
+                        class="text-[10px] font-semibold tracking-widest uppercase px-2 py-1 rounded ml-2 inline-block"
+                        [ngClass]="item.pubblicato ? 'bg-action text-white' : 'bg-gray-200 text-gray-600'"
+                      >{{ item.pubblicato ? 'Pubblicato' : 'Nascosto' }}</span>
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-2 flex-wrap shrink-0 pl-9 sm:pl-0 sm:ml-auto">
                     <button type="button" (click)="openEditPortfolioForm(item)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-brand hover:text-brand transition-colors">Modifica</button>
                     <button type="button" (click)="togglePortfolioPubblicato(item)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-500 transition-colors">
                       {{ item.pubblicato ? 'Nascondi' : 'Pubblica' }}
