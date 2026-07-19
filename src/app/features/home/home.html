@@ -1,46 +1,37 @@
 <section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-32 pb-14 sm:pb-20 md:pb-28 md:px-8 overflow-x-clip">
   <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-12 md:gap-16 items-center">
 
-    <!-- Ritratto: full-bleed su mobile (come una copertina editoriale), pagina di taccuino da desktop -->
+    <!-- Ritratto: full-bleed su mobile (come una copertina editoriale), inserito nella griglia da desktop -->
     <div>
-      <div class="relative md:-rotate-[1.5deg]">
-        <div class="relative aspect-3/4 torn-edge overflow-hidden md:shadow-warm-lg">
-          <img
-            [ngSrc]="cover.main.src"
-            [style.transform]="'scale(' + cover.main.scale + ')'"
-            fill
-            priority
-            alt="Silvia"
-            class="object-cover"
-          />
-        </div>
+      <div class="relative aspect-3/4 border border-gray-200 md:shadow-warm-lg overflow-hidden">
+        <img
+          [ngSrc]="cover.main.src"
+          [style.transform]="'scale(' + cover.main.scale + ')'"
+          fill
+          priority
+          alt="Silvia"
+          class="object-cover"
+        />
+      </div>
 
-        <!-- Cartellino stile etichetta da erbario, ancorato sul bordo "strappato" della foto -->
-        <div class="absolute z-20 bottom-4 left-4 md:bottom-6 md:left-6 max-w-[15rem] rotate-1 bg-parchment border border-dashed border-gray-300 shadow-warm px-3.5 py-2">
-          <p class="flex items-center gap-1.5 font-title italic text-sm text-gray-900">
-            <app-icon name="leaf" [size]="12" class="shrink-0 text-bark" />
-            Silvia Sgaramella
-          </p>
-          <p class="text-[10px] tracking-[0.15em] uppercase text-gray-500 mt-0.5">Illustrazioni ad acquerello</p>
-        </div>
-
-        <!-- Un solo flourish firma, invece di più elementi sparsi -->
+      <!-- Firma: la grande scritta a pennello del logo, con un unico fiore in
+           quiete dietro, invece di più decorazioni sparse. -->
+      <div class="relative isolate mt-10 md:mt-12 flex justify-center md:justify-start">
         <img
           ngSrc="images/elementi botanici/giglio1.webp"
           width="300"
           height="300"
           alt=""
-          class="absolute z-20 top-3 right-3 md:-top-12 md:-right-10 w-16 md:w-24 rotate-3 pointer-events-none select-none"
+          class="absolute -z-10 -left-4 md:-left-8 top-1/2 -translate-y-1/2 w-20 md:w-28 opacity-80 pointer-events-none select-none"
+        />
+        <img
+          [ngSrc]="cover.logo.src"
+          width="1447"
+          height="899"
+          alt="Blooming Wild ART"
+          class="w-56 md:w-72"
         />
       </div>
-
-      <img
-        [ngSrc]="cover.logo.src"
-        width="1447"
-        height="899"
-        alt="Blooming Wild ART"
-        class="hidden md:block w-32 mt-10"
-      />
     </div>
 
     <!-- Testo: allineato a sinistra su desktop, con la prima frase come pull-quote -->
@@ -51,20 +42,9 @@
       </p>
       <h1 class="text-3xl sm:text-4xl md:text-7xl text-gray-900 font-title mb-6">About me</h1>
 
-      <p class="font-title italic text-xl sm:text-2xl md:text-3xl text-brand leading-snug mb-4">
+      <p class="font-title italic text-xl sm:text-2xl md:text-3xl text-brand leading-snug mb-6">
         Fin da bambina ho sempre guardato il mondo naturale con gli occhi della meraviglia, convinta che dietro ogni foglia si nascondesse una storia e dentro ogni tana un piccolo segreto.
       </p>
-
-      <div class="flex items-center gap-3 mb-5 justify-center md:justify-start">
-        <span class="h-px w-10 bg-gray-200"></span>
-        <img
-          ngSrc="images/elementi botanici/foglia1.webp"
-          width="120"
-          height="170"
-          alt=""
-          class="w-6 h-auto -rotate-[15deg] pointer-events-none select-none"
-        />
-      </div>
 
       <div class="text-gray-600 max-w-xl mx-auto md:mx-0 text-sm md:text-base font-body space-y-3">
         <p>Oggi uso i miei acquerelli per rivelare quel pizzico di magia che troppo spesso dimentichiamo di cercare.</p>

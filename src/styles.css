@@ -111,17 +111,6 @@ select.ng-invalid.ng-touched {
   scrollbar-width: none;
 }
 
-/* Bordo inferiore "strappato", come una pagina staccata da un taccuino —
-   usato sul ritratto di About me al posto di un bordo dritto. */
-.torn-edge {
-  clip-path: polygon(
-    0% 0%, 100% 0%, 100% 95%,
-    90% 100%, 80% 93%, 70% 99%, 60% 94%,
-    50% 100%, 40% 93%, 30% 99%, 20% 94%,
-    10% 100%, 0% 96%
-  );
-}
-
 /* Indizio di swipe sulle card eventi (mobile) — suggerisce lo scorrimento laterale */
 @keyframes swipe-hint {
   0%, 100% { transform: translateX(-10px); }
