@@ -1,6 +1,6 @@
-<section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-20 pb-6 md:pb-16 px-4">
+<section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-32 pb-6 md:pb-16 px-4">
   <div class="max-w-2xl mx-auto text-center">
-    <h1 class="text-4xl md:text-7xl text-gray-900 font-title mb-4 text-center">Portfolio</h1>
+    <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 text-center">Portfolio</h1>
     <p class="text-center text-gray-600 max-w-xl mx-auto text-sm md:text-lg font-body">
       Un viaggio visivo tra flora, fauna e atmosfere fiabesche. Esplora la mia raccolta di illustrazioni ad acquerello e lasciati trasportare nel mio piccolo mondo incantato.
     </p>
@@ -33,28 +33,29 @@
 
   <div class="flex items-center gap-3 w-2/3 max-w-xs mt-3">
     <span class="flex-1 h-px bg-gray-200"></span>
-    <span class="w-1.5 h-1.5 rounded-full bg-bark"></span>
+    <app-icon name="leaf" [size]="16" class="text-bark shrink-0" />
     <span class="flex-1 h-px bg-gray-200"></span>
   </div>
 </div>
 
 <section class="bg-blush pb-24 px-4">
   <div class="max-w-6xl mx-auto">
-    <!-- Griglia -->
-    <div id="galleria" class="scroll-mt-24 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
+    <!-- Griglia a colonne (masonry): ogni illustrazione mantiene le sue proporzioni
+         naturali invece di essere forzata in un quadrato con bordi vuoti. -->
+    <div id="galleria" class="scroll-mt-24 columns-2 sm:columns-3 md:columns-4 gap-6 md:gap-8">
       @for (item of pagedItems(); track item.src) {
         <button
           type="button"
           (click)="openLightbox(item)"
           appRevealOnScroll
-          class="group text-left"
+          class="group block w-full text-left mb-6 md:mb-8 break-inside-avoid"
         >
-          <div class="relative aspect-square bg-white border border-gray-200 shadow-sm group-hover:shadow-lg group-hover:border-brand transition-all overflow-hidden">
+          <div class="relative bg-white border border-gray-200 shadow-warm group-hover:shadow-warm-lg group-hover:border-brand group-hover:-translate-y-1 transition-all overflow-hidden">
             <img
               [src]="item.src"
               loading="lazy"
               [alt]="item.title"
-              class="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+              class="block w-full h-auto object-contain p-4 transition-transform duration-300 group-hover:scale-105"
               (contextmenu)="$event.preventDefault()"
               draggable="false"
             />

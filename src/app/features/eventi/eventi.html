@@ -1,6 +1,6 @@
-<section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-20 pb-6 md:pb-16 px-4">
+<section class="bg-parchment pt-[calc(1.5rem+env(safe-area-inset-top))] md:pt-32 pb-6 md:pb-16 px-4">
   <div class="max-w-2xl mx-auto text-center">
-    <h1 class="text-4xl md:text-7xl text-gray-900 font-title mb-4 tracking-wide text-center">
+    <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 tracking-wide text-center">
       Eventi
     </h1>
     <p class="text-center text-gray-600 max-w-xl mx-auto text-sm md:text-lg font-body">
@@ -32,12 +32,15 @@
       class="w-full overflow-x-auto flex gap-6 pb-4 px-1 scroll-smooth snap-x snap-mandatory scrollbar-hide"
     >
       @for (ev of eventsWithSeats(); track ev.id) {
-        <div class="relative w-full min-w-full h-[440px] md:h-[720px] rounded shadow-lg overflow-hidden snap-start shrink-0 border border-gray-200">
+        <div class="relative w-full min-w-full h-[440px] md:h-[720px] rounded shadow-warm-lg overflow-hidden snap-start shrink-0 border border-gray-200">
           @if (ev.locandinaUrl) {
             <img [src]="ev.locandinaUrl" [alt]="ev.title" class="absolute inset-0 w-full h-full object-cover" />
           } @else {
             <div class="absolute inset-0 bg-gradient-to-br from-action via-bark to-brand"></div>
-            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 28px 28px;"></div>
+            <div
+              class="absolute inset-0 opacity-35 mix-blend-multiply"
+              style="background-image: url('images/pattern/pattern_fiori_bianchi.webp'); background-size: 220px; background-repeat: repeat;"
+            ></div>
           }
 
           <div class="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-transparent"></div>
@@ -75,14 +78,14 @@
               <a
                 [href]="ev.mapsUrl"
                 target="_blank"
-                class="flex items-center gap-1.5 md:gap-2 border border-white/40 text-white text-xs md:text-base font-semibold tracking-widest px-4 py-3 md:px-6 md:py-4 rounded hover:bg-white/10 transition-colors uppercase"
+                class="flex items-center gap-1.5 md:gap-2 border border-white/40 text-white text-xs md:text-base font-semibold tracking-widest px-4 py-3 md:px-6 md:py-4 rounded hover:bg-white/10 hover:-translate-y-0.5 active:translate-y-0 transition-all uppercase"
               ><app-icon name="map" [size]="14" /> Mappa</a>
               <button
                 type="button"
                 [disabled]="ev.isSoldOut"
                 (click)="selectEventAndScroll(ev.id)"
                 class="flex items-center gap-1.5 md:gap-2 text-xs md:text-base font-semibold tracking-widest px-5 py-3 md:px-7 md:py-4 rounded transition-all uppercase"
-                [ngClass]="ev.isSoldOut ? 'bg-white/20 cursor-not-allowed text-white/60' : 'bg-action text-white hover:bg-action-hover'"
+                [ngClass]="ev.isSoldOut ? 'bg-white/20 cursor-not-allowed text-white/60' : 'bg-action text-white hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0'"
               >
                 @if (ev.isSoldOut) {
                   <app-icon name="ban" [size]="14" /> Esaurito
@@ -138,7 +141,7 @@
 <div class="bg-parchment py-10 flex items-center justify-center">
   <div class="flex items-center gap-3 w-2/3 max-w-xs">
     <span class="flex-1 h-px bg-gray-200"></span>
-    <span class="w-1.5 h-1.5 rounded-full bg-bark"></span>
+    <app-icon name="leaf" [size]="16" class="text-bark shrink-0" />
     <span class="flex-1 h-px bg-gray-200"></span>
   </div>
 </div>
