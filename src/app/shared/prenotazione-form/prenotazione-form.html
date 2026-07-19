@@ -145,28 +145,30 @@
     </div>
   }
 
-  <div #privacyNotice class="mt-8 pt-6 border-t border-gray-200">
-    <button
-      type="button"
-      (click)="togglePrivacyNotice()"
-      [attr.aria-expanded]="showPrivacyNotice()"
-      class="flex items-center justify-between w-full text-left text-xs font-bold text-gray-600 uppercase tracking-widest"
-    >
-      Informativa sulla privacy
-      <app-icon name="chevron-down" [size]="16" class="transition-transform" [class.rotate-180]="showPrivacyNotice()" />
-    </button>
+  @if (!bookingSuccess()) {
+    <div #privacyNotice class="mt-8 pt-6 border-t border-gray-200">
+      <button
+        type="button"
+        (click)="togglePrivacyNotice()"
+        [attr.aria-expanded]="showPrivacyNotice()"
+        class="flex items-center justify-between w-full text-left text-xs font-bold text-gray-600 uppercase tracking-widest"
+      >
+        Informativa sulla privacy
+        <app-icon name="chevron-down" [size]="16" class="transition-transform" [class.rotate-180]="showPrivacyNotice()" />
+      </button>
 
-    @if (showPrivacyNotice()) {
-      <div class="mt-4 space-y-3 text-xs text-gray-600 leading-relaxed">
-        <p>1. <strong>Titolare del trattamento</strong>: Silvia Sgaramella, P.IVA 03483350736 — contatto per richieste privacy: silvia.sgara&#64;gmail.com</p>
-        <p>2. <strong>Dati raccolti</strong>: nome e cognome, email, codice fiscale (per i privati) oppure ragione sociale/partita IVA/codice SDI (per aziende/professionisti), indirizzo, CAP, città.</p>
-        <p>3. <strong>Finalità e base giuridica</strong>: i dati sono raccolti per gestire la prenotazione al workshop ed emettere la relativa fattura o ricevuta fiscale — base giuridica: esecuzione del contratto (art. 6.1.b GDPR) e adempimento di obblighi di legge fiscale (art. 6.1.c GDPR).</p>
-        <p>4. <strong>Dove sono conservati i dati</strong>: i dati sono ospitati su Supabase (fornitore di database/hosting), che agisce come responsabile del trattamento per conto del titolare.</p>
-        <p>5. <strong>Font esterni</strong>: il sito carica i caratteri tipografici direttamente dai server di Google Fonts; il browser si collega a Google, che riceve l'indirizzo IP di chi visita il sito.</p>
-        <p>6. <strong>Periodo di conservazione</strong>: i dati relativi a prenotazioni fatturate sono conservati per il periodo previsto dalla normativa fiscale italiana per la documentazione contabile (indicativamente 10 anni, salvo diversa indicazione del proprio commercialista).</p>
-        <p>7. <strong>Diritti dell'interessato</strong>: accesso, rettifica, cancellazione, limitazione, opposizione al trattamento e portabilità dei dati, scrivendo a silvia.sgara&#64;gmail.com; è possibile inoltre presentare reclamo al Garante per la protezione dei dati personali (www.garanteprivacy.it).</p>
-        <p>8. <strong>Cookie</strong>: il sito non utilizza cookie di profilazione o tracciamento a fini pubblicitari.</p>
-      </div>
-    }
-  </div>
+      @if (showPrivacyNotice()) {
+        <div class="mt-4 space-y-3 text-xs text-gray-600 leading-relaxed">
+          <p>1. <strong>Titolare del trattamento</strong>: Silvia Sgaramella, P.IVA 03483350736 — contatto per richieste privacy: silvia.sgara&#64;gmail.com</p>
+          <p>2. <strong>Dati raccolti</strong>: nome e cognome, email, codice fiscale (per i privati) oppure ragione sociale/partita IVA/codice SDI (per aziende/professionisti), indirizzo, CAP, città.</p>
+          <p>3. <strong>Finalità e base giuridica</strong>: i dati sono raccolti per gestire la prenotazione al workshop ed emettere la relativa fattura o ricevuta fiscale — base giuridica: esecuzione del contratto (art. 6.1.b GDPR) e adempimento di obblighi di legge fiscale (art. 6.1.c GDPR).</p>
+          <p>4. <strong>Dove sono conservati i dati</strong>: i dati sono ospitati su Supabase (fornitore di database/hosting), che agisce come responsabile del trattamento per conto del titolare.</p>
+          <p>5. <strong>Font esterni</strong>: il sito carica i caratteri tipografici direttamente dai server di Google Fonts; il browser si collega a Google, che riceve l'indirizzo IP di chi visita il sito.</p>
+          <p>6. <strong>Periodo di conservazione</strong>: i dati relativi a prenotazioni fatturate sono conservati per il periodo previsto dalla normativa fiscale italiana per la documentazione contabile (indicativamente 10 anni, salvo diversa indicazione del proprio commercialista).</p>
+          <p>7. <strong>Diritti dell'interessato</strong>: accesso, rettifica, cancellazione, limitazione, opposizione al trattamento e portabilità dei dati, scrivendo a silvia.sgara&#64;gmail.com; è possibile inoltre presentare reclamo al Garante per la protezione dei dati personali (www.garanteprivacy.it).</p>
+          <p>8. <strong>Cookie</strong>: il sito non utilizza cookie di profilazione o tracciamento a fini pubblicitari.</p>
+        </div>
+      }
+    </div>
+  }
 </div>
