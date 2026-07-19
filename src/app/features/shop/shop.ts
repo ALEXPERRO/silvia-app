@@ -3,11 +3,12 @@ import { NgOptimizedImage } from '@angular/common';
 import { Meta } from '@angular/platform-browser';
 import { ContentService } from '../../core/services/content.service';
 import { RevealOnScroll } from '../../shared/reveal-on-scroll/reveal-on-scroll';
+import { Icon } from '../../shared/icon/icon';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [NgOptimizedImage, RevealOnScroll],
+  imports: [NgOptimizedImage, RevealOnScroll, Icon],
   templateUrl: './shop.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
