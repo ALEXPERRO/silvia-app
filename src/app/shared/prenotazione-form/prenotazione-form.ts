@@ -14,6 +14,7 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { SupabaseService, BookingSubmission } from '../../core/services/supabase.service';
+import { EmailService } from '../../core/services/email.service';
 import { PaintEventWithSeats } from '../../core/models/event.model';
 import { Icon } from '../icon/icon';
 
@@ -26,6 +27,7 @@ import { Icon } from '../icon/icon';
 })
 export class PrenotazioneForm {
   private readonly supabase = inject(SupabaseService);
+  private readonly emailService = inject(EmailService);
   private readonly fb = inject(FormBuilder);
 
   private readonly _events = signal<PaintEventWithSeats[]>([]);
@@ -189,5 +191,8 @@ export class PrenotazioneForm {
     this.bookingSuccess.set(true);
     this.bookingCompleted.emit();
     this.form.reset({ billingType: 'privato', numeroPosti: 1 });
+    // Non blocca la UI: il posto è già confermato, l'invio email è un
+    // effetto collaterale e non deve ritardare il messaggio di successo.
+    void this.emailService.sendBookingEmails(payload);
   }
 }
