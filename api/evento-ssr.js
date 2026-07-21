@@ -13,11 +13,11 @@ process.on('uncaughtException', (err) => {
 export default async (req, res) => {
   const { reqHandler, ngAppDiag } = await import('../dist/silvia-app/server/server.mjs');
   try {
-    const manifestMod = await import('../dist/silvia-app/server/angular-app-manifest.mjs');
-    console.log('[evento-ssr] manifest keys=%o', Object.keys(manifestMod));
-    console.log('[evento-ssr] manifest default=%s', JSON.stringify(manifestMod.default, null, 0)?.slice(0, 1500));
+    const engineManifestMod = await import('../dist/silvia-app/server/angular-app-engine-manifest.mjs');
+    console.log('[evento-ssr] engine-manifest keys=%o', Object.keys(engineManifestMod));
+    console.log('[evento-ssr] engine-manifest default=%s', JSON.stringify(engineManifestMod.default, null, 0)?.slice(0, 1500));
   } catch (mErr) {
-    console.log('[evento-ssr] manifest import failed: %s', mErr?.stack || mErr);
+    console.log('[evento-ssr] engine-manifest import failed: %s', mErr?.stack || mErr);
   }
   const slugId = req.query?.slugId;
   if (slugId) {
