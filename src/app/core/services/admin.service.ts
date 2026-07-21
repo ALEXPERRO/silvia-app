@@ -67,6 +67,15 @@ export class AdminService {
     return { success: data === true, error };
   }
 
+  async riduciPostiPrenotazione(id: number, nuovoNumeroPosti: number): Promise<{ success: boolean; error: unknown }> {
+    const client = await this.getClient();
+    const { data, error } = await client.rpc('riduci_posti_prenotazione', {
+      p_prenotazione_id: id,
+      p_nuovo_numero_posti: nuovoNumeroPosti,
+    });
+    return { success: data === true, error };
+  }
+
   /** Tutti gli eventi (pubblicati e nascosti), ordinati per data crescente. */
   async getAllEvents(): Promise<PaintEventAdmin[]> {
     const client = await this.getClient();
