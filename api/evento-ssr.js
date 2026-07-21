@@ -10,7 +10,7 @@ export default async (req, res) => {
   // percorso e finisce per renderizzare la home. Ripristiniamo qui il
   // percorso originale così reqHandler fa il match con /eventi/:slugId.
   const slugId = req.query?.slugId;
-  console.log('[evento-ssr] incoming url=%s query=%o', req.url, req.query);
+  console.log('[evento-ssr] incoming url=%s query=%o host=%s', req.url, req.query, req.headers.host);
   if (slugId) {
     req.url = `/eventi/${slugId}`;
   }
