@@ -30,6 +30,8 @@ export class Gestione {
   protected readonly seats = signal<Record<number, number>>({});
   protected readonly showCancelled = signal(false);
   protected readonly confirmingCancelId = signal<number | null>(null);
+  protected readonly editingSeatsId = signal<number | null>(null);
+  protected readonly newSeatsValue = signal(1);
   protected readonly actionError = signal<string | null>(null);
 
   protected readonly activeTab = signal<'prenotazioni' | 'eventi' | 'portfolio'>('prenotazioni');
@@ -215,6 +217,7 @@ export class Gestione {
   }
 
   armCancel(id: number): void {
+    this.editingSeatsId.set(null);
     this.confirmingCancelId.set(id);
   }
 
@@ -233,6 +236,40 @@ export class Gestione {
       this.actionError.set('Impossibile annullare la prenotazione. Riprova.');
     } finally {
       this.confirmingCancelId.set(null);
+    }
+  }
+
+  armEditSeats(booking: Prenotazione): void {
+    this.actionError.set(null);
+    this.confirmingCancelId.set(null);
+    this.editingSeatsId.set(booking.id);
+    this.newSeatsValue.set(Math.max(1, booking.numero_posti - 1));
+  }
+
+  cancelEditSeats(): void {
+    this.editingSeatsId.set(null);
+  }
+
+  async confirmEditSeats(booking: Prenotazione): Promise<void> {
+    this.actionError.set(null);
+    const nuovo = Math.round(this.newSeatsValue());
+    if (!Number.isFinite(nuovo) || nuovo < 1 || nuovo >= booking.numero_posti) {
+      this.actionError.set(`Inserisci un numero di posti valido, da 1 a ${booking.numero_posti - 1}.`);
+      return;
+    }
+    try {
+      const { success, error } = await this.admin.riduciPostiPrenotazione(booking.id, nuovo);
+      if (error || !success) {
+        this.actionError.set('Impossibile aggiornare il numero di posti. Riprova.');
+        return;
+      }
+      this.bookings.update((list) => list.map((b) => (b.id === booking.id ? { ...b, numero_posti: nuovo } : b)));
+      this.supabase.invalidateSeatsCache();
+      this.supabase.getEventSeats().then((seatMap) => this.seats.set(seatMap));
+    } catch {
+      this.actionError.set('Impossibile aggiornare il numero di posti. Riprova.');
+    } finally {
+      this.editingSeatsId.set(null);
     }
   }
 

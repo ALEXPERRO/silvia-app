@@ -108,8 +108,36 @@
                   } @else {
                     <span class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 text-gray-400">Annullata</span>
                   }
+                  @if (!b.cancellata && b.numero_posti > 1 && editingSeatsId() !== b.id) {
+                    <button type="button" (click)="armEditSeats(b)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-brand hover:text-brand transition-colors">
+                      Modifica posti
+                    </button>
+                  }
                 </div>
               </div>
+
+              @if (editingSeatsId() === b.id) {
+                <div class="flex flex-wrap items-center gap-3 pb-3 -mt-1">
+                  <label [attr.for]="'new-seats-' + b.id" class="text-xs font-bold text-gray-600 uppercase tracking-widest">
+                    Nuovo numero posti (max {{ b.numero_posti - 1 }})
+                  </label>
+                  <input
+                    type="number"
+                    [id]="'new-seats-' + b.id"
+                    [value]="newSeatsValue()"
+                    (input)="newSeatsValue.set($any($event.target).valueAsNumber)"
+                    min="1"
+                    [max]="b.numero_posti - 1"
+                    class="w-20 p-2 border border-gray-200 rounded focus:border-brand focus:outline-none text-sm text-gray-800"
+                  />
+                  <button type="button" (click)="confirmEditSeats(b)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded bg-action text-white hover:bg-action-hover transition-colors">
+                    Salva
+                  </button>
+                  <button type="button" (click)="cancelEditSeats()" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-brand hover:text-brand transition-colors">
+                    Annulla
+                  </button>
+                </div>
+              }
             }
           </div>
         }
