@@ -15,5 +15,11 @@ export default async (req, res) => {
     req.url = `/eventi/${slugId}`;
   }
   console.log('[evento-ssr] forwarding url=%s', req.url);
-  return reqHandler(req, res);
+  res.on('finish', () => console.log('[evento-ssr] response status=%s', res.statusCode));
+  try {
+    return await reqHandler(req, res);
+  } catch (err) {
+    console.log('[evento-ssr] reqHandler threw: %s', err?.stack || err);
+    throw err;
+  }
 };
