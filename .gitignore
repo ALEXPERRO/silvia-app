@@ -50,3 +50,5 @@ Thumbs.db
 
 # Verification scripts and outputs (not committed)
 /.superpowers/verify
+.vercel
+.env*
