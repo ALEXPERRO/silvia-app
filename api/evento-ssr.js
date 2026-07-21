@@ -5,5 +5,13 @@
 // è l'unica per cui serve una funzione dedicata invece del solo output statico.
 export default async (req, res) => {
   const { reqHandler } = await import('../dist/silvia-app/server/server.mjs');
+  // Vercel riscrive req.url nella destinazione (/api/evento-ssr?slugId=...)
+  // prima che la funzione la riceva: il router di Angular non riconosce quel
+  // percorso e finisce per renderizzare la home. Ripristiniamo qui il
+  // percorso originale così reqHandler fa il match con /eventi/:slugId.
+  const slugId = req.query?.slugId;
+  if (slugId) {
+    req.url = `/eventi/${slugId}`;
+  }
   return reqHandler(req, res);
 };
