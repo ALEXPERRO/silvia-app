@@ -3,8 +3,22 @@
 // come già funzionava: solo questa route dinamica ha bisogno di essere renderizzata
 // per ogni richiesta (vedi RenderMode.Server in src/app/app.routes.server.ts), quindi
 // è l'unica per cui serve una funzione dedicata invece del solo output statico.
+process.on('unhandledRejection', (reason) => {
+  console.log('[evento-ssr] UNHANDLED REJECTION: %s', reason?.stack || reason);
+});
+process.on('uncaughtException', (err) => {
+  console.log('[evento-ssr] UNCAUGHT EXCEPTION: %s', err?.stack || err);
+});
+
 export default async (req, res) => {
   const { reqHandler, ngAppDiag } = await import('../dist/silvia-app/server/server.mjs');
+  try {
+    const manifestMod = await import('../dist/silvia-app/server/angular-app-manifest.mjs');
+    console.log('[evento-ssr] manifest keys=%o', Object.keys(manifestMod));
+    console.log('[evento-ssr] manifest default=%s', JSON.stringify(manifestMod.default, null, 0)?.slice(0, 1500));
+  } catch (mErr) {
+    console.log('[evento-ssr] manifest import failed: %s', mErr?.stack || mErr);
+  }
   const slugId = req.query?.slugId;
   if (slugId) {
     req.url = `/eventi/${slugId}`;
