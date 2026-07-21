@@ -10,9 +10,10 @@
 
   <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-12 md:gap-16 items-center md:px-8">
 
-    <!-- Ritratto: full-bleed su mobile (come una copertina editoriale), inserito nella griglia da desktop -->
-    <div>
-      <div class="relative aspect-3/4 md:aspect-3/4 overflow-hidden">
+    <!-- Ritratto: inquadrato con margine su mobile (come una foto montata su una
+         pagina di diario, non a schermo intero), pieno spazio nella griglia da desktop -->
+    <div class="px-5 md:px-0">
+      <div class="relative aspect-4/5 md:aspect-3/4 overflow-hidden border border-gray-200 md:border-0">
         <img
           [ngSrc]="cover.main.src"
           [style.transform]="'scale(' + cover.main.scale + ')'"
@@ -22,7 +23,6 @@
           class="object-cover"
         />
       </div>
-
     </div>
 
     <!-- Testo: allineato a sinistra su desktop, con la prima frase come pull-quote -->
@@ -49,7 +49,7 @@
 </section>
 
 <!-- ANTEPRIMA PORTFOLIO -->
-<section class="bg-parchment py-14 sm:py-20 px-4">
+<section class="bg-blush py-14 sm:py-20 px-4">
   <div class="max-w-5xl mx-auto text-center">
     <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">Dal Portfolio</h2>
     <p class="text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body mb-10">
@@ -72,7 +72,7 @@
 
 <!-- PROSSIMO EVENTO -->
 @if (nextEventDisplay(); as ev) {
-<section class="bg-blush py-14 sm:py-20 px-4">
+<section class="bg-parchment py-14 sm:py-20 px-4">
   <div class="max-w-3xl mx-auto text-center">
     <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">Prossimo Workshop</h2>
     <p class="text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body mb-10">
@@ -94,7 +94,7 @@
 }
 
 <!-- CTA SHOP -->
-<section class="bg-parchment py-14 sm:py-20 px-4">
+<section class="bg-blush py-14 sm:py-20 px-4">
   <div class="max-w-5xl mx-auto text-center">
     <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">Porta la magia a casa tua</h2>
     <p class="text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body mb-10">
