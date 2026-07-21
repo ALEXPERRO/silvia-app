@@ -47,5 +47,6 @@ begin
 end;
 $$;
 
-revoke all on function riduci_posti_prenotazione(bigint, integer) from public;
+revoke execute on function riduci_posti_prenotazione(bigint, integer) from public;
+revoke execute on function riduci_posti_prenotazione(bigint, integer) from anon;
 grant execute on function riduci_posti_prenotazione(bigint, integer) to authenticated;
