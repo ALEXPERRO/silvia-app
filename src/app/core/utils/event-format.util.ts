@@ -27,7 +27,7 @@ export const DEFAULT_SEATS = 10;
 
 /** Dominio di produzione del sito, usato per costruire URL assoluti (link
  *  condivisibili, tag Open Graph). */
-export const SITE_URL = 'https://blooming-wild-art.vercel.app';
+export const SITE_URL = 'https://bloomingwild.art';
 
 /** Es. "Workshop all'Aperto - Firenze!" -> "workshop-all-aperto-firenze". */
 function slugify(text: string): string {
