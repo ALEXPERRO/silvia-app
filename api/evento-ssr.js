@@ -13,11 +13,19 @@ process.on('uncaughtException', (err) => {
 export default async (req, res) => {
   const { reqHandler, ngAppDiag } = await import('../dist/silvia-app/server/server.mjs');
   try {
-    const engineManifestMod = await import('../dist/silvia-app/server/angular-app-engine-manifest.mjs');
-    console.log('[evento-ssr] engine-manifest keys=%o', Object.keys(engineManifestMod));
-    console.log('[evento-ssr] engine-manifest default=%s', JSON.stringify(engineManifestMod.default, null, 0)?.slice(0, 1500));
-  } catch (mErr) {
-    console.log('[evento-ssr] engine-manifest import failed: %s', mErr?.stack || mErr);
+    const fs = await import('node:fs');
+    const path = await import('node:path');
+    const dir = path.join(__dirname, '../dist/silvia-app/server');
+    const files = fs.readdirSync(dir);
+    console.log('[evento-ssr] server dir (%s) has %d files: %s', dir, files.length, files.join(','));
+  } catch (fErr) {
+    console.log('[evento-ssr] readdir failed: %s', fErr?.stack || fErr);
+  }
+  try {
+    const mod = await import('../dist/silvia-app/server/chunk-2VRS3FJ6.mjs');
+    console.log('[evento-ssr] evento-dettaglio chunk import OK, keys=%o', Object.keys(mod));
+  } catch (cErr) {
+    console.log('[evento-ssr] evento-dettaglio chunk import FAILED: %s', cErr?.stack || cErr);
   }
   const slugId = req.query?.slugId;
   if (slugId) {
