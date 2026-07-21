@@ -32,6 +32,8 @@ export default async (req, res) => {
     req.url = `/eventi/${slugId}`;
   }
   console.log('[evento-ssr] forwarding url=%s host=%s', req.url, req.headers.host);
+  console.log('[evento-ssr] req.method=%s req.httpVersion=%s ctor=%s hasSocket=%s', req.method, req.httpVersion, req.constructor?.name, !!req.socket);
+  console.log('[evento-ssr] req.headers=%s', JSON.stringify(req.headers));
   try {
     const diag = await ngAppDiag.handle(req);
     if (!diag) {
