@@ -10,9 +10,14 @@
     <p class="font-title italic text-2xl tracking-wide text-brand">{{ footer.text }}</p>
   </div>
 
-  <a href="https://www.instagram.com/blooming.wild.art/" target="_blank" rel="noopener" aria-label="Instagram" class="inline-flex items-center justify-center mt-5 text-gray-600 hover:text-brand transition-colors">
-    <app-icon name="instagram" [size]="22" />
-  </a>
+  <div class="flex items-center justify-center gap-5 mt-5">
+    <a href="https://www.instagram.com/blooming.wild.art/" target="_blank" rel="noopener" aria-label="Instagram" class="inline-flex items-center justify-center text-gray-600 hover:text-brand transition-colors">
+      <app-icon name="instagram" [size]="22" />
+    </a>
+    <a href="mailto:silvia.sgara@gmail.com" aria-label="Scrivi una email a Silvia" class="inline-flex items-center justify-center text-gray-600 hover:text-brand transition-colors">
+      <app-icon name="mail" [size]="22" />
+    </a>
+  </div>
 
   <div class="mt-5">
     <a

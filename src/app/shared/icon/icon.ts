@@ -14,7 +14,8 @@ export type IconName =
   | 'chevron-down'
   | 'leaf'
   | 'instagram'
-  | 'tiktok';
+  | 'tiktok'
+  | 'mail';
 
 @Component({
   selector: 'app-icon',

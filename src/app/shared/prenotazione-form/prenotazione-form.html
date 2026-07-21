@@ -34,7 +34,7 @@
       @if (showEventSelector) {
         <div>
           <label for="event-select" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Seleziona l'evento *</label>
-          <select id="event-select" formControlName="eventId" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800 transition-colors">
+          <select id="event-select" formControlName="eventId" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800">
             <option [ngValue]="null" disabled>Seleziona un appuntamento...</option>
             @for (ev of events; track ev.id) {
               <option [ngValue]="ev.id" [disabled]="ev.isSoldOut">
@@ -142,6 +142,7 @@
     <div class="mt-6 bg-action text-white text-center p-10 md:p-14 rounded border border-action-hover shadow-warm-lg flex flex-col items-center justify-center gap-4">
       <app-icon name="sparkles" [size]="36" />
       <span class="font-title italic text-xl md:text-2xl max-w-md">Iscrizione salvata! Il tuo posto è riservato: Silvia ti contatterà via email per la conferma.</span>
+      <span class="text-xs md:text-sm opacity-90 max-w-sm">Per annullare o modificare la prenotazione, scrivi a Silvia via email o su Instagram.</span>
     </div>
   }
 
