@@ -31,7 +31,7 @@
 
     <h1 class="text-2xl md:text-5xl font-title font-medium mb-1 md:mb-2 tracking-wide">{{ event().title }}</h1>
 
-    <p class="flex flex-wrap items-center gap-x-2 md:gap-x-3 gap-y-1 text-xs md:text-lg opacity-90 mb-5 md:mb-6">
+    <p class="flex flex-col gap-1 text-xs md:text-lg opacity-90 mb-5 md:mb-6">
       <span class="flex items-center gap-1.5 md:gap-2"><app-icon name="calendar" [size]="15" /> {{ event().dateLabel }} · {{ event().timeLabel }}</span>
       <span class="flex items-center gap-1.5 md:gap-2"><app-icon name="map-pin" [size]="15" /> {{ event().luogo }}, {{ event().indirizzo }}</span>
     </p>
@@ -44,7 +44,14 @@
   </div>
 </section>
 
-<section class="bg-parchment py-10 px-4">
+<section class="relative isolate bg-parchment py-10 px-4 overflow-hidden">
+  @if (event().locandinaUrl) {
+    <div class="absolute -z-10 inset-x-0 top-0 h-48 md:h-64 overflow-hidden pointer-events-none" aria-hidden="true">
+      <img [src]="event().locandinaUrl" alt="" class="w-full h-full object-cover blur-3xl scale-125 saturate-150 opacity-25" />
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-parchment"></div>
+    </div>
+  }
+
   @if (isPast) {
     <div class="max-w-2xl mx-auto bg-white rounded shadow-lg border border-gray-200 p-8 text-center">
       <p class="text-gray-600 text-sm md:text-base">Questo evento si è già svolto. Segui la pagina <a routerLink="/eventi" class="text-brand underline hover:text-brand-hover">Eventi</a> per scoprire i prossimi appuntamenti.</p>
