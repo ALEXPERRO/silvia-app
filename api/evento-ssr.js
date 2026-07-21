@@ -4,22 +4,22 @@
 // per ogni richiesta (vedi RenderMode.Server in src/app/app.routes.server.ts), quindi
 // è l'unica per cui serve una funzione dedicata invece del solo output statico.
 export default async (req, res) => {
-  const { reqHandler } = await import('../dist/silvia-app/server/server.mjs');
-  // Vercel riscrive req.url nella destinazione (/api/evento-ssr?slugId=...)
-  // prima che la funzione la riceva: il router di Angular non riconosce quel
-  // percorso e finisce per renderizzare la home. Ripristiniamo qui il
-  // percorso originale così reqHandler fa il match con /eventi/:slugId.
+  const { reqHandler, ngAppDiag } = await import('../dist/silvia-app/server/server.mjs');
   const slugId = req.query?.slugId;
-  console.log('[evento-ssr] incoming url=%s query=%o host=%s', req.url, req.query, req.headers.host);
   if (slugId) {
     req.url = `/eventi/${slugId}`;
   }
-  console.log('[evento-ssr] forwarding url=%s', req.url);
-  res.on('finish', () => console.log('[evento-ssr] response status=%s', res.statusCode));
+  console.log('[evento-ssr] forwarding url=%s host=%s', req.url, req.headers.host);
   try {
-    return await reqHandler(req, res);
-  } catch (err) {
-    console.log('[evento-ssr] reqHandler threw: %s', err?.stack || err);
-    throw err;
+    const diag = await ngAppDiag.handle(req);
+    if (!diag) {
+      console.log('[evento-ssr] ngAppDiag.handle returned null (no route match)');
+    } else {
+      const text = await diag.clone().text();
+      console.log('[evento-ssr] ngAppDiag.handle status=%s bodyPreview=%s', diag.status, text.slice(0, 250));
+    }
+  } catch (diagErr) {
+    console.log('[evento-ssr] ngAppDiag.handle threw: %s', diagErr?.stack || diagErr);
   }
+  return reqHandler(req, res);
 };
