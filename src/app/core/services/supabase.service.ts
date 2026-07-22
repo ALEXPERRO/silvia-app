@@ -108,10 +108,11 @@ export class SupabaseService {
         .eq('id', id)
         .eq('pubblicato', true)
         .maybeSingle();
-      if (error || !data) {
-        console.error('[getEventoById] error o dati assenti:', error);
+      if (error) {
+        console.error('Errore nel recupero evento dal DB:', error);
         return null;
       }
+      if (!data) return null;
       return {
         id: data['id'],
         title: data['titolo'],
@@ -125,7 +126,7 @@ export class SupabaseService {
         locandinaUrl: data['locandina_url'],
       };
     } catch (err) {
-      console.error('[getEventoById] eccezione:', err);
+      console.error('Errore nel recupero evento dal DB:', err);
       return null;
     }
   }
