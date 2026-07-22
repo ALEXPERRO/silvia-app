@@ -14,7 +14,7 @@
     <div class="relative w-36 h-36 md:w-44 md:h-44 mb-6">
       <div class="absolute inset-0 rounded-[48%_52%_58%_42%/50%_45%_55%_50%] bg-plum-soft/70"></div>
       <img
-        src="images/elementi botanici/foglia1.webp"
+        src="images/elementi botanici/bacche1.webp"
         alt=""
         aria-hidden="true"
         class="absolute inset-2 w-[calc(100%-1rem)] h-[calc(100%-1rem)] object-contain animate-sway"
@@ -34,36 +34,9 @@
     </a>
   </div>
 
-  <div class="flex items-center gap-3 w-2/3 max-w-xs mt-3">
+  <div class="flex items-center gap-3 w-2/3 max-w-xs">
     <span class="flex-1 h-px bg-gray-200"></span>
     <app-icon name="leaf" [size]="16" class="text-bark shrink-0" />
     <span class="flex-1 h-px bg-gray-200"></span>
   </div>
 </div>
-
-<section class="bg-blush pb-24 px-4">
-  <div class="max-w-6xl mx-auto">
-    <!-- Griglia prodotti -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      @for (product of products; track product.id) {
-        <article appRevealOnScroll class="bg-white border border-gray-200 shadow-warm hover:shadow-warm-lg hover:border-brand hover:-translate-y-1 transition-all overflow-hidden flex flex-col">
-          <div class="relative w-full aspect-square bg-gray-50">
-            <img [ngSrc]="product.image" fill loading="lazy" [alt]="product.title" class="object-contain p-6" />
-          </div>
-          <div class="p-5 flex flex-col grow text-left">
-            <h3 class="font-title italic text-lg text-gray-900 tracking-wide mb-1">{{ product.title }}</h3>
-            <p class="text-xs text-gray-600 leading-relaxed mb-4 grow">{{ product.description }}</p>
-            <div class="flex items-center justify-between">
-              <span class="font-semibold text-gray-900 text-sm">{{ product.price }}</span>
-              <span class="text-[10px] font-bold tracking-widest uppercase text-bark/70">In arrivo</span>
-            </div>
-          </div>
-        </article>
-      }
-    </div>
-
-    <p class="text-center text-gray-600 text-xs mt-12">
-      Anteprima di alcune illustrazioni: il negozio apre ufficialmente a Settembre.
-    </p>
-  </div>
-</section>

@@ -36,7 +36,6 @@ export class Home {
   }
 
   protected readonly cover = this.content.cover;
-  protected readonly shopUrl = this.content.shopUrl;
   protected readonly nextEvent = signal<PaintEvent | null>(null);
   protected readonly eventsLoaded = signal(false);
   protected readonly nextEventDisplay = computed(() => {

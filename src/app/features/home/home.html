@@ -103,16 +103,14 @@
   <div class="max-w-5xl mx-auto text-center">
     <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">Porta la magia a casa tua</h2>
     <p class="text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body mb-10">
-      Stampe, sticker e segnalibri illustrati ti aspettano sullo shop Etsy.
+      Stampe, sticker e segnalibri illustrati: il mio shop apre a Settembre.
     </p>
 
     <a
-      [href]="shopUrl"
-      target="_blank"
-      rel="noopener"
+      routerLink="/shop"
       class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase"
     >
-      Vai al negozio Etsy →
+      Scopri lo shop <app-icon name="chevron-right" [size]="14" />
     </a>
   </div>
 </section>
