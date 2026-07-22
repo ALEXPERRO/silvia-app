@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blooming-wild-art.vercel.app/sitemap.xml
+Sitemap: https://bloomingwild.art/sitemap.xml

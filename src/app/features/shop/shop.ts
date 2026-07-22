@@ -14,7 +14,7 @@ export class Shop {
     inject(Meta).updateTag({
       name: 'description',
       content:
-        'Stampe, sticker e segnalibri illustrati ad acquerello: visita lo shop Etsy di Blooming Wild ART.',
+        'Stampe, sticker e segnalibri illustrati ad acquerello di Silvia Sgaramella: lo shop di Blooming Wild ART apre a Settembre.',
     });
   }
 }
