@@ -90,7 +90,10 @@
         </a>
       </div>
     } @else if (eventsLoaded()) {
-      <p class="text-gray-500 text-sm">Nessun evento in programma al momento, torna a trovarci presto!</p>
+      <div class="flex flex-col items-center gap-3">
+        <app-icon name="leaf" [size]="26" class="text-bark/60 animate-sway" />
+        <p class="text-gray-500 text-sm">Nessun evento in programma al momento, torna a trovarci presto!</p>
+      </div>
     }
   </div>
 </section>
