@@ -30,6 +30,7 @@ export class Home {
       this.supabase.getPublishedEvents().then((events) => {
         const oggi = new Date().toISOString().slice(0, 10);
         this.nextEvent.set(events.find((ev) => ev.data >= oggi) ?? null);
+        this.eventsLoaded.set(true);
       });
     });
   }
@@ -37,6 +38,7 @@ export class Home {
   protected readonly cover = this.content.cover;
   protected readonly shopUrl = this.content.shopUrl;
   protected readonly nextEvent = signal<PaintEvent | null>(null);
+  protected readonly eventsLoaded = signal(false);
   protected readonly nextEventDisplay = computed(() => {
     const ev = this.nextEvent();
     if (!ev) return null;
