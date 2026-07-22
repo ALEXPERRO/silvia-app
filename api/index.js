@@ -5,6 +5,7 @@
 // stesso (server.mjs) a decidere staticamente/via SSR cosa servire, in base
 // alle RenderMode configurate in src/app/app.routes.server.ts.
 export default async (req, res) => {
+  console.log('[api] req.url=%s', req.url);
   const { reqHandler } = await import('../dist/silvia-app/server/server.mjs');
   return reqHandler(req, res);
 };
