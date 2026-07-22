@@ -1,10 +1,11 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/eventi/:slugId", "destination": "/api/evento-ssr" }
+    { "source": "/", "destination": "/api" },
+    { "source": "/(.*)", "destination": "/api" }
   ],
   "functions": {
-    "api/evento-ssr.js": {
+    "api/index.js": {
       "includeFiles": "dist/silvia-app/server/**"
     }
   }
