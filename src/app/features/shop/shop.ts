@@ -23,6 +23,5 @@ export class Shop {
     });
   }
 
-  protected readonly shopUrl = this.content.shopUrl;
   protected readonly products = this.content.shopProducts;
 }

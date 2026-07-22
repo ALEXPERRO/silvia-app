@@ -2,29 +2,36 @@
   <div class="max-w-2xl mx-auto text-center">
     <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 tracking-wide text-center">Shop</h1>
     <p class="text-center text-gray-600 max-w-xl mx-auto text-sm md:text-lg">
-      Porta un pizzico di incanto naturalistico a casa tua. Visita il mio negozio Etsy per scoprire stampe di alta qualità, sticker e segnalibri magici, tutti illustrati con amore.
+      Porta un pizzico di incanto naturalistico a casa tua: stampe di alta qualità, sticker e segnalibri magici, tutti illustrati con amore. Presto disponibili sul mio shop.
     </p>
   </div>
 </section>
 
 <!-- Separatore -->
 <div class="bg-blush py-10 px-4 flex flex-col items-center justify-center gap-6">
-  <!-- Banner CTA -->
-  <div class="max-w-6xl mx-auto w-full">
-    <div class="relative bg-white border border-gray-200 rounded p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-warm-lg">
-      <div class="text-center md:text-left">
-        <p class="font-title font-medium text-2xl md:text-3xl tracking-wide mb-1 text-gray-900">Blooming Wild ART su Etsy</p>
-        <p class="text-gray-600 text-sm">Visita il negozio completo per scoprire tutte le illustrazioni disponibili.</p>
-      </div>
-      <a
-        [href]="shopUrl"
-        target="_blank"
-        rel="noopener"
-        class="bg-action text-white font-semibold text-xs tracking-widest uppercase px-6 py-4 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all whitespace-nowrap"
-      >
-        Vai al negozio Etsy →
-      </a>
+  <!-- Notifica apertura -->
+  <div class="max-w-2xl mx-auto w-full flex flex-col items-center text-center px-4">
+    <div class="relative w-36 h-36 md:w-44 md:h-44 mb-6">
+      <div class="absolute inset-0 rounded-[48%_52%_58%_42%/50%_45%_55%_50%] bg-plum-soft/70"></div>
+      <img
+        src="images/elementi botanici/foglia1.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-2 w-[calc(100%-1rem)] h-[calc(100%-1rem)] object-contain animate-sway"
+      />
     </div>
+    <h2 class="text-2xl md:text-3xl font-title italic text-gray-900 mb-2 tracking-wide">Lo shop apre a Settembre</h2>
+    <p class="text-gray-600 text-sm md:text-base mb-6">
+      Sto preparando stampe, sticker e segnalibri con le mie illustrazioni. Seguimi su Instagram per essere tra i primi a saperlo.
+    </p>
+    <a
+      href="https://www.instagram.com/blooming.wild.art/"
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase"
+    >
+      <app-icon name="instagram" [size]="14" /> Seguimi su Instagram
+    </a>
   </div>
 
   <div class="flex items-center gap-3 w-2/3 max-w-xs mt-3">
@@ -48,14 +55,7 @@
             <p class="text-xs text-gray-600 leading-relaxed mb-4 grow">{{ product.description }}</p>
             <div class="flex items-center justify-between">
               <span class="font-semibold text-gray-900 text-sm">{{ product.price }}</span>
-              <a
-                [href]="product.etsyUrl"
-                target="_blank"
-                rel="noopener"
-                class="text-[10px] font-bold tracking-widest uppercase text-brand hover:text-brand-hover hover:underline"
-              >
-                Vedi su Etsy →
-              </a>
+              <span class="text-[10px] font-bold tracking-widest uppercase text-bark/70">In arrivo</span>
             </div>
           </div>
         </article>
@@ -63,7 +63,7 @@
     </div>
 
     <p class="text-center text-gray-600 text-xs mt-12">
-      * Prodotti di esempio in attesa del collegamento al negozio Etsy definitivo.
+      Anteprima di alcune illustrazioni: il negozio apre ufficialmente a Settembre.
     </p>
   </div>
 </section>
