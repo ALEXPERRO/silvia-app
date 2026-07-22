@@ -11,14 +11,17 @@ import {
 } from '../../core/utils/event-format.util';
 
 export const eventoResolver: ResolveFn<PaintEventWithSeats> = async (route) => {
+  console.log('[eventoResolver] avviato, slugId=%s', route.paramMap.get('slugId'));
   const supabase = inject(SupabaseService);
   const router = inject(Router);
   const notFound = () => new RedirectCommand(router.parseUrl('/eventi'));
 
   const id = parseEventoId(route.paramMap.get('slugId') ?? '');
+  console.log('[eventoResolver] id parsato=%s', id);
   if (id === null) return notFound();
 
   const [ev, seatMap] = await Promise.all([supabase.getEventoById(id), supabase.getEventSeats()]);
+  console.log('[eventoResolver] evento trovato=%s', !!ev);
   if (!ev) return notFound();
 
   const seatsAvailable = seatMap[ev.id] ?? DEFAULT_SEATS;
