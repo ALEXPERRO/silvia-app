@@ -145,6 +145,23 @@ select.ng-invalid.ng-touched {
   }
 }
 
+/* Piccolo "germoglio" che respira — un segno minimale di attesa, usato dove
+   non c'è ancora contenuto reale da mostrare (prossimo workshop, shop) */
+@keyframes bud-breathe {
+  0%, 100% { transform: scale(0.82); opacity: 0.65; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
+.animate-bud {
+  animation: bud-breathe 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-bud {
+    animation: none;
+  }
+}
+
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(12px);
