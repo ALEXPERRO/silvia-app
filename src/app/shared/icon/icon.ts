@@ -15,7 +15,8 @@ export type IconName =
   | 'leaf'
   | 'instagram'
   | 'tiktok'
-  | 'mail';
+  | 'mail'
+  | 'menu';
 
 @Component({
   selector: 'app-icon',
