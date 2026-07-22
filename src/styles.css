@@ -127,6 +127,24 @@ select.ng-invalid.ng-touched {
   }
 }
 
+/* Leggero dondolio per l'illustrazione nello stato "nessun evento" — un piccolo
+   segno di vita, come una foglia mossa dal vento */
+@keyframes sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.animate-sway {
+  animation: sway 4.5s ease-in-out infinite;
+  transform-origin: 50% 85%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sway {
+    animation: none;
+  }
+}
+
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(12px);

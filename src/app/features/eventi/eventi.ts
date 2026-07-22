@@ -9,6 +9,7 @@ import {
   signal,
 } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 import { DecimalPipe, NgClass } from '@angular/common';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { PaintEvent, PaintEventWithSeats } from '../../core/models/event.model';
@@ -19,7 +20,7 @@ import { PrenotazioneForm } from '../../shared/prenotazione-form/prenotazione-fo
 @Component({
   selector: 'app-eventi',
   standalone: true,
-  imports: [NgClass, DecimalPipe, Icon, PrenotazioneForm],
+  imports: [NgClass, DecimalPipe, Icon, PrenotazioneForm, RouterLink],
   templateUrl: './eventi.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -14,7 +14,29 @@
   @if (!eventsLoaded()) {
     <p class="text-gray-600 text-sm">Caricamento eventi…</p>
   } @else if (eventsWithSeats().length === 0) {
-    <p class="text-gray-600 text-sm text-center max-w-md">Nessun evento in programma al momento, torna a trovarci presto!</p>
+    <div class="flex flex-col items-center text-center max-w-md px-4">
+      <div class="relative w-36 h-36 md:w-44 md:h-44 mb-6">
+        <div class="absolute inset-0 rounded-[48%_52%_58%_42%/50%_45%_55%_50%] bg-plum-soft/70"></div>
+        <img
+          src="images/elementi botanici/foglia1.webp"
+          alt=""
+          aria-hidden="true"
+          class="absolute inset-2 w-[calc(100%-1rem)] h-[calc(100%-1rem)] object-contain animate-sway"
+        />
+      </div>
+      <h3 class="text-2xl md:text-3xl font-title italic text-gray-900 mb-2 tracking-wide">
+        Il prossimo workshop sta ancora germogliando
+      </h3>
+      <p class="text-gray-600 text-sm md:text-base mb-6">
+        Torna a trovarci tra un po', oppure scopri le illustrazioni che ho già dipinto.
+      </p>
+      <a
+        routerLink="/portfolio"
+        class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase"
+      >
+        <app-icon name="leaf" [size]="14" /> Sfoglia il portfolio
+      </a>
+    </div>
   } @else {
   <!-- CONTENITORE PRINCIPALE CON FRECCE ESTERNE -->
   <div class="relative w-full max-w-7xl flex items-center justify-center md:px-12 -translate-y-6 md:translate-y-0">
