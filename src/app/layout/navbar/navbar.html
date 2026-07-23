@@ -15,10 +15,12 @@
             [routerLinkActiveOptions]="{ exact: item.path === '/' }"
             class="nav-link hover:text-brand transition-colors whitespace-nowrap"
           >
-            {{ item.label }}
+            {{ item.labelKey | translate }}
           </a>
         </li>
       }
     </ul>
+
+    <app-language-toggle />
   </div>
 </nav>

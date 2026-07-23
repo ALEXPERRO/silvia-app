@@ -4,5 +4,10 @@
     "PORTFOLIO": "Portfolio",
     "EVENTI": "Eventi",
     "SHOP": "Shop"
+  },
+  "FOOTER": {
+    "SUPPORT_CAPTION": "Se ti va di sostenere le mie attività",
+    "COFFEE_BUTTON": "Offrimi un caffè",
+    "EMAIL_ARIA": "Scrivi una email a Silvia"
   }
 }

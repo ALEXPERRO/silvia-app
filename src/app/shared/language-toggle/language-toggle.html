@@ -1,0 +1,17 @@
+<div class="flex items-center gap-1.5 text-[11px] font-semibold tracking-widest" role="group" aria-label="Lingua / Language">
+  <button
+    type="button"
+    (click)="i18n.setLanguage('it')"
+    [class.text-brand]="i18n.currentLang() === 'it'"
+    [class.text-gray-400]="i18n.currentLang() !== 'it'"
+    class="hover:text-brand transition-colors"
+  >IT</button>
+  <span class="text-gray-300">/</span>
+  <button
+    type="button"
+    (click)="i18n.setLanguage('en')"
+    [class.text-brand]="i18n.currentLang() === 'en'"
+    [class.text-gray-400]="i18n.currentLang() !== 'en'"
+    class="hover:text-brand transition-colors"
+  >EN</button>
+</div>

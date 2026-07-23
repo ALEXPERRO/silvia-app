@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, afterNextRender, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 import { NAV_ITEMS } from '../nav-items';
 import { Icon } from '../../shared/icon/icon';
@@ -20,7 +21,7 @@ const NAVIGATION_SETTLE_MS = 300;
 @Component({
   selector: 'app-bottom-nav',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, Icon],
+  imports: [RouterLink, RouterLinkActive, Icon, TranslatePipe],
   templateUrl: './bottom-nav.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
