@@ -6,9 +6,11 @@ import {
   withPreloading,
   withViewTransitions,
 } from '@angular/router';
+import { provideTranslateService, provideTranslateLoader } from '@ngx-translate/core';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { StaticTranslateLoader } from './core/i18n/translate-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +25,10 @@ export const appConfig: ApplicationConfig = {
       withPreloading(PreloadAllModules),
     ),
     provideClientHydration(withEventReplay()),
+    provideTranslateService({
+      loader: provideTranslateLoader(StaticTranslateLoader),
+      fallbackLang: 'it',
+      lang: 'it',
+    }),
   ],
 };

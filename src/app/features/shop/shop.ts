@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Icon } from '../../shared/icon/icon';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [Icon],
+  imports: [Icon, TranslatePipe],
   templateUrl: './shop.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

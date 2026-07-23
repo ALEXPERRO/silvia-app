@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, afterNextRender, computed, inject, 
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ContentService } from '../../core/services/content.service';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { PaintEvent } from '../../core/models/event.model';
@@ -11,7 +12,7 @@ import { Icon } from '../../shared/icon/icon';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink, Icon],
+  imports: [NgOptimizedImage, RouterLink, Icon, TranslatePipe],
   templateUrl: './home.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

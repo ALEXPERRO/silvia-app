@@ -1,0 +1,26 @@
+@if (compact) {
+  <button
+    type="button"
+    (click)="toggle()"
+    class="font-semibold tracking-widest text-sm uppercase text-gray-600 hover:text-brand transition-colors"
+    aria-label="Lingua / Language"
+  >{{ i18n.currentLang() }}</button>
+} @else {
+  <div class="flex items-center gap-2 text-sm font-semibold tracking-widest" role="group" aria-label="Lingua / Language">
+    <button
+      type="button"
+      (click)="i18n.setLanguage('it')"
+      [class.text-brand]="i18n.currentLang() === 'it'"
+      [class.text-gray-400]="i18n.currentLang() !== 'it'"
+      class="hover:text-brand transition-colors"
+    >IT</button>
+    <span class="text-gray-300">/</span>
+    <button
+      type="button"
+      (click)="i18n.setLanguage('en')"
+      [class.text-brand]="i18n.currentLang() === 'en'"
+      [class.text-gray-400]="i18n.currentLang() !== 'en'"
+      class="hover:text-brand transition-colors"
+    >EN</button>
+  </div>
+}

@@ -1,6 +1,6 @@
 <div class="max-w-2xl w-full bg-white rounded shadow-warm-lg p-6 md:p-10 z-10 border border-gray-200 mx-auto">
   <div class="flex flex-col items-center mb-8 text-center">
-    <h2 class="text-3xl md:text-5xl font-title font-medium text-gray-900 tracking-wide">Prenota il tuo posto</h2>
+    <h2 class="text-3xl md:text-5xl font-title font-medium text-gray-900 tracking-wide">{{ 'PRENOTAZIONE_FORM.TITLE' | translate }}</h2>
   </div>
 
   @if (!bookingSuccess()) {
@@ -13,7 +13,7 @@
           [class.text-white]="step1Complete()"
           [class.border-gray-300]="!step1Complete()"
         >1</span>
-        Dati
+        {{ 'PRENOTAZIONE_FORM.STEP1_LABEL' | translate }}
       </span>
       <span class="w-6 h-px bg-gray-200"></span>
       <span class="flex items-center gap-1.5" [class.text-brand]="step2Complete()" [class.text-gray-400]="!step2Complete()">
@@ -24,21 +24,21 @@
           [class.text-white]="step2Complete()"
           [class.border-gray-300]="!step2Complete()"
         >2</span>
-        Fatturazione
+        {{ 'PRENOTAZIONE_FORM.STEP2_LABEL' | translate }}
       </span>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6 text-left text-sm">
-      <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2">1. Dati Partecipante</p>
+      <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2">{{ 'PRENOTAZIONE_FORM.SECTION1_TITLE' | translate }}</p>
 
       @if (showEventSelector) {
         <div>
-          <label for="event-select" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Seleziona l'evento *</label>
+          <label for="event-select" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.EVENT_SELECT_LABEL' | translate }}</label>
           <select id="event-select" formControlName="eventId" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800">
-            <option [ngValue]="null" disabled>Seleziona un appuntamento...</option>
+            <option [ngValue]="null" disabled>{{ 'PRENOTAZIONE_FORM.EVENT_SELECT_PLACEHOLDER' | translate }}</option>
             @for (ev of events; track ev.id) {
               <option [ngValue]="ev.id" [disabled]="ev.isSoldOut">
-                {{ ev.title }} ({{ ev.dateLabel }}) - {{ ev.isSoldOut ? 'SOLD OUT' : 'Posti: ' + ev.seatsAvailable }}
+                {{ ev.title }} ({{ ev.dateLabel }}) - {{ ev.isSoldOut ? 'SOLD OUT' : ('PRENOTAZIONE_FORM.SEATS_OPTION_PREFIX' | translate) + ' ' + ev.seatsAvailable }}
               </option>
             }
           </select>
@@ -50,69 +50,69 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label for="user-name" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Nome e Cognome *</label>
-          <input type="text" id="user-name" formControlName="name" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" placeholder="Emanuela Viola">
+          <label for="user-name" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.NAME_LABEL' | translate }}</label>
+          <input type="text" id="user-name" formControlName="name" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" [placeholder]="'PRENOTAZIONE_FORM.NAME_PLACEHOLDER' | translate">
         </div>
         <div>
-          <label for="user-email" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Email *</label>
-          <input type="email" id="user-email" formControlName="email" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" placeholder="esempio@email.com">
+          <label for="user-email" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.EMAIL_LABEL' | translate }}</label>
+          <input type="email" id="user-email" formControlName="email" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" [placeholder]="'PRENOTAZIONE_FORM.EMAIL_PLACEHOLDER' | translate">
         </div>
       </div>
 
       <div>
-        <label for="user-numero-posti" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Numero di Partecipanti *</label>
+        <label for="user-numero-posti" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.SEATS_LABEL' | translate }}</label>
         <input type="number" id="user-numero-posti" formControlName="numeroPosti" min="1" step="1" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800">
         @if (selectedEvent(); as ev) {
-          <p class="text-xs text-gray-600 mt-2">Posti disponibili per questo evento: {{ ev.seatsAvailable }} · € {{ ev.prezzo | number: '1.2-2' }} a persona</p>
+          <p class="text-xs text-gray-600 mt-2">{{ 'PRENOTAZIONE_FORM.SEATS_AVAILABLE_INFO' | translate:{ seats: ev.seatsAvailable, price: (ev.prezzo | number: '1.2-2') } }}</p>
         }
       </div>
 
-      <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2 pt-4">2. Fatturazione</p>
+      <p class="text-gray-900 font-title italic text-xl border-b border-gray-200 pb-2 pt-4">{{ 'PRENOTAZIONE_FORM.SECTION2_TITLE' | translate }}</p>
       <div>
-        <label for="billing-type" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Tipologia Account *</label>
+        <label for="billing-type" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.BILLING_TYPE_LABEL' | translate }}</label>
         <select id="billing-type" formControlName="billingType" class="w-full p-3 border border-gray-200 rounded bg-white focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800">
-          <option value="privato">Privato (Ricevuta con Codice Fiscale)</option>
-          <option value="business">Azienda / Libero Professionista (Fattura con P.IVA)</option>
+          <option value="privato">{{ 'PRENOTAZIONE_FORM.BILLING_PRIVATE_OPTION' | translate }}</option>
+          <option value="business">{{ 'PRENOTAZIONE_FORM.BILLING_BUSINESS_OPTION' | translate }}</option>
         </select>
       </div>
 
       @if (isPrivato()) {
         <div>
-          <label for="user-cf" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Codice Fiscale *</label>
+          <label for="user-cf" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.CF_LABEL' | translate }}</label>
           <input type="text" id="user-cf" formControlName="cf" maxlength="16" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800 uppercase" placeholder="FMTLNZ90A01F205X">
         </div>
       } @else {
         <div class="space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label for="company-name" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Ragione Sociale *</label>
-              <input type="text" id="company-name" formControlName="companyName" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" placeholder="Studio d'Arte S.r.l.">
+              <label for="company-name" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.COMPANY_NAME_LABEL' | translate }}</label>
+              <input type="text" id="company-name" formControlName="companyName" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" [placeholder]="'PRENOTAZIONE_FORM.COMPANY_NAME_PLACEHOLDER' | translate">
             </div>
             <div>
-              <label for="company-piva" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Partita IVA *</label>
-              <input type="text" id="company-piva" formControlName="companyPiva" maxlength="11" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" placeholder="11 cifre numeriche">
+              <label for="company-piva" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.COMPANY_PIVA_LABEL' | translate }}</label>
+              <input type="text" id="company-piva" formControlName="companyPiva" maxlength="11" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" [placeholder]="'PRENOTAZIONE_FORM.COMPANY_PIVA_PLACEHOLDER' | translate">
             </div>
           </div>
           <div>
-            <label for="company-sdi" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Codice Destinatario SDI *</label>
+            <label for="company-sdi" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.COMPANY_SDI_LABEL' | translate }}</label>
             <input type="text" id="company-sdi" formControlName="companySdi" maxlength="7" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800 uppercase" placeholder="M5UXCR1">
           </div>
         </div>
       }
 
       <div>
-        <label for="billing-address" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Via e Numero Civico *</label>
-        <input type="text" id="billing-address" formControlName="address" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" placeholder="Corso Umberto I, 45">
+        <label for="billing-address" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.ADDRESS_LABEL' | translate }}</label>
+        <input type="text" id="billing-address" formControlName="address" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" [placeholder]="'PRENOTAZIONE_FORM.ADDRESS_PLACEHOLDER' | translate">
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div>
-          <label for="billing-cap" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">CAP *</label>
+          <label for="billing-cap" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.CAP_LABEL' | translate }}</label>
           <input type="text" id="billing-cap" formControlName="cap" maxlength="5" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" placeholder="74121">
         </div>
         <div class="sm:col-span-2">
-          <label for="billing-city" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Città e Provincia *</label>
-          <input type="text" id="billing-city" formControlName="city" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" placeholder="Taranto (TA)">
+          <label for="billing-city" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.CITY_LABEL' | translate }}</label>
+          <input type="text" id="billing-city" formControlName="city" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800" [placeholder]="'PRENOTAZIONE_FORM.CITY_PLACEHOLDER' | translate">
         </div>
       </div>
 
@@ -128,21 +128,21 @@
           class="mt-0.5 accent-brand"
         />
         <label for="privacy-accepted">
-          Ho letto e compreso l'<button type="button" (click)="openPrivacyNotice()" class="text-brand underline hover:text-brand-hover">informativa sulla privacy</button> *
+          {{ 'PRENOTAZIONE_FORM.PRIVACY_PRE' | translate }}<button type="button" (click)="openPrivacyNotice()" class="text-brand underline hover:text-brand-hover">{{ 'PRENOTAZIONE_FORM.PRIVACY_LINK' | translate }}</button> *
         </label>
       </div>
 
       <div class="text-center pt-6">
         <button type="submit" [disabled]="submitting()" class="w-full md:w-auto bg-action text-white font-medium text-sm tracking-widest py-4 px-10 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none">
-          {{ submitting() ? 'Invio in corso...' : 'Invia Iscrizione' }}
+          {{ submitting() ? ('PRENOTAZIONE_FORM.SUBMITTING' | translate) : ('PRENOTAZIONE_FORM.SUBMIT_BUTTON' | translate) }}
         </button>
       </div>
     </form>
   } @else {
     <div class="mt-6 bg-action text-white text-center p-10 md:p-14 rounded border border-action-hover shadow-warm-lg flex flex-col items-center justify-center gap-4">
       <app-icon name="sparkles" [size]="36" />
-      <span class="font-title italic text-xl md:text-2xl max-w-md">Iscrizione salvata! Il tuo posto è riservato: Silvia ti contatterà via email per la conferma.</span>
-      <span class="text-xs md:text-sm opacity-90 max-w-sm">Per annullare o modificare la prenotazione, scrivi a Silvia via email o su Instagram.</span>
+      <span class="font-title italic text-xl md:text-2xl max-w-md">{{ 'PRENOTAZIONE_FORM.SUCCESS_TITLE' | translate }}</span>
+      <span class="text-xs md:text-sm opacity-90 max-w-sm">{{ 'PRENOTAZIONE_FORM.SUCCESS_SUBTEXT' | translate }}</span>
     </div>
   }
 
@@ -154,20 +154,20 @@
         [attr.aria-expanded]="showPrivacyNotice()"
         class="flex items-center justify-between w-full text-left text-xs font-bold text-gray-600 uppercase tracking-widest"
       >
-        Informativa sulla privacy
+        {{ 'PRENOTAZIONE_FORM.PRIVACY_TOGGLE' | translate }}
         <app-icon name="chevron-down" [size]="16" class="transition-transform" [class.rotate-180]="showPrivacyNotice()" />
       </button>
 
       @if (showPrivacyNotice()) {
         <div class="mt-4 space-y-3 text-xs text-gray-600 leading-relaxed">
-          <p>1. <strong>Titolare del trattamento</strong>: Silvia Sgaramella, P.IVA 03483350736 — contatto per richieste privacy: silvia.sgara&#64;gmail.com</p>
-          <p>2. <strong>Dati raccolti</strong>: nome e cognome, email, codice fiscale (per i privati) oppure ragione sociale/partita IVA/codice SDI (per aziende/professionisti), indirizzo, CAP, città.</p>
-          <p>3. <strong>Finalità e base giuridica</strong>: i dati sono raccolti per gestire la prenotazione al workshop ed emettere la relativa fattura o ricevuta fiscale — base giuridica: esecuzione del contratto (art. 6.1.b GDPR) e adempimento di obblighi di legge fiscale (art. 6.1.c GDPR).</p>
-          <p>4. <strong>Dove sono conservati i dati</strong>: i dati sono ospitati su Supabase (fornitore di database/hosting), che agisce come responsabile del trattamento per conto del titolare.</p>
-          <p>5. <strong>Font esterni</strong>: il sito carica i caratteri tipografici direttamente dai server di Google Fonts; il browser si collega a Google, che riceve l'indirizzo IP di chi visita il sito.</p>
-          <p>6. <strong>Periodo di conservazione</strong>: i dati relativi a prenotazioni fatturate sono conservati per il periodo previsto dalla normativa fiscale italiana per la documentazione contabile (indicativamente 10 anni, salvo diversa indicazione del proprio commercialista).</p>
-          <p>7. <strong>Diritti dell'interessato</strong>: accesso, rettifica, cancellazione, limitazione, opposizione al trattamento e portabilità dei dati, scrivendo a silvia.sgara&#64;gmail.com; è possibile inoltre presentare reclamo al Garante per la protezione dei dati personali (www.garanteprivacy.it).</p>
-          <p>8. <strong>Cookie</strong>: il sito non utilizza cookie di profilazione o tracciamento a fini pubblicitari.</p>
+          <p>1. <strong>{{ 'PRENOTAZIONE_FORM.PRIVACY_P1_LABEL' | translate }}</strong>: {{ 'PRENOTAZIONE_FORM.PRIVACY_P1_TEXT' | translate }}</p>
+          <p>2. <strong>{{ 'PRENOTAZIONE_FORM.PRIVACY_P2_LABEL' | translate }}</strong>: {{ 'PRENOTAZIONE_FORM.PRIVACY_P2_TEXT' | translate }}</p>
+          <p>3. <strong>{{ 'PRENOTAZIONE_FORM.PRIVACY_P3_LABEL' | translate }}</strong>: {{ 'PRENOTAZIONE_FORM.PRIVACY_P3_TEXT' | translate }}</p>
+          <p>4. <strong>{{ 'PRENOTAZIONE_FORM.PRIVACY_P4_LABEL' | translate }}</strong>: {{ 'PRENOTAZIONE_FORM.PRIVACY_P4_TEXT' | translate }}</p>
+          <p>5. <strong>{{ 'PRENOTAZIONE_FORM.PRIVACY_P5_LABEL' | translate }}</strong>: {{ 'PRENOTAZIONE_FORM.PRIVACY_P5_TEXT' | translate }}</p>
+          <p>6. <strong>{{ 'PRENOTAZIONE_FORM.PRIVACY_P6_LABEL' | translate }}</strong>: {{ 'PRENOTAZIONE_FORM.PRIVACY_P6_TEXT' | translate }}</p>
+          <p>7. <strong>{{ 'PRENOTAZIONE_FORM.PRIVACY_P7_LABEL' | translate }}</strong>: {{ 'PRENOTAZIONE_FORM.PRIVACY_P7_TEXT' | translate }}</p>
+          <p>8. <strong>{{ 'PRENOTAZIONE_FORM.PRIVACY_P8_LABEL' | translate }}</strong>: {{ 'PRENOTAZIONE_FORM.PRIVACY_P8_TEXT' | translate }}</p>
         </div>
       }
     </div>

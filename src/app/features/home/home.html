@@ -4,7 +4,7 @@
     <p class="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-1.5 font-body text-sm tracking-[0.15em] uppercase text-bark">
       <span class="hidden md:inline-flex"><app-icon name="leaf" [size]="14" class="shrink-0" /></span>
       <span>Silvia Sgaramella<span class="hidden md:inline"> ·</span></span>
-      <span>Illustrazioni naturalistiche</span>
+      <span>{{ 'HOME.TAGLINE' | translate }}</span>
     </p>
   </div>
 
@@ -35,14 +35,14 @@
         class="relative z-20 w-64 md:w-56 mb-6 mx-auto"
       />
       <p class="font-title italic text-xl sm:text-2xl md:text-3xl text-brand leading-snug mb-6">
-        Fin da bambina ho sempre guardato il mondo naturale con gli occhi della meraviglia, convinta che dietro ogni foglia si nascondesse una storia e dentro ogni tana un piccolo segreto.
+        {{ 'HOME.PULL_QUOTE' | translate }}
       </p>
 
       <div class="text-gray-600 max-w-xl mx-auto md:mx-0 text-sm md:text-base font-body space-y-3">
-        <p>Oggi uso i miei acquerelli per rivelare quel pizzico di magia che troppo spesso dimentichiamo di cercare.</p>
-        <p>Dipingo piante, fiori e animali creando composizioni animate da una delicata magia.</p>
-        <p>Quando non ho un pennello in mano, probabilmente mi troverai a passeggiare nella natura in cerca di ispirazione, o raggomitolata sul divano con una tazza fumante e un libro.</p>
-        <p>Se anche voi avete bisogno della vostra dose quotidiana di incanto siete nel posto giusto.</p>
+        <p>{{ 'HOME.BIO_1' | translate }}</p>
+        <p>{{ 'HOME.BIO_2' | translate }}</p>
+        <p>{{ 'HOME.BIO_3' | translate }}</p>
+        <p>{{ 'HOME.BIO_4' | translate }}</p>
       </div>
     </div>
   </div>
@@ -51,9 +51,9 @@
 <!-- ANTEPRIMA PORTFOLIO -->
 <section class="bg-blush py-14 sm:py-20 px-4">
   <div class="max-w-5xl mx-auto text-center">
-    <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">Dal Portfolio</h2>
+    <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">{{ 'HOME.PORTFOLIO_TITLE' | translate }}</h2>
     <p class="text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body mb-10">
-      Un assaggio del mio piccolo mondo ad acquerello.
+      {{ 'HOME.PORTFOLIO_INTRO' | translate }}
     </p>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10">
@@ -65,7 +65,7 @@
     </div>
 
     <a routerLink="/portfolio" class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase">
-      Scopri il portfolio <app-icon name="chevron-right" [size]="14" />
+      {{ 'HOME.PORTFOLIO_CTA' | translate }} <app-icon name="chevron-right" [size]="14" />
     </a>
   </div>
 </section>
@@ -73,9 +73,9 @@
 <!-- PROSSIMO EVENTO -->
 <section class="bg-parchment py-14 sm:py-20 px-4">
   <div class="max-w-3xl mx-auto text-center">
-    <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">Prossimo Workshop</h2>
+    <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">{{ 'HOME.WORKSHOP_TITLE' | translate }}</h2>
     <p class="text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body mb-10">
-      Vieni a dipingere con me: posti limitati, meraviglia garantita.
+      {{ 'HOME.WORKSHOP_INTRO' | translate }}
     </p>
 
     @if (nextEventDisplay(); as ev) {
@@ -86,7 +86,7 @@
           <p class="flex items-center gap-2"><app-icon name="map-pin" [size]="15" /> <span>{{ ev.luogo }}</span>, <span>{{ ev.indirizzo }}</span></p>
         </div>
         <a routerLink="/eventi" class="flex w-fit mx-auto items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase">
-          <app-icon name="ticket" [size]="14" /> Scopri e prenota
+          <app-icon name="ticket" [size]="14" /> {{ 'HOME.WORKSHOP_CTA' | translate }}
         </a>
       </div>
     } @else if (eventsLoaded()) {
@@ -95,8 +95,8 @@
           <span class="absolute inset-0 rounded-full bg-moss/15"></span>
           <app-icon name="sparkles" [size]="22" class="text-moss animate-twinkle" />
         </div>
-        <p class="font-title italic text-xl md:text-2xl text-gray-900 mb-1 tracking-wide">Il prossimo laboratorio si sta preparando</p>
-        <p class="text-gray-500 text-sm md:text-base">Torna a trovarmi tra un po', il prossimo appuntamento non tarderà.</p>
+        <p class="font-title italic text-xl md:text-2xl text-gray-900 mb-1 tracking-wide">{{ 'HOME.WORKSHOP_EMPTY_TITLE' | translate }}</p>
+        <p class="text-gray-500 text-sm md:text-base">{{ 'HOME.WORKSHOP_EMPTY_TEXT' | translate }}</p>
       </div>
     }
   </div>
@@ -105,9 +105,9 @@
 <!-- CTA SHOP -->
 <section class="bg-blush py-14 sm:py-20 px-4">
   <div class="max-w-3xl mx-auto text-center">
-    <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">Porta la magia a casa tua</h2>
+    <h2 class="text-3xl md:text-5xl text-gray-900 font-title mb-3 tracking-wide">{{ 'HOME.SHOP_TITLE' | translate }}</h2>
     <p class="text-gray-600 max-w-xl mx-auto text-sm md:text-base font-body mb-10">
-      Stampe, sticker e segnalibri pensati per portare un pizzico di magia nella tua giornata.
+      {{ 'HOME.SHOP_INTRO' | translate }}
     </p>
 
     <div class="flex flex-col items-center">
@@ -115,8 +115,8 @@
         <span class="absolute inset-0 rounded-full bg-plum-soft/50"></span>
         <app-icon name="sparkles" [size]="22" class="text-brand animate-twinkle" />
       </div>
-      <p class="font-title italic text-xl md:text-2xl text-gray-900 mb-1 tracking-wide">Il negozio si sta preparando</p>
-      <p class="text-gray-500 text-sm md:text-base">Ci vediamo a Settembre, con le prime illustrazioni pronte da portare a casa.</p>
+      <p class="font-title italic text-xl md:text-2xl text-gray-900 mb-1 tracking-wide">{{ 'HOME.SHOP_EMPTY_TITLE' | translate }}</p>
+      <p class="text-gray-500 text-sm md:text-base">{{ 'HOME.SHOP_EMPTY_TEXT' | translate }}</p>
     </div>
   </div>
 </section>

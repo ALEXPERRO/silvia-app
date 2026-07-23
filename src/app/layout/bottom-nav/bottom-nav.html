@@ -7,7 +7,7 @@
       type="button"
       (click)="expand()"
       class="w-full h-full flex items-center justify-center text-white"
-      aria-label="Apri il menu"
+      [attr.aria-label]="'NAV.OPEN_MENU_ARIA' | translate"
     >
       <app-icon name="menu" [size]="18" />
     </button>
@@ -21,7 +21,7 @@
             [routerLinkActiveOptions]="{ exact: item.path === '/' }"
             class="text-white/70 hover:text-white transition-colors whitespace-nowrap"
           >
-            {{ item.label }}
+            {{ item.labelKey | translate }}
           </a>
         </li>
       }

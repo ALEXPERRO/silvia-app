@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, afterNextRender, computed, inject, signal } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Meta } from '@angular/platform-browser';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../../core/i18n/language.service';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { GalleryCategoryOption, GalleryItem } from '../../core/models/gallery-item.model';
 import { Icon } from '../../shared/icon/icon';
@@ -8,16 +10,28 @@ import { RevealOnScroll } from '../../shared/reveal-on-scroll/reveal-on-scroll';
 
 const PAGE_SIZE = 20;
 
+/** Le categorie sono testo libero inserito da Silvia in Gestione (non un enum
+ *  fisso): questa mappa copre solo le categorie attualmente in uso. Una
+ *  categoria nuova non ancora tradotta resta in italiano anche in EN, come
+ *  ogni altro contenuto Supabase in questo progetto. */
+const CATEGORY_LABELS_EN: Record<string, string> = {
+  Animali: 'Animals',
+  Composizioni: 'Compositions',
+  'Elementi Botanici': 'Botanical Elements',
+  Insetti: 'Insects',
+};
+
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [Icon, RevealOnScroll],
+  imports: [Icon, RevealOnScroll, TranslatePipe],
   templateUrl: './portfolio.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Portfolio implements OnDestroy {
   private readonly supabase = inject(SupabaseService);
   private readonly document = inject(DOCUMENT);
+  private readonly language = inject(LanguageService);
   protected readonly allItems = signal<GalleryItem[]>([]);
   protected readonly itemsLoaded = signal(false);
 
@@ -38,7 +52,11 @@ export class Portfolio implements OnDestroy {
 
   protected readonly categories = computed<GalleryCategoryOption[]>(() => {
     const distinct = Array.from(new Set(this.allItems().map((item) => item.category)));
-    return [{ value: 'tutte', label: 'Tutte' }, ...distinct.map((c) => ({ value: c, label: c }))];
+    const isEn = this.language.currentLang() === 'en';
+    return [
+      { value: 'tutte', label: 'Tutte' },
+      ...distinct.map((c) => ({ value: c, label: isEn ? (CATEGORY_LABELS_EN[c] ?? c) : c })),
+    ];
   });
   protected readonly activeCategory = signal<string>('tutte');
   protected readonly lightboxItem = signal<GalleryItem | null>(null);
