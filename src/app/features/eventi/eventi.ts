@@ -11,6 +11,7 @@ import {
 import { Meta } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { DecimalPipe, NgClass } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { PaintEvent, PaintEventWithSeats } from '../../core/models/event.model';
 import { formatDataItaliana, formatFasciaOraria, buildMapsUrl, DEFAULT_SEATS } from '../../core/utils/event-format.util';
@@ -20,7 +21,7 @@ import { PrenotazioneForm } from '../../shared/prenotazione-form/prenotazione-fo
 @Component({
   selector: 'app-eventi',
   standalone: true,
-  imports: [NgClass, DecimalPipe, Icon, PrenotazioneForm, RouterLink],
+  imports: [NgClass, DecimalPipe, Icon, PrenotazioneForm, RouterLink, TranslatePipe],
   templateUrl: './eventi.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -43,5 +43,21 @@
     "LIGHTBOX_CLOSE_ARIA": "Chiudi",
     "LIGHTBOX_PREV_ARIA": "Immagine precedente",
     "LIGHTBOX_NEXT_ARIA": "Immagine successiva"
+  },
+  "EVENTI": {
+    "HERO_TITLE": "Eventi",
+    "HERO_DESCRIPTION": "Vieni a dipingere con me e riscopri la magia della natura. Scopri i prossimi workshop in programma e coltiva la tua creatività in un'atmosfera calda e rilassante.",
+    "LOADING": "Caricamento eventi…",
+    "EMPTY_TITLE": "Il prossimo workshop sta ancora germogliando",
+    "EMPTY_TEXT": "Torna a trovarci tra un po', oppure scopri le illustrazioni che ho già dipinto.",
+    "EMPTY_CTA": "Sfoglia il portfolio",
+    "CHECKING_SEATS": "Verifica disponibilità in corso…",
+    "SOLD_OUT_WARNING": "Attenzione: Posti esauriti per questa data",
+    "SEATS_AVAILABLE": "Solo {{count}} posti ancora disponibili",
+    "MAP_BUTTON": "Mappa",
+    "SOLD_OUT_BUTTON": "Esaurito",
+    "BOOK_BUTTON": "Prenotati",
+    "SWIPE_HINT": "Scorri per altri eventi",
+    "GO_TO_SLIDE_ARIA": "Vai a"
   }
 }

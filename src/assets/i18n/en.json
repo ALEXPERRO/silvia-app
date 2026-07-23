@@ -43,5 +43,21 @@
     "LIGHTBOX_CLOSE_ARIA": "Close",
     "LIGHTBOX_PREV_ARIA": "Previous image",
     "LIGHTBOX_NEXT_ARIA": "Next image"
+  },
+  "EVENTI": {
+    "HERO_TITLE": "Events",
+    "HERO_DESCRIPTION": "Come paint with me and rediscover the magic of nature. Check out upcoming workshops and nurture your creativity in a warm, relaxing atmosphere.",
+    "LOADING": "Loading events…",
+    "EMPTY_TITLE": "The next workshop is still budding",
+    "EMPTY_TEXT": "Check back soon, or take a look at the illustrations I've already painted.",
+    "EMPTY_CTA": "Browse the portfolio",
+    "CHECKING_SEATS": "Checking availability…",
+    "SOLD_OUT_WARNING": "Sorry: fully booked for this date",
+    "SEATS_AVAILABLE": "Only {{count}} spots left",
+    "MAP_BUTTON": "Map",
+    "SOLD_OUT_BUTTON": "Sold out",
+    "BOOK_BUTTON": "Book now",
+    "SWIPE_HINT": "Swipe for more events",
+    "GO_TO_SLIDE_ARIA": "Go to"
   }
 }

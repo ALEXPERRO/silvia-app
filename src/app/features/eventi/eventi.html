@@ -1,10 +1,10 @@
 <section class="bg-parchment pt-[calc(2rem+env(safe-area-inset-top))] md:pt-36 pb-6 md:pb-16 px-4">
   <div class="max-w-2xl mx-auto text-center">
     <h1 class="text-4xl md:text-6xl text-gray-900 font-title mb-4 tracking-wide text-center">
-      Eventi
+      {{ 'EVENTI.HERO_TITLE' | translate }}
     </h1>
     <p class="text-center text-gray-600 max-w-xl mx-auto text-sm md:text-lg font-body">
-      Vieni a dipingere con me e riscopri la magia della natura. Scopri i prossimi workshop in programma e coltiva la tua creatività in un'atmosfera calda e rilassante.
+      {{ 'EVENTI.HERO_DESCRIPTION' | translate }}
     </p>
   </div>
 </section>
@@ -12,7 +12,7 @@
 <!-- SEZIONE EVENTI SLIDER -->
 <section class="bg-blush min-h-[70vh] py-10 px-4 relative flex flex-col items-center justify-center">
   @if (!eventsLoaded()) {
-    <p class="text-gray-600 text-sm">Caricamento eventi…</p>
+    <p class="text-gray-600 text-sm">{{ 'EVENTI.LOADING' | translate }}</p>
   } @else if (eventsWithSeats().length === 0) {
     <div class="flex flex-col items-center text-center max-w-md px-4">
       <div class="relative w-36 h-36 md:w-44 md:h-44 mb-6">
@@ -25,16 +25,16 @@
         />
       </div>
       <h3 class="text-2xl md:text-3xl font-title italic text-gray-900 mb-2 tracking-wide">
-        Il prossimo workshop sta ancora germogliando
+        {{ 'EVENTI.EMPTY_TITLE' | translate }}
       </h3>
       <p class="text-gray-600 text-sm md:text-base mb-6">
-        Torna a trovarci tra un po', oppure scopri le illustrazioni che ho già dipinto.
+        {{ 'EVENTI.EMPTY_TEXT' | translate }}
       </p>
       <a
         routerLink="/portfolio"
         class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase"
       >
-        <app-icon name="leaf" [size]="14" /> Sfoglia il portfolio
+        <app-icon name="leaf" [size]="14" /> {{ 'EVENTI.EMPTY_CTA' | translate }}
       </a>
     </div>
   } @else {
@@ -77,11 +77,11 @@
                 [class.text-gray-900]="!seatsLoaded() || !ev.isSoldOut"
               >
                 @if (!seatsLoaded()) {
-                  <app-icon name="sparkles" [size]="16" /> Verifica disponibilità in corso…
+                  <app-icon name="sparkles" [size]="16" /> {{ 'EVENTI.CHECKING_SEATS' | translate }}
                 } @else if (ev.isSoldOut) {
-                  <app-icon name="alert-triangle" [size]="16" /> Attenzione: Posti esauriti per questa data
+                  <app-icon name="alert-triangle" [size]="16" /> {{ 'EVENTI.SOLD_OUT_WARNING' | translate }}
                 } @else {
-                  <app-icon name="sparkles" [size]="16" /> Solo {{ ev.seatsAvailable }} posti ancora disponibili
+                  <app-icon name="sparkles" [size]="16" /> {{ 'EVENTI.SEATS_AVAILABLE' | translate:{ count: ev.seatsAvailable } }}
                 }
               </p>
               <span class="bg-white text-gray-900 font-title italic text-xs md:text-base px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-md">
@@ -101,7 +101,7 @@
                 [href]="ev.mapsUrl"
                 target="_blank"
                 class="flex items-center gap-1.5 md:gap-2 border border-white/40 text-white text-xs md:text-base font-semibold tracking-widest px-4 py-3 md:px-6 md:py-4 rounded hover:bg-white/10 hover:-translate-y-0.5 active:translate-y-0 transition-all uppercase"
-              ><app-icon name="map" [size]="14" /> Mappa</a>
+              ><app-icon name="map" [size]="14" /> {{ 'EVENTI.MAP_BUTTON' | translate }}</a>
               <button
                 type="button"
                 [disabled]="ev.isSoldOut"
@@ -110,9 +110,9 @@
                 [ngClass]="ev.isSoldOut ? 'bg-white/20 cursor-not-allowed text-white/60' : 'bg-action text-white hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0'"
               >
                 @if (ev.isSoldOut) {
-                  <app-icon name="ban" [size]="14" /> Esaurito
+                  <app-icon name="ban" [size]="14" /> {{ 'EVENTI.SOLD_OUT_BUTTON' | translate }}
                 } @else {
-                  <app-icon name="ticket" [size]="14" /> Prenotati
+                  <app-icon name="ticket" [size]="14" /> {{ 'EVENTI.BOOK_BUTTON' | translate }}
                 }
               </button>
             </div>
@@ -129,7 +129,7 @@
             <path d="M4 9c1.8 1.2 1.8 4.8 0 6" />
             <path d="M20 9c-1.8 1.2-1.8 4.8 0 6" />
           </svg>
-          <span class="text-[10px] font-semibold tracking-widest uppercase whitespace-nowrap">Scorri per altri eventi</span>
+          <span class="text-[10px] font-semibold tracking-widest uppercase whitespace-nowrap">{{ 'EVENTI.SWIPE_HINT' | translate }}</span>
         </div>
       </div>
     }
@@ -147,7 +147,7 @@
         <button
           type="button"
           (click)="goToSlide(i)"
-          [attr.aria-label]="'Vai a ' + ev.title"
+          [attr.aria-label]="('EVENTI.GO_TO_SLIDE_ARIA' | translate) + ' ' + ev.title"
           class="w-2.5 h-2.5 md:w-4 md:h-4 rounded-full transition-colors"
           [class.bg-brand]="i === currentIndex()"
           [class.bg-gray-200]="i !== currentIndex()"
