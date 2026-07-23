@@ -105,7 +105,7 @@
     "CAP_LABEL": "Postal Code *",
     "CITY_LABEL": "City and Province *",
     "CITY_PLACEHOLDER": "Rome (RM)",
-    "PRIVACY_PRE": "I have read and understood the",
+    "PRIVACY_PRE": "I have read and understood the ",
     "PRIVACY_LINK": "privacy notice",
     "SUBMIT_BUTTON": "Submit Registration",
     "SUBMITTING": "Submitting...",
