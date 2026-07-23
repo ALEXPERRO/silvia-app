@@ -13,6 +13,7 @@ import {
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SupabaseService, BookingSubmission } from '../../core/services/supabase.service';
 import { EmailService } from '../../core/services/email.service';
 import { PaintEventWithSeats } from '../../core/models/event.model';
@@ -21,7 +22,7 @@ import { Icon } from '../icon/icon';
 @Component({
   selector: 'app-prenotazione-form',
   standalone: true,
-  imports: [ReactiveFormsModule, DecimalPipe, Icon],
+  imports: [ReactiveFormsModule, DecimalPipe, Icon, TranslatePipe],
   templateUrl: './prenotazione-form.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -29,6 +30,7 @@ export class PrenotazioneForm {
   private readonly supabase = inject(SupabaseService);
   private readonly emailService = inject(EmailService);
   private readonly fb = inject(FormBuilder);
+  private readonly translate = inject(TranslateService);
 
   private readonly _events = signal<PaintEventWithSeats[]>([]);
   @Input({ required: true }) set events(value: PaintEventWithSeats[]) {
@@ -138,7 +140,7 @@ export class PrenotazioneForm {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.errorMessage.set('Controlla i campi evidenziati in rosso: alcuni dati mancano o non sono validi.');
+      this.errorMessage.set(this.translate.instant('PRENOTAZIONE_FORM.ERR_INVALID_FIELDS'));
       return;
     }
 
@@ -148,9 +150,12 @@ export class PrenotazioneForm {
     const numeroPosti = Math.round(this.form.controls.numeroPosti.value);
 
     if (currentSeats < numeroPosti) {
-      const postiParola = currentSeats === 1 ? 'posto disponibile' : 'posti disponibili';
+      const postiParola =
+        currentSeats === 1
+          ? this.translate.instant('PRENOTAZIONE_FORM.ERR_SEATS_SINGULAR')
+          : this.translate.instant('PRENOTAZIONE_FORM.ERR_SEATS_PLURAL');
       this.errorMessage.set(
-        `Solo ${currentSeats} ${postiParola} per questo evento: riduci il numero di partecipanti o scegli un'altra data.`,
+        this.translate.instant('PRENOTAZIONE_FORM.ERR_NOT_ENOUGH_SEATS', { count: currentSeats, word: postiParola }),
       );
       return;
     }
@@ -176,12 +181,12 @@ export class PrenotazioneForm {
     const { success, error } = await this.supabase.prenotaPosto(eventId, payload);
     if (error) {
       console.error(error);
-      this.errorMessage.set('Si è verificato un problema con la registrazione. Riprova.');
+      this.errorMessage.set(this.translate.instant('PRENOTAZIONE_FORM.ERR_GENERIC'));
       this.submitting.set(false);
       return;
     }
     if (!success) {
-      this.errorMessage.set('Ops! I posti per questo evento si sono esauriti un istante fa.');
+      this.errorMessage.set(this.translate.instant('PRENOTAZIONE_FORM.ERR_SOLD_OUT_RACE'));
       this.submitting.set(false);
       this.bookingCompleted.emit();
       return;
