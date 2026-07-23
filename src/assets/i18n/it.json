@@ -3,7 +3,9 @@
     "ABOUT": "About me",
     "PORTFOLIO": "Portfolio",
     "EVENTI": "Eventi",
-    "SHOP": "Shop"
+    "SHOP": "Shop",
+    "HOME_LOGO_ARIA": "Blooming Wild ART, torna alla home",
+    "OPEN_MENU_ARIA": "Apri il menu"
   },
   "FOOTER": {
     "SUPPORT_CAPTION": "Se ti va di sostenere le mie attività",
