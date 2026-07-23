@@ -29,5 +29,19 @@
     "SHOP_INTRO": "Stampe, sticker e segnalibri pensati per portare un pizzico di magia nella tua giornata.",
     "SHOP_EMPTY_TITLE": "Il negozio si sta preparando",
     "SHOP_EMPTY_TEXT": "Ci vediamo a Settembre, con le prime illustrazioni pronte da portare a casa."
+  },
+  "PORTFOLIO": {
+    "HERO_TITLE": "Portfolio",
+    "HERO_DESCRIPTION": "Un viaggio visivo tra flora, fauna e atmosfere fiabesche. Esplora la mia raccolta di illustrazioni ad acquerello e lasciati trasportare nel mio piccolo mondo incantato.",
+    "LOADING": "Caricamento galleria…",
+    "EMPTY": "Nessuna illustrazione disponibile al momento.",
+    "CATEGORY_ALL": "Tutte",
+    "EMPTY_CATEGORY": "Nessuna illustrazione in questa categoria.",
+    "PREV_PAGE_ARIA": "Pagina precedente",
+    "NEXT_PAGE_ARIA": "Pagina successiva",
+    "GO_TO_PAGE_ARIA": "Vai a pagina",
+    "LIGHTBOX_CLOSE_ARIA": "Chiudi",
+    "LIGHTBOX_PREV_ARIA": "Immagine precedente",
+    "LIGHTBOX_NEXT_ARIA": "Immagine successiva"
   }
 }

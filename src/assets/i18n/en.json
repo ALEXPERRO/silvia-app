@@ -29,5 +29,19 @@
     "SHOP_INTRO": "Prints, stickers and bookmarks designed to bring a touch of magic to your day.",
     "SHOP_EMPTY_TITLE": "The shop is getting ready",
     "SHOP_EMPTY_TEXT": "See you in September, with the first illustrations ready to bring home."
+  },
+  "PORTFOLIO": {
+    "HERO_TITLE": "Portfolio",
+    "HERO_DESCRIPTION": "A visual journey through flora, fauna and fairy-tale atmospheres. Explore my collection of watercolour illustrations and let yourself be carried into my little enchanted world.",
+    "LOADING": "Loading gallery…",
+    "EMPTY": "No illustrations available at the moment.",
+    "CATEGORY_ALL": "All",
+    "EMPTY_CATEGORY": "No illustrations in this category.",
+    "PREV_PAGE_ARIA": "Previous page",
+    "NEXT_PAGE_ARIA": "Next page",
+    "GO_TO_PAGE_ARIA": "Go to page",
+    "LIGHTBOX_CLOSE_ARIA": "Close",
+    "LIGHTBOX_PREV_ARIA": "Previous image",
+    "LIGHTBOX_NEXT_ARIA": "Next image"
   }
 }

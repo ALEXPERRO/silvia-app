@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, afterNextRender, computed, inject, signal } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Meta } from '@angular/platform-browser';
+import { TranslatePipe } from '@ngx-translate/core';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { GalleryCategoryOption, GalleryItem } from '../../core/models/gallery-item.model';
 import { Icon } from '../../shared/icon/icon';
@@ -11,7 +12,7 @@ const PAGE_SIZE = 20;
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [Icon, RevealOnScroll],
+  imports: [Icon, RevealOnScroll, TranslatePipe],
   templateUrl: './portfolio.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
