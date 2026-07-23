@@ -33,6 +33,15 @@ export class Home {
         this.nextEvent.set(events.find((ev) => ev.data >= oggi) ?? null);
         this.eventsLoaded.set(true);
       });
+
+      // Precarica in background le immagini del portfolio mentre l'utente
+      // legge questa pagina, così quando arriva su /portfolio sono già in
+      // cache nel browser (o quasi) invece di partire da zero.
+      this.supabase.getPublishedPortfolioItems().then((items) => {
+        for (const item of items) {
+          new Image().src = item.src;
+        }
+      });
     });
   }
 

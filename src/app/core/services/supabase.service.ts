@@ -131,8 +131,20 @@ export class SupabaseService {
     }
   }
 
-  /** Immagini portfolio pubblicate, ordinate per categoria poi per ordine manuale. */
-  async getPublishedPortfolioItems(): Promise<GalleryItem[]> {
+  private portfolioItemsPromise: Promise<GalleryItem[]> | null = null;
+
+  /** Immagini portfolio pubblicate, ordinate per categoria poi per ordine manuale.
+   *  Risultato cachato in memoria: sia Home (che precarica le immagini in
+   *  background) sia Portfolio chiamano questo metodo, e devono condividere
+   *  la stessa richiesta invece di interrogare Supabase due volte. */
+  getPublishedPortfolioItems(): Promise<GalleryItem[]> {
+    if (!this.portfolioItemsPromise) {
+      this.portfolioItemsPromise = this.fetchPublishedPortfolioItems();
+    }
+    return this.portfolioItemsPromise;
+  }
+
+  private async fetchPublishedPortfolioItems(): Promise<GalleryItem[]> {
     const client = await this.getClient();
     const { data, error } = await client
       .from('portfolio_immagini')

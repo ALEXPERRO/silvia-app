@@ -8,7 +8,13 @@
 </section>
 
 @if (!itemsLoaded()) {
-  <p class="text-center text-gray-600 py-12">{{ 'PORTFOLIO.LOADING' | translate }}</p>
+  <div class="flex flex-col items-center py-12">
+    <div class="relative w-14 h-14 flex items-center justify-center mb-4">
+      <span class="absolute inset-0 rounded-full bg-moss/15"></span>
+      <app-icon name="sparkles" [size]="20" class="text-moss animate-twinkle" />
+    </div>
+    <p class="text-center text-gray-600">{{ 'PORTFOLIO.LOADING' | translate }}</p>
+  </div>
 } @else if (allItems().length === 0) {
   <p class="text-center text-gray-600 py-12">{{ 'PORTFOLIO.EMPTY' | translate }}</p>
 } @else {
