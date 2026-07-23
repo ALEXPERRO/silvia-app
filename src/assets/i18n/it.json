@@ -9,5 +9,25 @@
     "SUPPORT_CAPTION": "Se ti va di sostenere le mie attività",
     "COFFEE_BUTTON": "Offrimi un caffè",
     "EMAIL_ARIA": "Scrivi una email a Silvia"
+  },
+  "HOME": {
+    "TAGLINE": "Illustrazioni naturalistiche",
+    "PULL_QUOTE": "Fin da bambina ho sempre guardato il mondo naturale con gli occhi della meraviglia, convinta che dietro ogni foglia si nascondesse una storia e dentro ogni tana un piccolo segreto.",
+    "BIO_1": "Oggi uso i miei acquerelli per rivelare quel pizzico di magia che troppo spesso dimentichiamo di cercare.",
+    "BIO_2": "Dipingo piante, fiori e animali creando composizioni animate da una delicata magia.",
+    "BIO_3": "Quando non ho un pennello in mano, probabilmente mi troverai a passeggiare nella natura in cerca di ispirazione, o raggomitolata sul divano con una tazza fumante e un libro.",
+    "BIO_4": "Se anche voi avete bisogno della vostra dose quotidiana di incanto siete nel posto giusto.",
+    "PORTFOLIO_TITLE": "Dal Portfolio",
+    "PORTFOLIO_INTRO": "Un assaggio del mio piccolo mondo ad acquerello.",
+    "PORTFOLIO_CTA": "Scopri il portfolio",
+    "WORKSHOP_TITLE": "Prossimo Workshop",
+    "WORKSHOP_INTRO": "Vieni a dipingere con me: posti limitati, meraviglia garantita.",
+    "WORKSHOP_CTA": "Scopri e prenota",
+    "WORKSHOP_EMPTY_TITLE": "Il prossimo laboratorio si sta preparando",
+    "WORKSHOP_EMPTY_TEXT": "Torna a trovarmi tra un po', il prossimo appuntamento non tarderà.",
+    "SHOP_TITLE": "Porta la magia a casa tua",
+    "SHOP_INTRO": "Stampe, sticker e segnalibri pensati per portare un pizzico di magia nella tua giornata.",
+    "SHOP_EMPTY_TITLE": "Il negozio si sta preparando",
+    "SHOP_EMPTY_TEXT": "Ci vediamo a Settembre, con le prime illustrazioni pronte da portare a casa."
   }
 }

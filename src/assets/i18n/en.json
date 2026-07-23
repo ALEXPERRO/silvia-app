@@ -9,5 +9,25 @@
     "SUPPORT_CAPTION": "If you'd like to support my work",
     "COFFEE_BUTTON": "Buy me a coffee",
     "EMAIL_ARIA": "Email Silvia"
+  },
+  "HOME": {
+    "TAGLINE": "Nature illustrations",
+    "PULL_QUOTE": "Ever since I was a child, I've looked at the natural world with wonder, convinced that every leaf hides a story and every burrow a small secret.",
+    "BIO_1": "Today I use my watercolours to reveal that touch of magic we too often forget to look for.",
+    "BIO_2": "I paint plants, flowers and animals, creating compositions alive with a delicate magic.",
+    "BIO_3": "When I'm not holding a paintbrush, you'll probably find me wandering in nature looking for inspiration, or curled up on the sofa with a hot cup of tea and a book.",
+    "BIO_4": "If you too need your daily dose of enchantment, you're in the right place.",
+    "PORTFOLIO_TITLE": "From the Portfolio",
+    "PORTFOLIO_INTRO": "A taste of my little watercolour world.",
+    "PORTFOLIO_CTA": "Explore the portfolio",
+    "WORKSHOP_TITLE": "Next Workshop",
+    "WORKSHOP_INTRO": "Come paint with me: limited spots, guaranteed wonder.",
+    "WORKSHOP_CTA": "Discover and book",
+    "WORKSHOP_EMPTY_TITLE": "The next workshop is on its way",
+    "WORKSHOP_EMPTY_TEXT": "Check back soon, the next date will be here before long.",
+    "SHOP_TITLE": "Bring the magic home",
+    "SHOP_INTRO": "Prints, stickers and bookmarks designed to bring a touch of magic to your day.",
+    "SHOP_EMPTY_TITLE": "The shop is getting ready",
+    "SHOP_EMPTY_TEXT": "See you in September, with the first illustrations ready to bring home."
   }
 }
