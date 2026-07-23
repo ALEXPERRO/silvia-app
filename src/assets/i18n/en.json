@@ -66,5 +66,12 @@
     "PAST_EVENT_MSG_PRE": "This event has already taken place. Follow the",
     "PAST_EVENT_MSG_LINK": "Events",
     "PAST_EVENT_MSG_POST": "page to discover upcoming dates."
+  },
+  "SHOP": {
+    "HERO_TITLE": "Shop",
+    "HERO_DESCRIPTION": "Bring a touch of natural enchantment home: high-quality prints, stickers and magical bookmarks, all illustrated with love. Coming soon to my shop.",
+    "NOTICE_TITLE": "The shop opens in September",
+    "NOTICE_TEXT": "I'm preparing prints, stickers and bookmarks with my illustrations. Follow me on Instagram to be among the first to know.",
+    "INSTAGRAM_BUTTON": "Follow me on Instagram"
   }
 }

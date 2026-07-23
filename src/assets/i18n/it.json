@@ -66,5 +66,12 @@
     "PAST_EVENT_MSG_PRE": "Questo evento si è già svolto. Segui la pagina",
     "PAST_EVENT_MSG_LINK": "Eventi",
     "PAST_EVENT_MSG_POST": "per scoprire i prossimi appuntamenti."
+  },
+  "SHOP": {
+    "HERO_TITLE": "Shop",
+    "HERO_DESCRIPTION": "Porta un pizzico di incanto naturalistico a casa tua: stampe di alta qualità, sticker e segnalibri magici, tutti illustrati con amore. Presto disponibili sul mio shop.",
+    "NOTICE_TITLE": "Lo shop apre a Settembre",
+    "NOTICE_TEXT": "Sto preparando stampe, sticker e segnalibri con le mie illustrazioni. Seguimi su Instagram per essere tra i primi a saperlo.",
+    "INSTAGRAM_BUTTON": "Seguimi su Instagram"
   }
 }
