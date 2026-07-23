@@ -59,5 +59,12 @@
     "BOOK_BUTTON": "Prenotati",
     "SWIPE_HINT": "Scorri per altri eventi",
     "GO_TO_SLIDE_ARIA": "Vai a"
+  },
+  "EVENTO_DETTAGLIO": {
+    "PAST_EVENT": "Evento concluso",
+    "MAP_BUTTON": "Apri mappa",
+    "PAST_EVENT_MSG_PRE": "Questo evento si è già svolto. Segui la pagina",
+    "PAST_EVENT_MSG_LINK": "Eventi",
+    "PAST_EVENT_MSG_POST": "per scoprire i prossimi appuntamenti."
   }
 }

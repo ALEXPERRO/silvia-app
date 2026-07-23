@@ -59,5 +59,12 @@
     "BOOK_BUTTON": "Book now",
     "SWIPE_HINT": "Swipe for more events",
     "GO_TO_SLIDE_ARIA": "Go to"
+  },
+  "EVENTO_DETTAGLIO": {
+    "PAST_EVENT": "Event ended",
+    "MAP_BUTTON": "Open map",
+    "PAST_EVENT_MSG_PRE": "This event has already taken place. Follow the",
+    "PAST_EVENT_MSG_LINK": "Events",
+    "PAST_EVENT_MSG_POST": "page to discover upcoming dates."
   }
 }

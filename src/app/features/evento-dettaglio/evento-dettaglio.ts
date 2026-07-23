@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { DecimalPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
+import { TranslatePipe } from '@ngx-translate/core';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { PaintEventWithSeats } from '../../core/models/event.model';
 import { buildEventoUrl, isEventoPassato, DEFAULT_SEATS, SITE_URL } from '../../core/utils/event-format.util';
@@ -11,7 +12,7 @@ import { PrenotazioneForm } from '../../shared/prenotazione-form/prenotazione-fo
 @Component({
   selector: 'app-evento-dettaglio',
   standalone: true,
-  imports: [DecimalPipe, RouterLink, Icon, PrenotazioneForm],
+  imports: [DecimalPipe, RouterLink, Icon, PrenotazioneForm, TranslatePipe],
   templateUrl: './evento-dettaglio.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
