@@ -30,6 +30,11 @@
     "SHOP_EMPTY_TITLE": "The shop is getting ready",
     "SHOP_EMPTY_TEXT": "See you in September, with the first illustrations ready to bring home."
   },
+  "NOT_FOUND": {
+    "TITLE": "Page not found",
+    "TEXT": "This path got lost among the bushes. Head back home to find your way again.",
+    "CTA": "Back to home"
+  },
   "PORTFOLIO": {
     "HERO_TITLE": "Portfolio",
     "HERO_DESCRIPTION": "A visual journey through flora, fauna and fairy-tale atmospheres. Explore my collection of watercolour illustrations and let yourself be carried into my little enchanted world.",
@@ -82,6 +87,7 @@
     "EVENT_SELECT_LABEL": "Select the event *",
     "EVENT_SELECT_PLACEHOLDER": "Select a date...",
     "SEATS_OPTION_PREFIX": "Spots:",
+    "SOLD_OUT_OPTION": "SOLD OUT",
     "NAME_LABEL": "Full Name *",
     "NAME_PLACEHOLDER": "Jane Smith",
     "EMAIL_LABEL": "Email *",

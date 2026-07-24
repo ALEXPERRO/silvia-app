@@ -38,7 +38,7 @@
             <option [ngValue]="null" disabled>{{ 'PRENOTAZIONE_FORM.EVENT_SELECT_PLACEHOLDER' | translate }}</option>
             @for (ev of events; track ev.id) {
               <option [ngValue]="ev.id" [disabled]="ev.isSoldOut">
-                {{ ev.title }} ({{ ev.dateLabel }}) - {{ ev.isSoldOut ? 'SOLD OUT' : ('PRENOTAZIONE_FORM.SEATS_OPTION_PREFIX' | translate) + ' ' + ev.seatsAvailable }}
+                {{ ev.title }} ({{ ev.dateLabel }}) - {{ ev.isSoldOut ? ('PRENOTAZIONE_FORM.SOLD_OUT_OPTION' | translate) : ('PRENOTAZIONE_FORM.SEATS_OPTION_PREFIX' | translate) + ' ' + ev.seatsAvailable }}
               </option>
             }
           </select>
