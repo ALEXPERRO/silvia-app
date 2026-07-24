@@ -66,9 +66,6 @@
               draggable="false"
             />
           </div>
-          <p class="mt-2 font-body text-[10px] tracking-[0.12em] uppercase text-gray-600 group-hover:text-gray-900 transition-colors">
-            {{ item.title }}
-          </p>
         </button>
       } @empty {
         <p class="col-span-full text-center text-gray-600 py-12 font-body">{{ 'PORTFOLIO.EMPTY_CATEGORY' | translate }}</p>
@@ -165,7 +162,6 @@
           </div>
         }
       </div>
-      <figcaption class="text-center text-white font-body text-[11px] tracking-[0.15em] uppercase mt-4">{{ item.title }}</figcaption>
     </figure>
   </div>
 }
