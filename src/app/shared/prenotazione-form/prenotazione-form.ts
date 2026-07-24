@@ -59,6 +59,7 @@ export class PrenotazioneForm {
   protected readonly submitting = signal(false);
   protected readonly bookingSuccess = signal(false);
   protected readonly errorMessage = signal<string | null>(null);
+  protected readonly currentStep = signal<1 | 2>(1);
 
   protected readonly form = this.fb.nonNullable.group({
     eventId: this.fb.control<number | null>(null, Validators.required),
@@ -124,6 +125,22 @@ export class PrenotazioneForm {
       companySdi.setValidators([Validators.required]);
     }
     [cf, companyName, companyPiva, companySdi].forEach((c) => c.updateValueAndValidity({ emitEvent: false }));
+  }
+
+  goToStep2(): void {
+    if (!this.step1Complete()) {
+      const { eventId, name, email, numeroPosti } = this.form.controls;
+      [eventId, name, email, numeroPosti].forEach((c) => c.markAsTouched());
+      this.errorMessage.set(this.translate.instant('PRENOTAZIONE_FORM.ERR_INVALID_FIELDS'));
+      return;
+    }
+    this.errorMessage.set(null);
+    this.currentStep.set(2);
+  }
+
+  goToStep1(): void {
+    this.errorMessage.set(null);
+    this.currentStep.set(1);
   }
 
   openPrivacyNotice(): void {
@@ -196,6 +213,7 @@ export class PrenotazioneForm {
     this.bookingSuccess.set(true);
     this.bookingCompleted.emit();
     this.form.reset({ billingType: 'privato', numeroPosti: 1 });
+    this.currentStep.set(1);
     // Non blocca la UI: il posto è già confermato, l'invio email è un
     // effetto collaterale e non deve ritardare il messaggio di successo.
     void this.emailService.sendBookingEmails(payload);

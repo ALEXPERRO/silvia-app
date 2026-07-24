@@ -83,6 +83,8 @@
     "TITLE": "Prenota il tuo posto",
     "STEP1_LABEL": "Dati",
     "STEP2_LABEL": "Fatturazione",
+    "NEXT_BUTTON": "Avanti",
+    "BACK_BUTTON": "Indietro",
     "SECTION1_TITLE": "1. Dati Partecipante",
     "EVENT_SELECT_LABEL": "Seleziona l'evento *",
     "EVENT_SELECT_PLACEHOLDER": "Seleziona un appuntamento...",

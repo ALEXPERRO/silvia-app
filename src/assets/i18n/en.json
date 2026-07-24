@@ -83,6 +83,8 @@
     "TITLE": "Reserve your spot",
     "STEP1_LABEL": "Details",
     "STEP2_LABEL": "Billing",
+    "NEXT_BUTTON": "Next",
+    "BACK_BUTTON": "Back",
     "SECTION1_TITLE": "1. Participant Details",
     "EVENT_SELECT_LABEL": "Select the event *",
     "EVENT_SELECT_PLACEHOLDER": "Select a date...",
