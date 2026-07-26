@@ -214,6 +214,13 @@ export class AdminService {
     return { error };
   }
 
+  /** Elimina una singola immagine (solo la riga DB, stesso motivo di deleteCategoria). */
+  async deletePortfolioItem(id: number): Promise<{ error: unknown }> {
+    const client = await this.getClient();
+    const { error } = await client.from('portfolio_immagini').delete().eq('id', id);
+    return { error };
+  }
+
   private toRow(fields: EventFormValue, postiDisponibili: number) {
     return {
       titolo: fields.titolo,

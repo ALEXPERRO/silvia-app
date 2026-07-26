@@ -78,6 +78,7 @@ export class Gestione {
   protected readonly renamingCategory = signal<string | null>(null);
   protected readonly renameCategoryValue = signal('');
   protected readonly deletingCategory = signal<string | null>(null);
+  protected readonly deletingItemId = signal<number | null>(null);
 
   protected readonly filteredGroupedPortfolio = computed(() => {
     const categoryFilter = this.portfolioCategoryFilter();
@@ -445,6 +446,31 @@ export class Gestione {
       );
     } catch {
       this.portfolioActionError.set("Impossibile aggiornare lo stato dell'immagine. Riprova.");
+    }
+  }
+
+  armDeleteItem(id: number): void {
+    this.portfolioActionError.set(null);
+    this.deletingItemId.set(id);
+  }
+
+  cancelDeleteItem(): void {
+    this.deletingItemId.set(null);
+  }
+
+  async confirmDeleteItem(item: GalleryItemAdmin): Promise<void> {
+    this.portfolioActionError.set(null);
+    try {
+      const { error } = await this.admin.deletePortfolioItem(item.id);
+      if (error) {
+        this.portfolioActionError.set("Impossibile eliminare l'immagine. Riprova.");
+        return;
+      }
+      this.adminPortfolio.update((list) => list.filter((i) => i.id !== item.id));
+    } catch {
+      this.portfolioActionError.set("Impossibile eliminare l'immagine. Riprova.");
+    } finally {
+      this.deletingItemId.set(null);
     }
   }
 
