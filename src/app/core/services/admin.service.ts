@@ -196,6 +196,24 @@ export class AdminService {
     return { error: failed?.error ?? null };
   }
 
+  /** La categoria è testo libero sulla singola immagine, non una riga a parte:
+   *  "rinominare una categoria" è un update in blocco di tutte le immagini che
+   *  condividono quel valore. */
+  async renameCategoria(oldName: string, newName: string): Promise<{ error: unknown }> {
+    const client = await this.getClient();
+    const { error } = await client.from('portfolio_immagini').update({ categoria: newName }).eq('categoria', oldName);
+    return { error };
+  }
+
+  /** Elimina tutte le immagini della categoria (non esiste una categoria "vuota"
+   *  in questo modello dati). Cancella solo le righe DB, non i file nello
+   *  storage: restano orfani, costo trascurabile per delle semplici immagini. */
+  async deleteCategoria(categoria: string): Promise<{ error: unknown }> {
+    const client = await this.getClient();
+    const { error } = await client.from('portfolio_immagini').delete().eq('categoria', categoria);
+    return { error };
+  }
+
   private toRow(fields: EventFormValue, postiDisponibili: number) {
     return {
       titolo: fields.titolo,

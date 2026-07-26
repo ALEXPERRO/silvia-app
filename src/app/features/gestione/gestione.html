@@ -446,7 +446,34 @@
 
         @for (group of filteredGroupedPortfolio(); track group.category) {
           <div class="bg-white rounded shadow-lg border border-gray-200 p-6 mb-6">
-            <h2 class="text-lg font-title font-medium text-gray-900 tracking-wide mb-4">{{ group.category }}</h2>
+            <div class="flex items-center justify-between gap-3 flex-wrap mb-4">
+              @if (renamingCategory() === group.category) {
+                <div class="flex items-center gap-2 flex-1 min-w-[16rem]">
+                  <input
+                    type="text"
+                    [value]="renameCategoryValue()"
+                    (input)="renameCategoryValue.set($any($event.target).value)"
+                    class="flex-1 p-2 border border-gray-200 rounded focus:border-brand focus:outline-none font-medium text-gray-800 text-sm"
+                  />
+                  <button type="button" (click)="confirmRenameCategory(group.category)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded bg-action text-white hover:bg-action-hover transition-colors">Salva</button>
+                  <button type="button" (click)="cancelRenameCategory()" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-brand hover:text-brand transition-colors">Annulla</button>
+                </div>
+              } @else if (deletingCategory() === group.category) {
+                <div class="flex items-center gap-2 flex-1 flex-wrap">
+                  <p class="text-xs font-semibold text-red-500">
+                    Eliminare "{{ group.category }}" e le sue {{ group.items.length }} immagini? Non si può annullare.
+                  </p>
+                  <button type="button" (click)="confirmDeleteCategory(group.category)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition-colors">Conferma eliminazione</button>
+                  <button type="button" (click)="cancelDeleteCategory()" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-brand hover:text-brand transition-colors">Annulla</button>
+                </div>
+              } @else {
+                <h2 class="text-lg font-title font-medium text-gray-900 tracking-wide">{{ group.category }}</h2>
+                <div class="flex items-center gap-2">
+                  <button type="button" (click)="armRenameCategory(group.category)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-brand hover:text-brand transition-colors">Rinomina</button>
+                  <button type="button" (click)="armDeleteCategory(group.category)" class="text-[10px] font-semibold tracking-widest uppercase px-3 py-2 rounded border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-500 transition-colors">Elimina</button>
+                </div>
+              }
+            </div>
             <div
               cdkDropList
               [cdkDropListDisabled]="portfolioSearchQuery().trim().length > 0"

@@ -75,6 +75,10 @@ export class Gestione {
   protected readonly portfolioCategoryFilter = signal<string | null>(null);
   protected readonly portfolioSearchQuery = signal('');
 
+  protected readonly renamingCategory = signal<string | null>(null);
+  protected readonly renameCategoryValue = signal('');
+  protected readonly deletingCategory = signal<string | null>(null);
+
   protected readonly filteredGroupedPortfolio = computed(() => {
     const categoryFilter = this.portfolioCategoryFilter();
     const query = this.portfolioSearchQuery().trim().toLowerCase();
@@ -441,6 +445,75 @@ export class Gestione {
       );
     } catch {
       this.portfolioActionError.set("Impossibile aggiornare lo stato dell'immagine. Riprova.");
+    }
+  }
+
+  armRenameCategory(category: string): void {
+    this.portfolioActionError.set(null);
+    this.deletingCategory.set(null);
+    this.renamingCategory.set(category);
+    this.renameCategoryValue.set(category);
+  }
+
+  cancelRenameCategory(): void {
+    this.renamingCategory.set(null);
+  }
+
+  async confirmRenameCategory(oldName: string): Promise<void> {
+    this.portfolioActionError.set(null);
+    const newName = this.renameCategoryValue().trim();
+    if (!newName) {
+      this.portfolioActionError.set('Il nome della categoria non può essere vuoto.');
+      return;
+    }
+    if (newName === oldName) {
+      this.renamingCategory.set(null);
+      return;
+    }
+    if (this.existingCategorie().includes(newName)) {
+      this.portfolioActionError.set('Esiste già una categoria con questo nome: le due categorie non vengono unite automaticamente.');
+      return;
+    }
+    try {
+      const { error } = await this.admin.renameCategoria(oldName, newName);
+      if (error) {
+        this.portfolioActionError.set('Impossibile rinominare la categoria. Riprova.');
+        return;
+      }
+      this.adminPortfolio.update((list) =>
+        list.map((i) => (i.category === oldName ? { ...i, category: newName } : i)),
+      );
+      if (this.portfolioCategoryFilter() === oldName) this.portfolioCategoryFilter.set(newName);
+      this.renamingCategory.set(null);
+    } catch {
+      this.portfolioActionError.set('Impossibile rinominare la categoria. Riprova.');
+    }
+  }
+
+  armDeleteCategory(category: string): void {
+    this.portfolioActionError.set(null);
+    this.renamingCategory.set(null);
+    this.deletingCategory.set(category);
+  }
+
+  cancelDeleteCategory(): void {
+    this.deletingCategory.set(null);
+  }
+
+  async confirmDeleteCategory(category: string): Promise<void> {
+    this.portfolioActionError.set(null);
+    try {
+      const { error } = await this.admin.deleteCategoria(category);
+      if (error) {
+        this.portfolioActionError.set('Impossibile eliminare la categoria. Riprova.');
+        return;
+      }
+      this.adminPortfolio.update((list) => list.filter((i) => i.category !== category));
+      if (this.portfolioCategoryFilter() === category) this.portfolioCategoryFilter.set(null);
+    } catch {
+      this.portfolioActionError.set('Impossibile eliminare la categoria. Riprova.');
+    } finally {
+      this.deletingCategory.set(null);
     }
   }
 
