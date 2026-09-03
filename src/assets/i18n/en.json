@@ -27,8 +27,7 @@
     "WORKSHOP_EMPTY_TEXT": "Check back soon, the next date will be here before long.",
     "SHOP_TITLE": "Bring the magic home",
     "SHOP_INTRO": "Prints, stickers and bookmarks designed to bring a touch of magic to your day.",
-    "SHOP_EMPTY_TITLE": "The shop is getting ready",
-    "SHOP_EMPTY_TEXT": "See you in September, with the first illustrations ready to bring home."
+    "SHOP_CTA": "Visit the shop"
   },
   "NOT_FOUND": {
     "TITLE": "Page not found",
@@ -74,10 +73,11 @@
   },
   "SHOP": {
     "HERO_TITLE": "Shop",
-    "HERO_DESCRIPTION": "Bring a touch of natural enchantment home: high-quality prints, stickers and magical bookmarks, all illustrated with love. Coming soon to my shop.",
-    "NOTICE_TITLE": "The shop opens in September",
-    "NOTICE_TEXT": "I'm preparing prints, stickers and bookmarks with my illustrations. Follow me on Instagram to be among the first to know.",
-    "INSTAGRAM_BUTTON": "Follow me on Instagram"
+    "HERO_DESCRIPTION": "Bring a touch of natural enchantment home: high-quality prints, stickers and magical bookmarks, all illustrated with love. Available now in my Etsy shop.",
+    "PREVIEW_LOADING": "Loading previews…",
+    "PREVIEW_EMPTY": "Previews aren't available right now.",
+    "VIEW_LISTING_BUTTON": "View on Etsy",
+    "VISIT_ETSY_BUTTON": "Visit the Etsy shop"
   },
   "PRENOTAZIONE_FORM": {
     "TITLE": "Reserve your spot",

@@ -27,8 +27,7 @@
     "WORKSHOP_EMPTY_TEXT": "Torna a trovarmi tra un po', il prossimo appuntamento non tarderà.",
     "SHOP_TITLE": "Porta la magia a casa tua",
     "SHOP_INTRO": "Stampe, sticker e segnalibri pensati per portare un pizzico di magia nella tua giornata.",
-    "SHOP_EMPTY_TITLE": "Il negozio si sta preparando",
-    "SHOP_EMPTY_TEXT": "Ci vediamo a Settembre, con le prime illustrazioni pronte da portare a casa."
+    "SHOP_CTA": "Visita lo shop"
   },
   "NOT_FOUND": {
     "TITLE": "Pagina non trovata",
@@ -74,10 +73,11 @@
   },
   "SHOP": {
     "HERO_TITLE": "Shop",
-    "HERO_DESCRIPTION": "Porta un pizzico di incanto naturalistico a casa tua: stampe di alta qualità, sticker e segnalibri magici, tutti illustrati con amore. Presto disponibili sul mio shop.",
-    "NOTICE_TITLE": "Lo shop apre a Settembre",
-    "NOTICE_TEXT": "Sto preparando stampe, sticker e segnalibri con le mie illustrazioni. Seguimi su Instagram per essere tra i primi a saperlo.",
-    "INSTAGRAM_BUTTON": "Seguimi su Instagram"
+    "HERO_DESCRIPTION": "Porta un pizzico di incanto naturalistico a casa tua: stampe di alta qualità, sticker e segnalibri magici, tutti illustrati con amore. Disponibili ora sul mio shop Etsy.",
+    "PREVIEW_LOADING": "Carico le anteprime…",
+    "PREVIEW_EMPTY": "Le anteprime non sono disponibili al momento.",
+    "VIEW_LISTING_BUTTON": "Vedi su Etsy",
+    "VISIT_ETSY_BUTTON": "Vai al negozio Etsy"
   },
   "PRENOTAZIONE_FORM": {
     "TITLE": "Prenota il tuo posto",

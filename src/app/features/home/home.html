@@ -119,13 +119,8 @@
       {{ 'HOME.SHOP_INTRO' | translate }}
     </p>
 
-    <div class="flex flex-col items-center">
-      <div class="relative w-16 h-16 flex items-center justify-center mb-6">
-        <span class="absolute inset-0 rounded-full bg-plum-soft/50"></span>
-        <app-icon name="sparkles" [size]="22" class="text-brand animate-twinkle" />
-      </div>
-      <p class="font-title italic text-xl md:text-2xl text-gray-900 mb-1 tracking-wide">{{ 'HOME.SHOP_EMPTY_TITLE' | translate }}</p>
-      <p class="text-gray-500 text-sm md:text-base">{{ 'HOME.SHOP_EMPTY_TEXT' | translate }}</p>
-    </div>
+    <a routerLink="/shop" class="inline-flex items-center gap-1.5 bg-action text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded hover:bg-action-hover hover:-translate-y-0.5 hover:shadow-warm active:translate-y-0 transition-all uppercase">
+      <app-icon name="sparkles" [size]="14" /> {{ 'HOME.SHOP_CTA' | translate }}
+    </a>
   </div>
 </section>
