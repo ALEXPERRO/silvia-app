@@ -10,7 +10,7 @@
 </section>
 
 <!-- SEZIONE EVENTI SLIDER -->
-<section class="bg-blush min-h-[70vh] py-10 px-4 relative flex flex-col items-center justify-center">
+<section class="bg-blush min-h-[70vh] pt-10 pb-10 md:pb-24 px-4 relative flex flex-col items-center justify-center">
   @if (!eventsLoaded()) {
     <p class="text-gray-600 text-sm">{{ 'EVENTI.LOADING' | translate }}</p>
   } @else if (eventsWithSeats().length === 0) {
@@ -39,7 +39,7 @@
     </div>
   } @else {
   <!-- CONTENITORE PRINCIPALE CON FRECCE ESTERNE -->
-  <div class="relative w-full max-w-7xl flex items-center justify-center md:px-12 -translate-y-6 md:translate-y-0">
+  <div class="relative w-full max-w-3xl flex items-center justify-center md:px-12 -translate-y-6 md:translate-y-0">
     <button
       type="button"
       (click)="scrollToPrev()"
@@ -54,9 +54,10 @@
       class="w-full overflow-x-auto flex gap-6 pb-4 px-1 scroll-smooth snap-x snap-mandatory scrollbar-hide"
     >
       @for (ev of eventsWithSeats(); track ev.id) {
-        <div class="relative w-full min-w-full h-[440px] md:h-[720px] rounded shadow-warm-lg overflow-hidden snap-start shrink-0 border border-gray-200">
+        <div class="relative w-full min-w-full aspect-[4/5] rounded overflow-hidden snap-start shrink-0 border border-gray-200">
           @if (ev.locandinaUrl) {
-            <img [src]="ev.locandinaUrl" [alt]="ev.title" class="absolute inset-0 w-full h-full object-cover" />
+            <img [src]="ev.locandinaUrl" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover blur-3xl scale-125 saturate-150 opacity-90" />
+            <img [src]="ev.locandinaUrl" [alt]="ev.title" class="absolute inset-0 w-full h-full object-contain" />
           } @else {
             <div class="absolute inset-0 bg-gradient-to-br from-action via-bark to-brand"></div>
             <div
