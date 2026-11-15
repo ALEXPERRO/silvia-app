@@ -1,9 +1,9 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, PLATFORM_ID, signal } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ShopPreviewItem } from '../../core/models/shop-preview.model';
 import { ContentService } from '../../core/services/content.service';
+import { SeoService } from '../../core/services/seo.service';
 import { Icon } from '../../shared/icon/icon';
 
 @Component({
@@ -19,10 +19,11 @@ export class Shop {
   protected readonly previewLoading = signal(true);
 
   constructor() {
-    inject(Meta).updateTag({
-      name: 'description',
-      content:
+    inject(SeoService).set({
+      title: 'Blooming Wild ART — Shop',
+      description:
         'Stampe, sticker e segnalibri illustrati ad acquerello di Silvia Sgaramella: il negozio Blooming Wild ART è ora aperto su Etsy.',
+      path: '/shop',
     });
 
     // Le anteprime arrivano dal feed Etsy via /api/shop-preview: caricate solo

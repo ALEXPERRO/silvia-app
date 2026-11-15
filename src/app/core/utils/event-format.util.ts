@@ -67,3 +67,44 @@ export function parseEventoId(slugId: string): number | null {
 export function isEventoPassato(data: string, oraFine: string): boolean {
   return new Date(`${data}T${oraFine}`).getTime() < Date.now();
 }
+
+/** Schema.org Event per i rich snippet di Google (date, luogo, prezzo). */
+export function buildEventJsonLd(ev: {
+  id: number;
+  title: string;
+  descrizione: string;
+  data: string;
+  oraInizio: string;
+  oraFine: string;
+  luogo: string;
+  indirizzo: string;
+  prezzo: number;
+  locandinaUrl: string | null;
+  isSoldOut?: boolean;
+}): object {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: ev.title,
+    description: ev.descrizione,
+    startDate: `${ev.data}T${ev.oraInizio}`,
+    endDate: `${ev.data}T${ev.oraFine}`,
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    location: {
+      '@type': 'Place',
+      name: ev.luogo,
+      address: ev.indirizzo,
+    },
+    image: [ev.locandinaUrl ?? `${SITE_URL}/images/og-card.webp`],
+    organizer: { '@type': 'Person', name: 'Silvia Sgaramella', url: SITE_URL },
+    offers: {
+      '@type': 'Offer',
+      price: ev.prezzo,
+      priceCurrency: 'EUR',
+      availability: ev.isSoldOut ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+      url: buildEventoUrl(ev.title, ev.id),
+    },
+    url: buildEventoUrl(ev.title, ev.id),
+  };
+}

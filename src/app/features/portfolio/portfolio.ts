@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, afterNextRender, computed, inject, signal } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Meta } from '@angular/platform-browser';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../core/i18n/language.service';
+import { SeoService } from '../../core/services/seo.service';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { GalleryCategoryOption, GalleryItem } from '../../core/models/gallery-item.model';
 import { Icon } from '../../shared/icon/icon';
@@ -36,10 +36,11 @@ export class Portfolio implements OnDestroy {
   protected readonly itemsLoaded = signal(false);
 
   constructor() {
-    inject(Meta).updateTag({
-      name: 'description',
-      content:
+    inject(SeoService).set({
+      title: 'Blooming Wild ART — Portfolio',
+      description:
         'Esplora la raccolta di illustrazioni ad acquerello di Silvia Sgaramella: composizioni, animali, elementi botanici e insetti.',
+      path: '/portfolio',
     });
 
     afterNextRender(() => {

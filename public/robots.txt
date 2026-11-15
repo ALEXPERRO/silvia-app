@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /gestione-prenotazioni
 
 Sitemap: https://bloomingwild.art/sitemap.xml

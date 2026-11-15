@@ -66,9 +66,9 @@
     </p>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10">
-      @for (src of portfolioPreview; track src) {
+      @for (item of portfolioPreview; track item.src) {
         <div class="relative aspect-square bg-white border border-gray-200 shadow-warm overflow-hidden">
-          <img [ngSrc]="src" fill loading="lazy" alt="" class="object-contain p-4" (contextmenu)="$event.preventDefault()" draggable="false" />
+          <img [ngSrc]="item.src" fill loading="lazy" [alt]="item.alt" class="object-contain p-4" (contextmenu)="$event.preventDefault()" draggable="false" />
         </div>
       }
     </div>

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, afterNextRender, computed, inject, signal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Meta } from '@angular/platform-browser';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ContentService } from '../../core/services/content.service';
+import { SeoService } from '../../core/services/seo.service';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { PaintEvent } from '../../core/models/event.model';
 import { formatDataItaliana, formatFasciaOraria } from '../../core/utils/event-format.util';
@@ -21,10 +21,11 @@ export class Home {
   private readonly supabase = inject(SupabaseService);
 
   constructor() {
-    inject(Meta).updateTag({
-      name: 'description',
-      content:
+    inject(SeoService).set({
+      title: 'Blooming Wild ART — About me',
+      description:
         'Blooming Wild ART — le illustrazioni ad acquerello di Silvia Sgaramella: flora, fauna e piccole magie botaniche. Scopri portfolio, workshop e shop.',
+      path: '/',
     });
 
     afterNextRender(() => {
@@ -54,9 +55,12 @@ export class Home {
     return { ...ev, dateLabel: formatDataItaliana(ev.data), timeLabel: formatFasciaOraria(ev.oraInizio, ev.oraFine) };
   });
   protected readonly portfolioPreview = [
-    'images/animali/volpe1.webp',
-    'images/animali/kingfisher.webp',
-    'images/elementi botanici/giglio2.webp',
-    'images/insetti/farfalle colorate/farfalla colorata1.webp',
+    { src: 'images/animali/volpe1.webp', alt: 'Illustrazione ad acquerello di una volpe — Blooming Wild ART' },
+    { src: 'images/animali/kingfisher.webp', alt: 'Illustrazione ad acquerello di un martin pescatore — Blooming Wild ART' },
+    { src: 'images/elementi botanici/giglio2.webp', alt: 'Illustrazione ad acquerello di un giglio — Blooming Wild ART' },
+    {
+      src: 'images/insetti/farfalle colorate/farfalla colorata1.webp',
+      alt: 'Illustrazione ad acquerello di una farfalla colorata — Blooming Wild ART',
+    },
   ];
 }

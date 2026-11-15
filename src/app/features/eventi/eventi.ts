@@ -8,13 +8,19 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { DecimalPipe, NgClass } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { SeoService } from '../../core/services/seo.service';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { PaintEvent, PaintEventWithSeats } from '../../core/models/event.model';
-import { formatDataItaliana, formatFasciaOraria, buildMapsUrl, DEFAULT_SEATS } from '../../core/utils/event-format.util';
+import {
+  formatDataItaliana,
+  formatFasciaOraria,
+  buildMapsUrl,
+  buildEventJsonLd,
+  DEFAULT_SEATS,
+} from '../../core/utils/event-format.util';
 import { Icon } from '../../shared/icon/icon';
 import { PrenotazioneForm } from '../../shared/prenotazione-form/prenotazione-form';
 
@@ -57,21 +63,31 @@ export class Eventi {
   });
 
   constructor() {
-    inject(Meta).updateTag({
-      name: 'description',
-      content:
+    const seo = inject(SeoService);
+    seo.set({
+      title: 'Blooming Wild ART — Eventi',
+      description:
         'Workshop e appuntamenti di pittura ad acquerello con Silvia Sgaramella: scopri le prossime date e prenota il tuo posto.',
+      path: '/eventi',
     });
 
     afterNextRender(() => {
       // di norma risolve subito: la cache è già stata scaldata all'avvio (vedi App)
-      this.supabase.getEventSeats().then((seatMap) => {
+      const seatsPromise = this.supabase.getEventSeats().then((seatMap) => {
         this.seats.set(seatMap);
         this.seatsLoaded.set(true);
+        return seatMap;
       });
-      this.supabase.getPublishedEvents().then((events) => {
+      this.supabase.getPublishedEvents().then(async (events) => {
         this.events.set(events);
         this.eventsLoaded.set(true);
+
+        const seatMap = await seatsPromise;
+        seo.setJsonLd(
+          events.map((ev) =>
+            buildEventJsonLd({ ...ev, isSoldOut: (seatMap[ev.id] ?? DEFAULT_SEATS) <= 0 }),
+          ),
+        );
       });
     });
   }
