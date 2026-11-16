@@ -74,9 +74,12 @@
 
         <div>
           <label for="user-numero-posti" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">{{ 'PRENOTAZIONE_FORM.SEATS_LABEL' | translate }}</label>
-          <input type="number" id="user-numero-posti" formControlName="numeroPosti" min="1" step="1" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800">
+          <input type="number" id="user-numero-posti" formControlName="numeroPosti" min="1" [attr.max]="maxPosti" step="1" class="w-full p-3 border border-gray-200 rounded focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-soft transition-colors font-medium text-gray-800">
           @if (selectedEvent(); as ev) {
             <p class="text-xs text-gray-600 mt-2">{{ 'PRENOTAZIONE_FORM.SEATS_AVAILABLE_INFO' | translate:{ seats: ev.seatsAvailable, price: (ev.prezzo | number: '1.2-2') } }}</p>
+          }
+          @if (form.controls.numeroPosti.hasError('max')) {
+            <p class="text-xs text-red-600 mt-2">{{ 'PRENOTAZIONE_FORM.ERR_MAX_SEATS' | translate:{ max: maxPosti } }}</p>
           }
         </div>
 

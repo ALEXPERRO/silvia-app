@@ -163,9 +163,9 @@ export class SupabaseService {
   }
 
   /**
-   * Prenota un posto in modo atomico (funzione `prenota_posto`, vedi supabase/prenota_posto.sql):
+   * Prenota un posto in modo atomico (funzione `prenota_posto`, vedi supabase/migrations/*_prenota_posto*.sql):
    * scala il posto e inserisce la prenotazione nella stessa transazione lato server, quindi
-   * niente race condition tra letture e scritture separate. Richiede supabase/rls_lockdown.sql
+   * niente race condition tra letture e scritture separate. Richiede supabase/migrations/20260715100026_rls_lockdown.sql
    * applicato, perché dopo quel file il client non può più scrivere `eventi` direttamente.
    */
   async prenotaPosto(eventId: number, payload: BookingSubmission): Promise<{ success: boolean; error: unknown }> {

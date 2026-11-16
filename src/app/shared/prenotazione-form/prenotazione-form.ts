@@ -19,6 +19,19 @@ import { EmailService } from '../../core/services/email.service';
 import { PaintEventWithSeats } from '../../core/models/event.model';
 import { Icon } from '../icon/icon';
 
+/** Tetto di posti per singola prenotazione e per cliente sullo stesso evento.
+ *  Deve coincidere con MAX_POSTI in supabase/migrations/20261116130200_prenota_posto_limiti.sql:
+ *  il server lo impone comunque, questo serve solo a dare un errore chiaro prima dell'invio. */
+export const MAX_POSTI_PER_PRENOTAZIONE = 10;
+
+/** Errori con messaggio fisso sollevati da prenota_posto, mappati alla chiave di traduzione. */
+const ERRORI_PRENOTA_POSTO: Record<string, string> = {
+  posti_non_validi: 'PRENOTAZIONE_FORM.ERR_MAX_SEATS',
+  limite_per_cliente: 'PRENOTAZIONE_FORM.ERR_CUSTOMER_LIMIT',
+  evento_non_prenotabile: 'PRENOTAZIONE_FORM.ERR_EVENT_CLOSED',
+  troppe_richieste: 'PRENOTAZIONE_FORM.ERR_TOO_MANY_REQUESTS',
+};
+
 @Component({
   selector: 'app-prenotazione-form',
   standalone: true,
@@ -55,6 +68,8 @@ export class PrenotazioneForm {
 
   @ViewChild('privacyNotice') private privacyNoticeRef?: ElementRef<HTMLDivElement>;
 
+  protected readonly maxPosti = MAX_POSTI_PER_PRENOTAZIONE;
+
   protected readonly showPrivacyNotice = signal(false);
   protected readonly submitting = signal(false);
   protected readonly bookingSuccess = signal(false);
@@ -65,7 +80,7 @@ export class PrenotazioneForm {
     eventId: this.fb.control<number | null>(null, Validators.required),
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    numeroPosti: this.fb.nonNullable.control(1, [Validators.required, Validators.min(1)]),
+    numeroPosti: this.fb.nonNullable.control(1, [Validators.required, Validators.min(1), Validators.max(MAX_POSTI_PER_PRENOTAZIONE)]),
     billingType: this.fb.control<'privato' | 'business'>('privato', Validators.required),
     cf: [''],
     companyName: [''],
@@ -198,7 +213,9 @@ export class PrenotazioneForm {
     const { success, error } = await this.supabase.prenotaPosto(eventId, payload);
     if (error) {
       console.error(error);
-      this.errorMessage.set(this.translate.instant('PRENOTAZIONE_FORM.ERR_GENERIC'));
+      const messaggio = (error as { message?: string }).message ?? '';
+      const chiave = ERRORI_PRENOTA_POSTO[messaggio] ?? 'PRENOTAZIONE_FORM.ERR_GENERIC';
+      this.errorMessage.set(this.translate.instant(chiave, { max: MAX_POSTI_PER_PRENOTAZIONE }));
       this.submitting.set(false);
       return;
     }
