@@ -6,7 +6,7 @@ import { ContentService } from '../../core/services/content.service';
 import { SeoService } from '../../core/services/seo.service';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { PaintEvent } from '../../core/models/event.model';
-import { formatDataItaliana, formatFasciaOraria } from '../../core/utils/event-format.util';
+import { formatDataItaliana, formatFasciaOraria, isEventoPassato } from '../../core/utils/event-format.util';
 import { Icon } from '../../shared/icon/icon';
 
 @Component({
@@ -30,8 +30,7 @@ export class Home {
 
     afterNextRender(() => {
       this.supabase.getPublishedEvents().then((events) => {
-        const oggi = new Date().toISOString().slice(0, 10);
-        this.nextEvent.set(events.find((ev) => ev.data >= oggi) ?? null);
+        this.nextEvent.set(events.find((ev) => !isEventoPassato(ev.data, ev.oraFine)) ?? null);
         this.eventsLoaded.set(true);
       });
 

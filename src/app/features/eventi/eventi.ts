@@ -19,6 +19,7 @@ import {
   formatFasciaOraria,
   buildMapsUrl,
   buildEventJsonLd,
+  isEventoPassato,
   DEFAULT_SEATS,
 } from '../../core/utils/event-format.util';
 import { Icon } from '../../shared/icon/icon';
@@ -78,7 +79,10 @@ export class Eventi {
         this.seatsLoaded.set(true);
         return seatMap;
       });
-      this.supabase.getPublishedEvents().then(async (events) => {
+      this.supabase.getPublishedEvents().then(async (allEvents) => {
+        // Gli eventi già conclusi non si mostrano (né nello slider né nel form):
+        // la loro pagina dedicata resta raggiungibile dal link condiviso.
+        const events = allEvents.filter((ev) => !isEventoPassato(ev.data, ev.oraFine));
         this.events.set(events);
         this.eventsLoaded.set(true);
 
